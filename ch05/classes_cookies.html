@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Cookie Example</title>
+</head>
+<body>
+  <h1>Interactive Cookie Example</h1>
+  <form id="cookie-form">
+    <label for="flavor">Enter your favorite cookie flavor:</label>
+    <input type="text" id="flavor" name="flavor" required>
+    <button type="submit">Show Title</button>
+  </form>
+  <div id="output"></div>
+
+  <script>
+    class Cookie {
+      constructor(flavor) {
+        this.flavor = flavor;
+      }
+
+      showTitle() {
+        console.log(`The flavor of this cookie is ${this.flavor}.`);
+      }
+    }
+
+    class FavoriteCookie extends Cookie {
+      showTitle() {
+        super.showTitle();
+        console.log(`${this.flavor} is amazing.`);
+      }
+    }
+
+    const form = document.getElementById('cookie-form');
+    const output = document.getElementById('output');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const flavor = document.getElementById('flavor').value;
+      const myCookie = new FavoriteCookie(flavor);
+      myCookie.showTitle();
+
+      output.innerHTML = `
+        <p>The flavor of this cookie is ${flavor}.</p>
+        <p>${flavor} is amazing.</p>
+      `;
+    });
+  </script>
+</body>
+</html>
