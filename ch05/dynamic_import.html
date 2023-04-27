@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Module Import Example</title>
+  <style>
+    /* Add your CSS styles here */
+  </style>
+</head>
+<body>
+  <h1>Dynamic Module Import Example</h1>
+
+  <form id="cakeForm">
+    <button type="submit">Create Cakes</button>
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("cakeForm");
+
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+        import("./modules/cakeFactory.mjs")
+          .then((module) => {
+            // Do something with the module.
+            module.cakeFactory.oven.makeCupcake("sprinkles");
+            module.cakeFactory.oven.makeMuffin("large");
+          })
+          .catch((error) => {
+            console.error("Error importing module:", error);
+          });
+      });
+    });
+  </script>
+</body>
+</html>
