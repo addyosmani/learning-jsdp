@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Object Properties Example</title>
+</head>
+<body>
+  <h1>Interactive Object Properties Example</h1>
+  <form id="property-form">
+    <label for="property-key">Enter a property key:</label>
+    <input type="text" id="property-key" name="property-key" required>
+    <label for="property-value">Enter a property value:</label>
+    <input type="text" id="property-value" name="property-value" required>
+    <button type="submit">Set Property</button>
+  </form>
+  <div id="output"></div>
+
+  <script>
+    var newObject = {};
+
+    const form = document.getElementById('property-form');
+    const output = document.getElementById('output');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const propertyKey = document.getElementById('property-key').value;
+      const propertyValue = document.getElementById('property-value').value;
+
+      // 1. Dot syntax
+      newObject[propertyKey] = propertyValue;
+      console.log("Dot syntax:", newObject);
+
+      // 2. Square bracket syntax
+      newObject[propertyKey] = propertyValue;
+      console.log("Square bracket syntax:", newObject);
+
+      // 3. Object.defineProperty
+      Object.defineProperty(newObject, propertyKey, {
+        value: propertyValue,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      });
+      console.log("Object.defineProperty:", newObject);
+
+      // 4. Short-hand for Object.defineProperty
+      var config = {};
+      var defineProp = function (obj, key, value) {
+        config.value = value;
+        Object.defineProperty(obj, key, config);
+      };
+      defineProp(newObject, propertyKey, propertyValue);
+      console.log("Short-hand for Object.defineProperty:", newObject);
+
+      // 5. Object.defineProperties
+      var properties = {};
+      properties[propertyKey] = {
+        value: propertyValue,
+        writable: true
+      };
+      Object.defineProperties(newObject, properties);
+      console.log("Object.defineProperties:", newObject);
+
+      // Get the property value
+      const keyValue = newObject[propertyKey];
+      output.innerHTML = `
+        <p>The value of the property "${propertyKey}" is "${keyValue}".</p>
+      `;
+    });
+  </script>
+</body>
+</html>
