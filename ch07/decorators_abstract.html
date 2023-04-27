@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Abstract Decorators Example</title>
+  </head>
+  <body>
+    <h1>Abstract Decorators Example</h1>
+    <form id="decoratorForm">
+      <label for="ramSelect">RAM:</label>
+      <select id="ramSelect">
+        <option value="4">4GB</option>
+        <option value="8">8GB</option>
+      </select>
+      <br />
+      <label for="engravingCheckbox">Engraving</label>
+      <input type="checkbox" id="engravingCheckbox" />
+      <br />
+      <label for="parallelsCheckbox">Parallels</label>
+      <input type="checkbox" id="parallelsCheckbox" />
+      <br />
+      <label for="caseCheckbox">Case</label>
+      <input type="checkbox" id="caseCheckbox" />
+      <br />
+      <label for="insuranceCheckbox">Insurance</label>
+      <input type="checkbox" id="insuranceCheckbox" />
+      <br />
+      <button type="submit">Create MacBook</button>
+    </form>
+    <div id="macBookOutput"></div>
+
+    <script>
+      // Abstract MacBook class
+      class MacBook {
+        cost() {
+          // Abstract method, to be implemented by concrete subclasses
+        }
+
+        description() {
+          // Abstract method, to be implemented by concrete subclasses
+        }
+      }
+
+      // Concrete MacBook class
+      class ConcreteMacBook extends MacBook {
+        cost() {
+          return 997;
+        }
+
+        description() {
+          return 'MacBook';
+        }
+      }
+
+      // Abstract Decorator class
+      class AbstractDecorator extends MacBook {
+        constructor(macBook) {
+          super();
+          this.macBook = macBook;
+        }
+
+        cost() {
+          return this.macBook.cost();
+        }
+
+        description() {
+          return this.macBook.description();
+        }
+      }
+
+      // Concrete Decorator classes
+      class RAMDecorator extends AbstractDecorator {
+        constructor(macBook, ram) {
+          super(macBook);
+          this.ram = ram;
+        }
+
+        cost() {
+          return super.cost() + (this.ram === 8 ? 200 : 100);
+        }
+
+        description() {
+          return super.description() + `, ${this.ram}GB RAM`;
+        }
+      }
+
+      class EngravingDecorator extends AbstractDecorator {
+        cost() {
+          return super.cost() + 50;
+        }
+
+        description() {
+          return super.description() + ', Engraving';
+        }
+      }
+
+      class ParallelsDecorator extends AbstractDecorator {
+        cost() {
+          return super.cost() + 150;
+        }
+
+        description() {
+          return super.description() + ', Parallels';
+        }
+      }
+
+      class CaseDecorator extends AbstractDecorator {
+        cost() {
+          return super.cost() + 100;
+        }
+
+        description() {
+          return super.description() + ', Case';
+        }
+      }
+
+      class InsuranceDecorator extends AbstractDecorator {
+        cost() {
+          return super.cost() + 200;
+        }
+
+        description() {
+          return super.description() + ', Insurance';
+        }
+      }
+
+      // Decorator form
+      const decoratorForm = document.getElementById('decoratorForm');
+      decoratorForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const ramSelect = document.getElementById('ramSelect');
+        const engravingCheckbox = document.getElementById('engravingCheckbox');
+        const parallelsCheckbox = document.getElementById('parallelsCheckbox');
+        const caseCheckbox = document
+        document.getElementById('caseCheckbox');
+        const insuranceCheckbox = document.getElementById('insuranceCheckbox');
+
+        const ram = parseInt(ramSelect.value);
+
+        let macBook = new ConcreteMacBook();
+
+        if (ram === 8) {
+          macBook = new RAMDecorator(macBook, ram);
+        }
+
+        if (engravingCheckbox.checked) {
+          macBook = new EngravingDecorator(macBook);
+        }
+
+        if (parallelsCheckbox.checked) {
+          macBook = new ParallelsDecorator(macBook);
+        }
+
+        if (caseCheckbox.checked) {
+          macBook = new CaseDecorator(macBook);
+        }
+
+        if (insuranceCheckbox.checked) {
+          macBook = new InsuranceDecorator(macBook);
+        }
+
+        displayMacBook(macBook);
+      });
+
+      // Display MacBook details
+      function displayMacBook(macBook) {
+        const output = document.getElementById('macBookOutput');
+        output.innerHTML = `
+          <p><strong>Description:</strong> ${macBook.description()}</p>
+          <p><strong>Cost:</strong> $${macBook.cost()}</p>
+        `;
+      }
+    </script>
+  </body>
+</html>
