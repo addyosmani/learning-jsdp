@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Facade Pattern Example</title>
+  </head>
+  <body>
+    <button onclick="executeModuleFacade()">Execute Facade</button>
+    <input type="number" id="inputValue" />
+    <div id="output"></div>
+
+    <script type="module">
+      import module from './modules/module.mjs';
+
+      // Define the executeModuleFacade function in the global scope
+      window.executeModuleFacade = () => {
+        const inputValue = document.getElementById('inputValue').value;
+        module.facade({ run: true, val: inputValue });
+      };
+    </script>
+  </body>
+</html>
