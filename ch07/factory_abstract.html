@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Abstract Factory Pattern Example</title>
+  </head>
+  <body>
+    <div>
+      <button onclick="createCar()">Create Car</button>
+      <button onclick="createTruck()">Create Truck</button>
+    </div>
+    <div id="output"></div>
+
+    <script>
+      // Types.js - Classes used behind the scenes
+      // A class for defining new cars
+      class Car {
+        constructor({ color = 'silver', state = 'brand new' } = {}) {
+          this.color = color;
+          this.state = state;
+        }
+
+        drive() {
+          console.log('Driving a car');
+        }
+
+        breakDown() {
+          console.log('Car broke down');
+        }
+      }
+
+      // A class for defining new trucks
+      class Truck {
+        constructor({ wheelSize = 'large', color = 'blue' } = {}) {
+          this.wheelSize = wheelSize;
+          this.color = color;
+        }
+
+        drive() {
+          console.log('Driving a truck');
+        }
+
+        breakDown() {
+          console.log('Truck broke down');
+        }
+      }
+
+      // AbstractVehicleFactory.js
+      class AbstractVehicleFactory {
+        constructor() {
+          // Storage for our vehicle types
+          this.types = {};
+        }
+
+        getVehicle(type, customizations) {
+          const Vehicle = this.types[type];
+          return Vehicle ? new Vehicle(customizations) : null;
+        }
+
+        registerVehicle(type, Vehicle) {
+          const proto = Vehicle.prototype;
+          // only register classes that fulfill the vehicle contract
+          if (proto.drive && proto.breakDown) {
+            this.types[type] = Vehicle;
+          }
+          return this;
+        }
+      }
+
+      // Create an instance of the AbstractVehicleFactory
+      const abstractVehicleFactory = new AbstractVehicleFactory();
+
+      // Register car class with the factory
+      abstractVehicleFactory.registerVehicle('car', Car);
+
+      // Register truck class with the factory
+      abstractVehicleFactory.registerVehicle('truck', Truck);
+
+      function createCar() {
+        // Get a new car from the factory
+        const car = abstractVehicleFactory.getVehicle('car', {
+          color: 'lime green',
+          state: 'like new',
+        });
+
+        const output = document.getElementById('output');
+        output.innerHTML += `<div>Car created: ${JSON.stringify(car)}</div>`;
+      }
+
+      function createTruck() {
+        // Get a new truck from the factory
+        const truck = abstractVehicleFactory.getVehicle('truck', {
+          wheelSize: 'medium',
+          color: 'neon yellow',
+        });
+
+        const output = document.getElementById('output');
+        output.innerHTML += `<div>Truck created: ${JSON.stringify(truck)}</div>`;
+      }
+    </script>
+  </body>
+</html>
