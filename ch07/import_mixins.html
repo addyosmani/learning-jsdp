@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive HTML Example - Module</title>
+</head>
+<body>
+  <h1>Interactive HTML Example - Module</h1>
+  <button id="call-public-method">Call publicMethod()</button>
+  <p>Output: <span id="output"></span></p>
+  <script type="module">
+    // utils.js
+    const min = (arr) => Math.min(...arr);
+
+    // privateMethods.js
+    const privateMethod = () => {
+      return min([10, 5, 100, 2, 1000]);
+    };
+
+    // myModule.js
+    const myModule = () => ({
+      publicMethod() {
+        return privateMethod();
+      },
+    });
+
+    // main.js
+    const moduleInstance = myModule();
+    
+    // UI elements
+    const callPublicMethodButton = document.getElementById('call-public-method');
+    const outputElement = document.getElementById('output');
+
+    callPublicMethodButton.addEventListener('click', () => {
+      const result = moduleInstance.publicMethod();
+      outputElement.textContent = result;
+    });
+  </script>
+</body>
+</html>
