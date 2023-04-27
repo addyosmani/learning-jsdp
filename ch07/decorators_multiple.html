@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Object Decoration Example</title>
+    <style>
+      .decoration-container {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Object Decoration Example</h1>
+    <div class="decoration-container">
+      <label for="engravingCheckbox">Engraving ($200)</label>
+      <input type="checkbox" id="engravingCheckbox" />
+    </div>
+    <div class="decoration-container">
+      <label for="insuranceCheckbox">Insurance ($250)</label>
+      <input type="checkbox" id="insuranceCheckbox" />
+    </div>
+    <div class="decoration-container">
+      <label for="memoryCheckbox">Memory ($75)</label>
+      <input type="checkbox" id="memoryCheckbox" />
+    </div>
+    <button onclick="decorateMacBook()">Decorate MacBook</button>
+    <div id="macBookOutput"></div>
+
+    <script>
+      // MacBook class
+      class MacBook {
+        constructor() {
+          this.cost = 997;
+          this.screenSize = 11.6;
+        }
+        getCost() {
+          return this.cost;
+        }
+        getScreenSize() {
+          return this.screenSize;
+        }
+      }
+
+      // Decorator 1: Engraving
+      class Engraving extends MacBook {
+        constructor(macBook) {
+          super();
+          this.macBook = macBook;
+        }
+
+        getCost() {
+          return this.macBook.getCost() + 200;
+        }
+      }
+
+      // Decorator 2: Insurance
+      class Insurance extends MacBook {
+        constructor(macBook) {
+          super();
+          this.macBook = macBook;
+        }
+
+        getCost() {
+          return this.macBook.getCost() + 250;
+        }
+      }
+
+      // Decorator 3: Memory
+      class Memory extends MacBook {
+        constructor(macBook) {
+          super();
+          this.macBook = macBook;
+        }
+
+        getCost() {
+          return this.macBook.getCost() + 75;
+        }
+      }
+
+      // Init main object
+      let mb = new MacBook();
+
+      // Decorate MacBook function
+      function decorateMacBook() {
+        const engravingCheckbox = document.getElementById('engravingCheckbox');
+        const insuranceCheckbox = document.getElementById('insuranceCheckbox');
+        const memoryCheckbox = document.getElementById('memoryCheckbox');
+
+        if (engravingCheckbox.checked) {
+          mb = new Engraving(mb);
+        }
+
+        if (insuranceCheckbox.checked) {
+          mb = new Insurance(mb);
+        }
+
+        if (memoryCheckbox.checked) {
+          mb = new Memory(mb);
+        }
+
+        displayMacBook(mb);
+      }
+
+      // Display MacBook details
+      function displayMacBook(macBook) {
+        const output = document.getElementById('macBookOutput');
+        output.innerHTML = `
+          <p><strong>Cost:</strong> ${macBook.getCost()}</p>
+          <p><strong>Screen Size:</strong> ${macBook.getScreenSize()}"</p>
+        `;
+      }
+    </script>
+  </body>
+</html>
