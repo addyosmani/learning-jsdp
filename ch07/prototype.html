@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive HTML Example - Prototype Pattern with Object.create()</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .output-container {
+      padding: 10px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive HTML Example - Prototype Pattern with Object.create()</h1>
+  <div class="output-container" id="output">
+    Click the buttons to invoke car methods.
+  </div>
+  <button id="drive-btn">Drive</button>
+  <button id="panic-btn">Panic</button>
+  <script>
+    const carPrototype = {
+      drive() {
+        console.log("Weeee. I'm driving!");
+      },
+      panic() {
+        console.log('Wait. How do you stop this thing?');
+      },
+    };
+
+    const createCar = (name) => {
+      const car = Object.create(carPrototype);
+      car.name = name;
+      return car;
+    };
+
+    const myCar = createCar('Ford Escort');
+
+    const driveButton = document.getElementById('drive-btn');
+    const panicButton = document.getElementById('panic-btn');
+    const outputElement = document.getElementById('output');
+
+    driveButton.addEventListener('click', () => {
+      myCar.drive();
+      outputElement.textContent = "Driving!";
+    });
+
+    panicButton.addEventListener('click', () => {
+      myCar.panic();
+      outputElement.textContent = "Panicking!";
+    });
+  </script>
+</body>
+</html>
