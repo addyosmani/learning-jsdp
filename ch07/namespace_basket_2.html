@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Basket Example 2</title>
+</head>
+<body>
+  <h1>Interactive Basket Example 2</h1>
+  <button id="add-bread">Add Bread ($0.50)</button>
+  <button id="add-butter">Add Butter ($0.30)</button>
+  <p>Items in basket: <span id="item-count">0</span></p>
+  <p>Total: $<span id="total-value">0</span></p>
+  <script type="module">
+    import basketModule from './modules/basket.mjs';
+
+    const addBreadButton = document.getElementById('add-bread');
+    const addButterButton = document.getElementById('add-butter');
+    const itemCountElement = document.getElementById('item-count');
+    const totalValueElement = document.getElementById('total-value');
+
+    addBreadButton.addEventListener('click', () => {
+      basketModule.addItem({ item: 'bread', price: 0.5 });
+      updateUI();
+    });
+
+    addButterButton.addEventListener('click', () => {
+      basketModule.addItem({ item: 'butter', price: 0.3 });
+      updateUI();
+    });
+
+    function updateUI() {
+      itemCountElement.textContent = basketModule.getItemCount();
+      totalValueElement.textContent = basketModule.getTotal().toFixed(2);
+    }
+  </script>
+</body>
+</html>

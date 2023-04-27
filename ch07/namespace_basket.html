@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Basket Example</title>
+</head>
+<body>
+  <h1>Interactive Basket Example</h1>
+  <label for="item-name">Item Name:</label>
+  <input type="text" id="item-name">
+  <br>
+  <label for="item-price">Item Price:</label>
+  <input type="number" id="item-price" min="0" step="0.01">
+  <br>
+  <button id="add-item">Add Item</button>
+  <p>Items in basket: <span id="item-count">0</span></p>
+  <p>Total: $<span id="total-value">0</span></p>
+  <script type="module">
+    import basketModule from './modules/basket.mjs';
+
+    const itemNameInput = document.getElementById('item-name');
+    const itemPriceInput = document.getElementById('item-price');
+    const addItemButton = document.getElementById('add-item');
+    const itemCountElement = document.getElementById('item-count');
+    const totalValueElement = document.getElementById('total-value');
+
+    addItemButton.addEventListener('click', () => {
+      const itemName = itemNameInput.value;
+      const itemPrice = parseFloat(itemPriceInput.value);
+
+      if (itemName && !isNaN(itemPrice) && itemPrice >= 0) {
+        basketModule.addItem({ name: itemName, price: itemPrice });
+        itemCountElement.textContent = basketModule.getItemCount();
+        totalValueElement.textContent = basketModule.getTotal().toFixed(2);
+      } else {
+        alert('Please enter a valid item name and price.');
+      }
+
+      itemNameInput.value = '';
+      itemPriceInput.value = '';
+    });
+  </script>
+</body>
+</html>
