@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Interface Implementation Example</title>
+  </head>
+  <body>
+    <h1>Interface Implementation Example</h1>
+    <form id="todoForm">
+      <label for="nameInput">Todo name:</label>
+      <input type="text" id="nameInput" />
+      <br />
+      <label for="summaryInput">Summary:</label>
+      <input type="text" id="summaryInput" />
+      <br />
+      <button type="submit">Create Todo</button>
+    </form>
+    <div id="todoOutput"></div>
+
+    <script>
+      // Interface constructor
+      function Interface(name, methods) {
+        if (arguments.length !== 2) {
+          throw new Error('Interface constructor called with ' + arguments.length + ' arguments, but expected exactly 2.');
+        }
+        this.name = name;
+        this.methods = [];
+        for (let i = 0; i < methods.length; i++) {
+          if (typeof methods[i] !== 'string') {
+            throw new Error('Interface constructor expects method names to be passed in as strings.');
+          }
+          this.methods.push(methods[i]);
+        }
+      }
+
+      // Ensure implementation of an interface
+      Interface.ensureImplements = function (object, ...interfaces) {
+        if (arguments.length < 2) {
+          throw new Error('Function Interface.ensureImplements called with ' + arguments.length + ' arguments, but expected at least 2.');
+        }
+
+        for (let i = 0; i < interfaces.length; i++) {
+          const interfaceInstance = interfaces[i];
+          if (interfaceInstance.constructor !== Interface) {
+            throw new Error('Function Interface.ensureImplements expects arguments two and above to be instances of Interface.');
+          }
+
+          for (let j = 0; j < interfaceInstance.methods.length; j++) {
+            const method = interfaceInstance.methods[j];
+            if (!object[method] || typeof object[method] !== 'function') {
+              throw new Error('Function Interface.ensureImplements: object does not implement the ' + interfaceInstance.name + ' interface. Method ' + method + ' was not found.');
+            }
+          }
+        }
+      };
+
+      // Create interfaces using the Interface constructor
+      const reminder = new Interface('List', ['summary']);
+
+      // Todo constructor
+      class Todo {
+        constructor({ name, summary }) {
+          this.name = name;
+          this.methods = {
+            summary() {
+              return summary;
+            }
+          };
+        }
+      }
+
+      // Todo form
+      const todoForm = document.getElementById('todoForm');
+      todoForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const nameInput = document.getElementById('nameInput');
+        const summaryInput = document.getElementById('summaryInput');
+
+        const name = nameInput.value;
+        const summary = summaryInput.value;
+
+        const todoItem = new Todo({ name, summary });
+        displayTodoItem(todoItem);
+      });
+
+      // Display Todo details
+      function displayTodoItem(todoItem) {
+        const output = document.getElementById('todoOutput');
+        output.innerHTML = `
+          <p><strong>Todo name:</strong> ${todoItem.name}</p>
+          <p><strong>Summary:</strong> ${todoItem.methods.summary()}</p>
+        `;
+      }
+    </script>
+  </body>
+</html>
