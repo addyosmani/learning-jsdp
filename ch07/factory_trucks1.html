@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive HTML Example - Factory Design Pattern</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .output-container {
+      padding: 10px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive HTML Example - Factory Design Pattern</h1>
+  <div class="output-container" id="output">
+    Click the buttons to create different vehicles using the factory.
+  </div>
+  <button id="create-car-btn">Create Car</button>
+  <button id="create-truck-btn">Create Truck</button>
+  <button id="create-moving-truck-btn">Create Moving Truck</button>
+  <script>
+    class Car {
+      constructor({ doors = 4, state = 'brand new', color = 'silver' } = {}) {
+        this.doors = doors;
+        this.state = state;
+        this.color = color;
+      }
+    }
+
+    class Truck {
+      constructor({ state = 'used', wheelSize = 'large', color = 'blue' } = {}) {
+        this.state = state;
+        this.wheelSize = wheelSize;
+        this.color = color;
+      }
+    }
+
+    class VehicleFactory {
+      constructor() {
+        this.vehicleClass = Car;
+      }
+
+      createVehicle(options) {
+        const { vehicleType, ...rest } = options;
+
+        switch (vehicleType) {
+          case 'car':
+            this.vehicleClass = Car;
+            break;
+          case 'truck':
+            this.vehicleClass = Truck;
+            break;
+          // defaults to VehicleFactory.prototype.vehicleClass (Car)
+        }
+
+        return new this.vehicleClass(rest);
+      }
+    }
+
+    const vehicleOutputElement = document.getElementById('output');
+    const createCarButton = document.getElementById('create-car-btn');
+    const createTruckButton = document.getElementById('create-truck-btn');
+    const createMovingTruckButton = document.getElementById('create-moving-truck-btn');
+
+    const vehicleFactory = new VehicleFactory();
+
+    createCarButton.addEventListener('click', () => {
+      const car = vehicleFactory.createVehicle({
+        vehicleType: 'car',
+        color: 'yellow',
+        doors: 6,
+      });
+
+      vehicleOutputElement.textContent = JSON.stringify(car, null, 2);
+    });
+
+    createTruckButton.addEventListener('click', () => {
+      const truck = vehicleFactory.createVehicle({
+        vehicleType: 'truck',
+        color: 'red',
+        wheelSize: 'medium',
+      });
+
+      vehicleOutputElement.textContent = JSON.stringify(truck, null, 2);
+    });
+
+    createMovingTruckButton.addEventListener('click', () => {
+      const movingTruck = vehicleFactory.createVehicle({
+        vehicleType: 'truck',
+        state: 'like new',
+        color: 'red',
+        wheelSize: 'small',
+      });
+
+      vehicleOutputElement.textContent = JSON.stringify(movingTruck, null, 2);
+    });
+  </script>
+</body>
+</html>
