@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Car Prototype Example</title>
+</head>
+<body>
+  <h1>Interactive Car Prototype Example</h1>
+  <form id="car-form">
+    <label for="model">Enter car model:</label>
+    <input type="text" id="model" name="model" required>
+    <label for="year">Enter car year:</label>
+    <input type="number" id="year" name="year" required>
+    <label for="miles">Enter car mileage:</label>
+    <input type="number" id="miles" name="miles" required>
+    <button type="submit">Add Car</button>
+  </form>
+  <div id="output"></div>
+
+  <script>
+    class Car {
+      constructor(model, year, miles) {
+        this.model = model;
+        this.year = year;
+        this.miles = miles;
+      }
+    }
+
+    Car.prototype.toString = function() {
+      return `${this.model} has done ${this.miles} miles`;
+    };
+
+    const form = document.getElementById('car-form');
+    const output = document.getElementById('output');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const model = document.getElementById('model').value;
+      const year = parseInt(document.getElementById('year').value);
+      const miles = parseInt(document.getElementById('miles').value);
+
+      const car = new Car(model, year, miles);
+      const carInfo = car.toString();
+
+      const carInfoElement = document.createElement('p');
+      carInfoElement.textContent = carInfo;
+      output.appendChild(carInfoElement);
+
+      console.log(carInfo);
+    });
+  </script>
+</body>
+</html>
