@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Object Literals Example</title>
+</head>
+<body>
+  <h1>Interactive Object Literals Example</h1>
+  <button id="say-something-btn">Say Something</button>
+  <button id="report-config-btn">Report Config</button>
+  <button id="update-config-btn">Update Config</button>
+  <div id="output"></div>
+
+  <script>
+    const myModule = {
+      myProperty: 'someValue',
+      myConfig: {
+        useCaching: true,
+        language: 'en',
+      },
+      saySomething() {
+        console.log('Where is Paul Irish debugging today?');
+      },
+      reportMyConfig() {
+        console.log(`Caching is: ${this.myConfig.useCaching ? 'enabled' : 'disabled'}`);
+      },
+      updateMyConfig(newConfig) {
+        if (typeof newConfig === 'object') {
+          this.myConfig = newConfig;
+          console.log(this.myConfig.language);
+        }
+      },
+    };
+
+    const saySomethingBtn = document.getElementById('say-something-btn');
+    const reportConfigBtn = document.getElementById('report-config-btn');
+    const updateConfigBtn = document.getElementById('update-config-btn');
+    const output = document.getElementById('output');
+
+    saySomethingBtn.addEventListener('click', () => {
+      myModule.saySomething();
+      const messageElement = document.createElement('p');
+      messageElement.textContent = 'Where is Paul Irish debugging today?';
+      output.appendChild(messageElement);
+    });
+
+    reportConfigBtn.addEventListener('click', () => {
+      myModule.reportMyConfig();
+      const configElement = document.createElement('p');
+      configElement.textContent = `Caching is: ${myModule.myConfig.useCaching ? 'enabled' : 'disabled'}`;
+      output.appendChild(configElement);
+    });
+
+    updateConfigBtn.addEventListener('click', () => {
+      myModule.updateMyConfig({
+        language: 'fr',
+        useCaching: false,
+      });
+      myModule.reportMyConfig();
+      const configElement = document.createElement('p');
+      configElement.textContent = `Caching is: ${myModule.myConfig.useCaching ? 'enabled' : 'disabled'}`;
+      output.appendChild(configElement);
+    });
+  </script>
+</body>
+</html>
