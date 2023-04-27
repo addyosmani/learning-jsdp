@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Factory Design Pattern Example</title>
+  </head>
+  <body>
+    <script>
+      // Types.js - Classes used behind the scenes
+      // A class for defining new cars
+      class Car {
+        constructor({ doors = 4, state = 'brand new', color = 'silver' } = {}) {
+          this.doors = doors;
+          this.state = state;
+          this.color = color;
+        }
+      }
+
+      // A class for defining new trucks
+      class Truck {
+        constructor({ state = 'used', wheelSize = 'large', color = 'blue' } = {}) {
+          this.state = state;
+          this.wheelSize = wheelSize;
+          this.color = color;
+        }
+      }
+
+      // FactoryExample.js
+      // Define a vehicle factory
+      class VehicleFactory {
+        constructor() {
+          this.vehicleClass = Car;
+        }
+
+        // Our Factory method for creating new Vehicle instances
+        createVehicle(options) {
+          const { vehicleType, ...rest } = options;
+
+          switch (vehicleType) {
+            case 'car':
+              this.vehicleClass = Car;
+              break;
+            case 'truck':
+              this.vehicleClass = Truck;
+              break;
+            // defaults to VehicleFactory.prototype.vehicleClass (Car)
+          }
+
+          return new this.vehicleClass(rest);
+        }
+      }
+
+      // Define a truck factory that overrides the VehicleFactory's vehicleClass
+      class TruckFactory extends VehicleFactory {
+        constructor() {
+          super();
+          this.vehicleClass = Truck;
+        }
+      }
+
+      // Create an instance of our car factory
+      const carFactory = new VehicleFactory();
+      // Create a car using the car factory
+      const car = carFactory.createVehicle({
+        vehicleType: 'car',
+        color: 'yellow',
+        doors: 6,
+      });
+
+      // Test to confirm our car was created using the vehicleClass/prototype Car
+      // Outputs: true
+      console.log(car instanceof Car);
+      // Outputs: Car object of color "yellow", doors: 6 in a "brand new" state
+      console.log(car);
+
+      // Create an instance of our truck factory
+      const truckFactory = new TruckFactory();
+      // Create a truck using the truck factory
+      const movingTruck = truckFactory.createVehicle({
+        state: 'like new',
+        color: 'red',
+        wheelSize: 'small',
+      });
+
+      // Test to confirm our truck was created with the vehicleClass/prototype Truck
+      // Outputs: true
+      console.log(movingTruck instanceof Truck);
+
+      // Outputs: Truck object of color "red", a "like new" state
+      // and a "small" wheelSize
+      console.log(movingTruck);
+
+      // Create a big pink truck using the truck factory
+      const myBigTruck = truckFactory.createVehicle({
+        state: 'omg...so bad.',
+        color: 'pink',
+        wheelSize: 'so big',
+      });
+
+      // Test to confirm our big pink truck was created with the vehicleClass/prototype Truck
+      // Outputs: true
+      console.log(myBigTruck instanceof Truck);
+
+      // Outputs: Truck object with the color "pink", wheelSize "so big"
+      // and state "omg. so bad"
+      console.log(myBigTruck);
+    </script>
+  </body>
+</html>
