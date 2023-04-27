@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mixins/Superclass Pattern Example</title>
+  </head>
+  <body>
+    <h1>Mixins/Superclass Pattern Example</h1>
+    <h2>Car Animator</h2>
+    <button onclick="animateCar()">Animate Car</button>
+    <div id="carOutput"></div>
+    <hr />
+    <h2>Person Animator</h2>
+    <button onclick="animatePerson()">Animate Person</button>
+    <div id="personOutput"></div>
+
+    <script>
+      // Mixin definition
+      const MyMixins = superclass =>
+        class extends superclass {
+          moveUp() {
+            console.log("move up");
+          }
+          moveDown() {
+            console.log("move down");
+          }
+          stop() {
+            console.log("stop! in the name of love!");
+          }
+        };
+
+      // CarAnimator class
+      class CarAnimator {
+        moveLeft() {
+          console.log("move left");
+        }
+      }
+
+      // PersonAnimator class
+      class PersonAnimator {
+        moveRandomly() {
+          /*...*/
+        }
+      }
+
+      // MyAnimator class extending CarAnimator with mixins
+      class MyAnimator extends MyMixins(CarAnimator) {}
+
+      // Create a new instance of MyAnimator
+      const myAnimator = new MyAnimator();
+
+      // Animate Car function
+      function animateCar() {
+        const output = document.getElementById("carOutput");
+        output.innerHTML = "";
+        myAnimator.moveLeft();
+        myAnimator.moveDown();
+        myAnimator.stop();
+        output.innerHTML = `
+          <p>Car animation completed. Check the console for details.</p>
+        `;
+      }
+
+      // Animate Person function
+      function animatePerson() {
+        const output = document.getElementById("personOutput");
+        output.innerHTML = "";
+        const personAnimator = new PersonAnimator();
+        personAnimator.moveRandomly();
+        output.innerHTML = `
+          <p>Person animation completed. Check the console for details.</p>
+        `;
+      }
+    </script>
+  </body>
+</html>
