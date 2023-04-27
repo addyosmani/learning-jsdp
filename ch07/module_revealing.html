@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive HTML Example - Revealing Module Pattern</title>
+</head>
+<body>
+  <h1>Interactive HTML Example - Revealing Module Pattern</h1>
+  <label for="name-input">Enter Name:</label>
+  <input type="text" id="name-input">
+  <button id="set-name">Set Name</button>
+  <button id="get-name">Get Name</button>
+  <script type="module">
+  import myRevealingModule from './modules/myRevealingModule.mjs';
+  
+  myRevealingModule.setName('Matt Gaunt');
+
+    // UI elements
+    const setNameButton = document.getElementById('set-name');
+    const getNameButton = document.getElementById('get-name');
+    const nameInput = document.getElementById('name-input');
+
+    setNameButton.addEventListener('click', () => {
+      const newName = nameInput.value;
+      myRevealingModule.setName(newName);
+    });
+
+    getNameButton.addEventListener('click', () => {
+      myRevealingModule.getName();
+    });
+  </script>
+</body>
+</html>
