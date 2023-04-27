@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Facade Pattern Example</title>
+  </head>
+  <body>
+    <button onclick="registerEvent()">Register Event</button>
+    <div id="output"></div>
+
+    <script>
+      const addMyEvent = (el, ev, fn) => {
+        if (el.addEventListener) {
+          el.addEventListener(ev, fn, false);
+        } else if (el.attachEvent) {
+          el.attachEvent(`on${ev}`, fn);
+        } else {
+          el[`on${ev}`] = fn;
+        }
+      };
+
+      function registerEvent() {
+        const button = document.querySelector('button');
+
+        function handleClick() {
+          const output = document.getElementById('output');
+          output.textContent = 'Button clicked!';
+        }
+
+        addMyEvent(button, 'click', handleClick);
+      }
+    </script>
+  </body>
+</html>
