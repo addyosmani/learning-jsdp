@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basket Module Example</title>
+</head>
+<body>
+  <h1>Basket Module Example</h1>
+  <label for="item-name">Item Name:</label>
+  <input type="text" id="item-name">
+  <br>
+  <label for="item-price">Item Price:</label>
+  <input type="number" id="item-price" min="0" step="0.01">
+  <br>
+  <button id="add-item">Add Item</button>
+  <br>
+  <button id="do-something">Do Something</button>
+  <button id="do-something-else">Do Something Else</button>
+  <br>
+  <p>Items in basket: <span id="item-count">0</span></p>
+  <p>Total: $<span id="total-value">0</span></p>
+  <script>
+    const basket = new WeakMap();
+    const doSomethingPrivate = new WeakMap();
+    const doSomethingElsePrivate = new WeakMap();
+
+    class BasketModule {
+        constructor() {
+            basket.set(this, []);
+            doSomethingPrivate.set(this, () => {
+                console.log("Doing something...");
+            });
+            doSomethingElsePrivate.set(this, () => {
+                console.log("Doing something else...");
+            });
+        }
+        doSomething() {
+            doSomethingPrivate.get(this)();
+        }
+        doSomethingElse() {
+            doSomethingElsePrivate.get(this)();
+        }
+        addItem(values) {
+            const basketData = basket.get(this);
+            basketData.push(values);
+            basket.set(this, basketData);
+        }
+        getItemCount() {
+            return basket.get(this).length;
+        }
+        getTotal() {
+            return basket
+                .get(this)
+                .reduce((currentSum, item) => item.price + currentSum, 0);
+        }
+    }
+
+    const basketModule = new BasketModule();
+
+    // UI elements
+    const itemNameInput = document.getElementById('item-name');
+    const itemPriceInput = document.getElementById('item-price');
+    const addItemButton = document.getElementById('add-item');
+    const doSomethingButton = document.getElementById('do-something');
+    const doSomethingElseButton = document.getElementById('do-something-else');
+    const itemCountElement = document.getElementById('item-count');
+    const totalValueElement = document.getElementById('total-value');
+
+    addItemButton.addEventListener('click', () => {
+      const itemName = itemNameInput.value;
+      const itemPrice = parseFloat(itemPriceInput.value);
+
+      if (itemName && !isNaN(itemPrice) && itemPrice >= 0) {
+        basketModule.addItem({ name: itemName, price: itemPrice });
+        itemCountElement.textContent = basketModule.getItemCount();
+        totalValueElement.textContent = basketModule.getTotal().toFixed(2);
+      } else {
+        alert('Please enter a valid item name and price.');
+      }
+
+      itemNameInput.value = '';
+      itemPriceInput.value = '';
+    });
+
+    doSomethingButton.addEventListener('click', () => {
+      basketModule.doSomething();
+    });
+
+    doSomethingElseButton.addEventListener('click', () => {
+      basketModule.doSomethingElse();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive HTML Example - WeakMap</title>
+</head>
+<body>
+  <h1>Interactive HTML Example - WeakMap</h1>
+  <button id="increment-counter">Increment Counter</button>
+  <button id="reset-counter">Reset Counter</button>
+  <p>Output: <span id="output"></span></p>
+  <script>
+    let _counter = new WeakMap();
+
+    class Module {
+        constructor() {
+            _counter.set(this, 0);
+        }
+        incrementCounter() {
+            let counter = _counter.get(this);
+            counter++;
+            _counter.set(this, counter);
+
+            return _counter.get(this);
+        }
+        resetCounter() {
+            console.log(`counter value prior to reset: ${_counter.get(this)}`);
+            _counter.set(this, 0);
+        }
+    }
+
+    const testModule = new Module();
+
+    // UI elements
+    const incrementCounterButton = document.getElementById('increment-counter');
+    const resetCounterButton = document.getElementById('reset-counter');
+    const outputElement = document.getElementById('output');
+
+    incrementCounterButton.addEventListener('click', () => {
+      const newValue = testModule.incrementCounter();
+      outputElement.textContent = `Counter incremented. New value: ${newValue}`;
+    });
+
+    resetCounterButton.addEventListener('click', () => {
+      testModule.resetCounter();
+      outputElement.textContent = 'Counter reset.';
+    });
+  </script>
+</body>
+</html>
