@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Constructor Augmentation Example</title>
+  </head>
+  <body>
+    <h1>Constructor Augmentation Example</h1>
+    <button onclick="createCar()">Create Car</button>
+    <div id="carOutput"></div>
+    <hr />
+    <button onclick="createSportsCar()">Create Sports Car</button>
+    <div id="sportsCarOutput"></div>
+
+    <script>
+      // Car class
+      class Car {
+        constructor({ model = 'no model provided', color = 'no color provided' }) {
+          this.model = model;
+          this.color = color;
+        }
+      }
+
+      // Mixin function
+      function Mixin(BaseClass) {
+        return class extends BaseClass {
+          driveForward() {
+            console.log('drive forward');
+          }
+          driveBackward() {
+            console.log('drive backward');
+          }
+          driveSideways() {
+            console.log('drive sideways');
+          }
+        };
+      }
+
+      // MyCar class extending Car with Mixin
+      class MyCar extends Mixin(Car) {}
+
+      // Create Car function
+      function createCar() {
+        const car = new MyCar({});
+        displayCar(car);
+      }
+
+      // Create Sports Car function
+      function createSportsCar() {
+        const sportsCar = new MyCar({
+          model: 'Porsche',
+          color: 'red',
+        });
+        displaySportsCar(sportsCar);
+      }
+
+      // Display Car details
+      function displayCar(car) {
+        const output = document.getElementById('carOutput');
+        output.innerHTML = `
+          <p><strong>Model:</strong> ${car.model}</p>
+          <p><strong>Color:</strong> ${car.color}</p>
+        `;
+        car.driveForward();
+        car.driveBackward();
+      }
+
+      // Display Sports Car details
+      function displaySportsCar(sportsCar) {
+        const output = document.getElementById('sportsCarOutput');
+        output.innerHTML = `
+          <p><strong>Model:</strong> ${sportsCar.model}</p>
+          <p><strong>Color:</strong> ${sportsCar.color}</p>
+        `;
+        sportsCar.driveSideways();
+      }
+    </script>
+  </body>
+</html>
