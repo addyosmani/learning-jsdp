@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Object.create Example</title>
+</head>
+<body>
+  <h1>Interactive Object.create Example</h1>
+  <form id="driver-form">
+    <label for="top-speed">Enter driver's top speed:</label>
+    <input type="text" id="top-speed" name="top-speed" required>
+    <button type="submit">Set Top Speed</button>
+  </form>
+  <div id="output"></div>
+
+  <script>
+    var config = {};
+    var defineProp = function (obj, key, value) {
+      config.value = value;
+      Object.defineProperty(obj, key, config);
+    };
+
+    var person = Object.create(null);
+    defineProp(person, "car", "Delorean");
+    defineProp(person, "dateOfBirth", "1981");
+    defineProp(person, "hasBeard", false);
+
+    const form = document.getElementById('driver-form');
+    const output = document.getElementById('output');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const topSpeed = document.getElementById('top-speed').value;
+
+      const driver = Object.create(person);
+      defineProp(driver, 'topSpeed', topSpeed);
+
+      const dateOfBirth = driver.dateOfBirth;
+      const driverTopSpeed = driver.topSpeed;
+
+      output.innerHTML = `
+        <p>Date of Birth (inherited property): ${dateOfBirth}</p>
+        <p>Top Speed (set property): ${driverTopSpeed}</p>
+      `;
+
+      console.log("Date of Birth:", dateOfBirth);
+      console.log("Top Speed:", driverTopSpeed);
+    });
+  </script>
+</body>
+</html>
