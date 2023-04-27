@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Constructor Decoration Example</title>
+  </head>
+  <body>
+    <h1>Constructor Decoration Example</h1>
+    <button onclick="createVehicle()">Create Vehicle</button>
+    <div id="vehicleOutput"></div>
+    <hr />
+    <button onclick="decorateVehicle()">Decorate Vehicle</button>
+    <div id="decoratedOutput"></div>
+
+    <script>
+      // Vehicle class
+      class Vehicle {
+        constructor(vehicleType) {
+          // Some sane defaults
+          this.vehicleType = vehicleType || 'car';
+          this.model = 'default';
+          this.license = '00000-000';
+        }
+      }
+
+      // Test instance for a basic vehicle
+      const testInstance = new Vehicle('car');
+      console.log(testInstance);
+
+      // Let's create a new instance of vehicle to be decorated
+      let truck;
+
+      // Create Vehicle function
+      function createVehicle() {
+        truck = new Vehicle('truck');
+        displayVehicle(truck);
+      }
+
+      // Decorate Vehicle function
+      function decorateVehicle() {
+        truck.setModel = function(modelName) {
+          this.model = modelName;
+        };
+
+        truck.setColor = function(color) {
+          this.color = color;
+        };
+
+        truck.setModel('CAT');
+        truck.setColor('blue');
+
+        displayDecoratedVehicle(truck);
+      }
+
+      // Display Vehicle details
+      function displayVehicle(vehicle) {
+        const output = document.getElementById('vehicleOutput');
+        output.innerHTML = `
+          <p><strong>Vehicle Type:</strong> ${vehicle.vehicleType}</p>
+          <p><strong>Model:</strong> ${vehicle.model}</p>
+          <p><strong>License:</strong> ${vehicle.license}</p>
+        `;
+      }
+
+      // Display Decorated Vehicle details
+      function displayDecoratedVehicle(vehicle) {
+        const output = document.getElementById('decoratedOutput');
+        output.innerHTML = `
+          <p><strong>Vehicle Type:</strong> ${vehicle.vehicleType}</p>
+          <p><strong>Model:</strong> ${vehicle.model}</p>
+          <p><strong>License:</strong> ${vehicle.license}</p>
+          <p><strong>Color:</strong> ${vehicle.color}</p>
+        `;
+      }
+    </script>
+  </body>
+</html>
