@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive HTML Example - Singleton Pattern</title>
+</head>
+<body>
+  <h1>Interactive HTML Example - Singleton Pattern</h1>
+  <button id="create-singleton">Create Singleton Instance</button>
+  <button id="create-bad-singleton">Create Bad Singleton Instance</button>
+  <button id="check-equality">Check Equality</button>
+  <div id="output"></div>
+  <script type="module">
+    // Usage:
+    import MySingleton from './modules/MySingleton.mjs';
+    import MyBadSingleton from './modules/MyBadSingleton.mjs';
+
+    const singleA = new MySingleton();
+    const singleB = new MySingleton();
+    console.log(singleA.getRandomNumber() === singleB.getRandomNumber()); 
+    // true
+
+    const badSingleA = new MyBadSingleton();
+    const badSingleB = new MyBadSingleton();
+    console.log(badSingleA.getRandomNumber() !== badSingleB.getRandomNumber()); 
+    // true
+
+    // UI elements
+    const createSingletonButton = document.getElementById('create-singleton');
+    const createBadSingletonButton = document.getElementById('create-bad-singleton');
+    const checkEqualityButton = document.getElementById('check-equality');
+    const outputElement = document.getElementById('output');
+
+    createSingletonButton.addEventListener('click', () => {
+      const singleton = new MySingleton();
+      outputElement.textContent = 'Singleton instance created.';
+    });
+
+    createBadSingletonButton.addEventListener('click', () => {
+      const badSingleton = new MyBadSingleton();
+      outputElement.textContent = 'Bad Singleton instance created.';
+    });
+
+    checkEqualityButton.addEventListener('click', () => {
+      const singletonA = new MySingleton();
+      const singletonB = new MySingleton();
+      const badSingletonA = new MyBadSingleton();
+      const badSingletonB = new MyBadSingleton();
+
+      const singletonEquality = singletonA.getRandomNumber() === singletonB.getRandomNumber();
+      const badSingletonEquality = badSingletonA.getRandomNumber() === badSingletonB.getRandomNumber();
+
+      outputElement.textContent = `Singleton equality: ${singletonEquality}\nBad Singleton equality: ${badSingletonEquality}`;
+    });
+  </script>
+</body>
+</html>

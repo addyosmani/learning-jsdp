@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive HTML Example - Singleton Pattern with Options</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .button-container {
+      margin-bottom: 10px;
+    }
+    .input-container {
+      margin-bottom: 10px;
+    }
+    .output-container {
+      padding: 10px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive HTML Example - Singleton Pattern with Options</h1>
+  <div class="button-container">
+    <button id="create-singleton">Create Singleton Instance</button>
+  </div>
+  <div class="input-container">
+    <label for="pointX-input">pointX:</label>
+    <input type="number" id="pointX-input">
+  </div>
+  <div class="input-container">
+    <label for="pointY-input">pointY:</label>
+    <input type="number" id="pointY-input">
+  </div>
+  <div class="output-container" id="output">
+    Click the button to create a Singleton instance with options.
+  </div>
+  <script>
+    class Singleton {
+      constructor(options = {}) {
+        this.name = 'SingletonTester';
+        this.pointX = options.pointX || 6;
+        this.pointY = options.pointY || 10;
+      }
+    }
+
+    let instance;
+
+    const SingletonTester = {
+      name: 'SingletonTester',
+      getInstance(options) {
+        if (instance === undefined) {
+          instance = new Singleton(options);
+        }
+
+        return instance;
+      },
+    };
+
+    const createSingletonButton = document.getElementById('create-singleton');
+    const pointXInput = document.getElementById('pointX-input');
+    const pointYInput = document.getElementById('pointY-input');
+    const outputElement = document.getElementById('output');
+
+    createSingletonButton.addEventListener('click', () => {
+      const pointX = Number(pointXInput.value);
+      const pointY = Number(pointYInput.value);
+
+      const singletonTest = SingletonTester.getInstance({ pointX, pointY });
+      outputElement.textContent = `Singleton instance created with pointX: ${singletonTest.pointX}, pointY: ${singletonTest.pointY}`;
+    });
+  </script>
+</body>
+</html>
