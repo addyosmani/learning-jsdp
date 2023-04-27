@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive HTML Example - Custom Button</title>
+  <!-- Material-UI CDN links -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  
+  <script nomodule src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script nomodule src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script nomodule src="https://unpkg.com/@material-ui/core@4.12.1/umd/material-ui.development.js"></script>
+  
+  <style>
+    .custom-button {
+      border-radius: 3px;
+      border: none;
+      color: white;
+      margin: 0 20px;
+    }
+    .custom-button-primary {
+      background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
+    }
+    .custom-button-secondary {
+      background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive HTML Example - Custom Button</h1>
+  <div id="root"></div>
+
+  <script>
+    const { Button } = MaterialUI;
+
+    const style = {
+      root: {
+        borderRadius: 3,
+        border: 0,
+        color: "white",
+        margin: "0 20px"
+      },
+      primary: {
+        background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
+      },
+      secondary: {
+        background: "linear-gradient(45deg, #2196f3 30%, #21cbf3 90%)"
+      }
+    };
+
+    function CustomButton(props) {
+      return (
+        <Button {...props} style={{ ...style.root, ...style[props.color] }}>
+          {props.children}
+        </Button>
+      );
+    }
+
+    const rootElement = document.getElementById("root");
+    ReactDOM.render(
+      <div>
+        <CustomButton color="primary">Primary Button</CustomButton>
+        <CustomButton color="secondary">Secondary Button</CustomButton>
+      </div>,
+      rootElement
+    );
+  </script>
+</body>
+</html>
