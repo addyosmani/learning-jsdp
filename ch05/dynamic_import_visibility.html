@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lodash-es Intersection Observer Example</title>
+  <style>
+    .spacer {
+      height: 200vh;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lodash-es Dynamic Import on Visibility</h1>
+  <div class="spacer"></div>
+  <h2 id="target">Scroll down to sort</h2>
+  <div class="spacer"></div>
+
+  <script type="module">
+    const target = document.querySelector('#target');
+
+    const observer = new IntersectionObserver(async (entries, observer) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          try {
+            const sortBy = await import('https://cdn.jsdelivr.net/npm/lodash-es@4.17.21/sortBy.js');
+            sortInput(sortBy.default); // use the imported dependency
+          } catch (err) {
+            console.log(err);
+          }
+          observer.disconnect(); // Stop observing after importing and executing the function
+        }
+      }
+    }, {
+      threshold: 0.5 // Execute when at least 50% of the target element is visible
+    });
+
+    observer.observe(target);
+
+    function sortInput(sortBy) {
+      // Your sorting logic goes here, e.g.:
+      const input = [5, 3, 1, 4, 2];
+      const sortedInput = sortBy(input);
+      console.log(sortedInput);
+    }
+  </script>
+</body>
+</html>
