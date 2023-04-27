@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lodash-es Example</title>
+</head>
+<body>
+  <h1>Lodash-es Dynamic Import Example</h1>
+  <button id="sort-btn">Sort</button>
+
+  <script type="module">
+    const btn = document.querySelector('button');
+
+    btn.addEventListener('click', async e => {
+      e.preventDefault();
+      try {
+        const sortBy = await import('https://cdn.jsdelivr.net/npm/lodash-es@4.17.21/sortBy.js');
+        sortInput(sortBy.default); // use the imported dependency
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    function sortInput(sortBy) {
+      // Your sorting logic goes here, e.g.:
+      const input = [5, 3, 1, 4, 2];
+      const sortedInput = sortBy(input);
+      console.log(sortedInput);
+    }
+  </script>
+</body>
+</html>
