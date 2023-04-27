@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Subclassing/Mixins Design Pattern Example</title>
+  </head>
+  <body>
+    <h1>Subclassing/Mixins Design Pattern Example</h1>
+    <h2>Person</h2>
+    <label for="firstNameInput">First Name:</label>
+    <input type="text" id="firstNameInput" />
+    <br />
+    <label for="lastNameInput">Last Name:</label>
+    <input type="text" id="lastNameInput" />
+    <br />
+    <button onclick="createPerson()">Create Person</button>
+    <div id="personOutput"></div>
+    <hr />
+    <h2>Superhero</h2>
+    <label for="superheroFirstNameInput">First Name:</label>
+    <input type="text" id="superheroFirstNameInput" />
+    <br />
+    <label for="superheroLastNameInput">Last Name:</label>
+    <input type="text" id="superheroLastNameInput" />
+    <br />
+    <label for="powersInput">Powers:</label>
+    <input type="text" id="powersInput" />
+    <br />
+    <button onclick="createSuperhero()">Create Superhero</button>
+    <div id="superheroOutput"></div>
+
+    <script>
+      // Person class
+      class Person {
+        constructor(firstName, lastName) {
+          this.firstName = firstName;
+          this.lastName = lastName;
+          this.gender = "male";
+        }
+      }
+
+      // Superhero class extending Person
+      class Superhero extends Person {
+        constructor(firstName, lastName, powers) {
+          // Invoke the superclass constructor
+          super(firstName, lastName);
+          this.powers = powers;
+        }
+      }
+
+      // Create Person function
+      function createPerson() {
+        const firstName = document.getElementById("firstNameInput").value;
+        const lastName = document.getElementById("lastNameInput").value;
+        const person = new Person(firstName, lastName);
+        displayPerson(person);
+      }
+
+      // Create Superhero function
+      function createSuperhero() {
+        const firstName = document.getElementById("superheroFirstNameInput").value;
+        const lastName = document.getElementById("superheroLastNameInput").value;
+        const powers = document.getElementById("powersInput").value.split(",");
+        const superhero = new Superhero(firstName, lastName, powers);
+        displaySuperhero(superhero);
+      }
+
+      // Display Person details
+      function displayPerson(person) {
+        const output = document.getElementById("personOutput");
+        output.innerHTML = `
+          <p><strong>Name:</strong> ${person.firstName} ${person.lastName}</p>
+          <p><strong>Gender:</strong> ${person.gender}</p>
+        `;
+      }
+
+      // Display Superhero details
+      function displaySuperhero(superhero) {
+        const output = document.getElementById("superheroOutput");
+        output.innerHTML = `
+          <p><strong>Name:</strong> ${superhero.firstName} ${superhero.lastName}</p>
+          <p><strong>Gender:</strong> ${superhero.gender}</p>
+          <p><strong>Powers:</strong> ${superhero.powers.join(", ")}</p>
+        `;
+      }
+    </script>
+  </body>
+</html>
