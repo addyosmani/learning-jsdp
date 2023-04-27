@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cake Class Example</title>
+</head>
+<body>
+  <h1>Cake Class Example</h1>
+  <p>Check your browser's console to see the results of the Cake class usage.</p>
+
+  <script>
+    class Cake {
+      constructor(name, toppings, price, cakeSize) {
+        this.name = name;
+        this.cakeSize = cakeSize;
+        this.toppings = toppings;
+        this.price = price;
+      }
+
+      addTopping(topping) {
+        this.toppings.push(topping);
+      }
+
+      get allToppings() {
+        return this.toppings;
+      }
+
+      get qualifiesForDiscount() {
+        return this.price > 5;
+      }
+
+      set size(size) {
+        if (size < 0) {
+          throw new Error("Cake must be a valid size: " +
+            "either small, medium or large");
+        }
+        this.cakeSize = size;
+      }
+    }
+
+    // Usage
+    let cake = new Cake("chocolate", ["chocolate chips"], 5, "large");
+
+    console.log('Cake:', cake);
+    console.log('All Toppings:', cake.allToppings);
+    console.log('Qualifies for Discount:', cake.qualifiesForDiscount);
+
+    // Add a new topping and check the updated toppings
+    cake.addTopping("sprinkles");
+    console.log('Toppings after adding a new topping:', cake.allToppings);
+  </script>
+</body>
+</html>
