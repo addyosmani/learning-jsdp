@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive HTML Example - Object Inheritance and Cloning</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .output-container {
+      padding: 10px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive HTML Example - Object Inheritance and Cloning</h1>
+  <div class="output-container" id="output">
+    Click the button to clone the car and get the model of the clone.
+  </div>
+  <button id="clone-car-btn">Clone Car</button>
+  <script>
+    class VehiclePrototype {
+      constructor(model) {
+        this.model = model;
+      }
+
+      getModel() {
+        console.log(`The model of this vehicle is... ${this.model}`);
+      }
+
+      clone() {}
+    }
+
+    class Vehicle extends VehiclePrototype {
+      constructor(model) {
+        super(model);
+      }
+
+      clone() {
+        return new Vehicle(this.model);
+      }
+    }
+
+    const car = new Vehicle('Ford Escort');
+
+    const cloneCarButton = document.getElementById('clone-car-btn');
+    const outputElement = document.getElementById('output');
+
+    cloneCarButton.addEventListener('click', () => {
+      const clonedCar = car.clone();
+      clonedCar.getModel();
+      outputElement.textContent = `Cloned Car Model: ${clonedCar.model}`;
+    });
+  </script>
+</body>
+</html>
