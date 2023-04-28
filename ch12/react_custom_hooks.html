@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Custom React Hook Example</title>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <p>Press q, w or l</p>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function useKeyPress(targetKey) {
+      const [keyPressed, setKeyPressed] = React.useState(false);
+
+      function handleDown({ key }) {
+        if (key === targetKey) {
+          setKeyPressed(true);
+        }
+      }
+
+      function handleUp({ key }) {
+        if (key === targetKey) {
+          setKeyPressed(false);
+        }
+      }
+
+      React.useEffect(() => {
+        window.addEventListener("keydown", handleDown);
+        window.addEventListener("keyup", handleUp);
+
+        return () => {
+          window.removeEventListener("keydown", handleDown);
+          window.removeEventListener("keyup", handleUp);
+        };
+      }, []);
+
+      return keyPressed;
+    }
+
+    function Input() {
+      const [input, setInput] = React.useState("");
+      const pressQ = useKeyPress("q");
+      const pressW = useKeyPress("w");
+      const pressL = useKeyPress("l");
+
+      React.useEffect(() => {
+        if (pressQ) {
+          console.log("The user pressed Q!");
+        }
+      }, [pressQ]);
+
+      React.useEffect(() => {
+        if (pressW) {
+          console.log("The user pressed W!");
+        }
+      }, [pressW]);
+
+      React.useEffect(() => {
+        if (pressL) {
+          console.log("The user pressed L!");
+        }
+      }, [pressL]);
+
+      function handleInput(e) {
+        setInput(e.target.value);
+      }
+
+      return (
+        <div>
+          <input
+            onChange={handleInput}
+            value={input}
+            placeholder="Type something..."
+          />
+        </div>
+      );
+    }
+
+    ReactDOM.render(<Input />, document.getElementById("root"));
+  </script>
+</body>
+</html>
