@@ -1,0 +1,21 @@
+{
+  "name": "next-page-rendering",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && next dev",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && next build",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider && next start"
+  },
+  "dependencies": {
+    "critters": "^0.0.10",
+    "next": "^13.0.1",
+    "react": "^18.0.2",
+    "react-dom": "^18.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "18.16.2",
+    "@types/react": "^17.0.14",
+    "typescript": "^4.3.5"
+  }
+}

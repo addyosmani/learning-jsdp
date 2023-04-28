@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: arial;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin: 0;
+    padding: 2rem;
+    min-height: 100vh;
+}
+h1 {
+    line-height: 2rem;
+}
+h2 {
+    margin-top: 3rem;
+}
+h2+p {
+    margin-top: 0;
+}
+#__next {
+  max-width: 80vw;
+  margin: auto;
+}
+ul {
+    margin: 0;
+    padding-left: 22px;
+}
+li a {
+    display: block;
+    padding: 5px 0;
+}
+
+@media screen and (min-width: 1024px) {
+    body {
+        font-size: 2vw;
+        line-height: 3.5vw;
+    }
+}
