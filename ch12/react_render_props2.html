@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Render Props Example</title>
+  <style>
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .image {
+      width: 200px;
+      margin: 10px;
+    }
+  </style>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // DogImages component using render prop
+    class DogImages extends React.Component {
+      state = {
+        images: [],
+        loading: true
+      };
+
+      componentDidMount() {
+        this.fetchDogImages();
+      }
+
+      fetchDogImages = async () => {
+        try {
+          const response = await axios.get("https://dog.ceo/api/breeds/image/random/5");
+          const images = response.data.message;
+          this.setState({ images, loading: false });
+        } catch (error) {
+          console.log("Error fetching dog images", error);
+        }
+      };
+
+      render() {
+        const { images, loading } = this.state;
+        return this.props.render(images, loading);
+      }
+    }
+
+    // App component
+    function App() {
+      return (
+        <div className="App">
+          <h1>Dog Images</h1>
+          <DogImages
+            render={(images, loading) => (
+              <div>
+                {loading ? (
+                  <div>Loading...</div>
+                ) : (
+                  <div className="container">
+                    {images.map((image, index) => (
+                      <img src={image} alt={`Dog ${index + 1}`} key={index} className="image" />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          />
+        </div>
+      );
+    }
+
+    // Render the App component
+    ReactDOM.render(<App />, document.getElementById("root"));
+  </script>
+</body>
+</html>
+
+<!--
+In this example, we have a DogImages component that uses a render prop. Inside the DogImages component, we fetch multiple pictures of dogs from the Unsplash API using Axios. Once the data is fetched, we update the component's state with the array of images. The component also manages a loading state to show a loading message while the data is being fetched.
+
+The App component is where we use the DogImages component. We pass a render prop to the DogImages component, which receives the images array and loading flag as arguments. Based on the loading flag, we conditionally render either a loading message or a container with the dog images. Each image is rendered as an <img> element with a unique src and alt text.
+-->
