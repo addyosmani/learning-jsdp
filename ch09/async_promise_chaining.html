@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaining Promises in JavaScript</title>
+    <style>
+        button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chaining Promises in JavaScript</h1>
+    <p>Click the button below to demonstrate promise chaining:</p>
+    <button id="chainBtn">Chain Promises</button>
+    <pre id="output"></pre>
+<!--
+In this example, we have a button that demonstrates promise chaining. When you click on the button, it fetches data using the fetchData function, processes the data using the processData function, and then displays the result in a formatted way.
+
+The fetchData function returns a promise representing the network request's result. The fetch method is used inside the function to make the HTTP request. If the request succeeds, the promise is fulfilled with the data from the response. If it fails, the promise is rejected with the error.
+
+To understand the concepts, developers can interact with this example by clicking the button and observing the output. The processData function filters the todos to only show those that are not completed. This demonstrates how you can chain promises to perform more complex async operations.    
+-->
+    <script>
+        const output = document.getElementById('output');
+        const apiUrl = 'https://jsonplaceholder.typicode.com/todos';
+
+        function printResult(result) {
+            output.innerText = JSON.stringify(result, null, 2);
+        }
+
+        function printError(error) {
+            output.innerText = `Error: ${error.message}`;
+        }
+
+        // Fetch data
+        function fetchData(url) {
+            return new Promise((resolve, reject) => {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => resolve(data))
+                    .catch(error => reject(error));
+            });
+        }
+
+        // Process data
+        function processData(data) {
+            // In this example, we filter the todos to only show those that are not completed
+            const processedData = data.filter(todo => !todo.completed);
+            return processedData;
+        }
+
+        document.getElementById('chainBtn').addEventListener('click', () => {
+            fetchData(apiUrl)
+                .then(data => processData(data))
+                .then(processedData => printResult(processedData))
+                .catch(error => printError(error));
+        });
+    </script>
+</body>
+</html>
