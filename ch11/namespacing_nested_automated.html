@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Automated Nested Namespacing Example</title>
+    <script>
+        const myApp = {};
+
+        function extend(ns, nsString) {
+            const parts = nsString.split(".");
+            let parent = ns;
+            let pl;
+
+            pl = parts.length;
+
+            for (let i = 0; i < pl; i++) {
+                if (typeof parent[parts[i]] === "undefined") {
+                    parent[parts[i]] = {};
+                }
+
+                parent = parent[parts[i]];
+            }
+
+            return parent;
+        }
+
+        const mod = extend(myApp, "modules.module2");
+
+        console.log(mod);
+        console.log(mod === myApp.modules.module2);
+
+        extend(myApp, "moduleA.moduleB.moduleC.moduleD");
+        extend(myApp, "longer.version.looks.like.this");
+        console.log(myApp);
+
+    </script>
+</head>
+
+<body>
+    <h2>Automated Nested Namespacing</h2>
+    <p>Open the browser console to see the output.</p>
+    <button onclick="console.log(myApp.modules.module2)">Log module2</button>
+    <button onclick="console.log(myApp.moduleA.moduleB.moduleC.moduleD)">Log moduleD</button>
+    <button onclick="console.log(myApp.longer.version.looks.like.this)">Log version</button>
+</body>
+
+</html>
