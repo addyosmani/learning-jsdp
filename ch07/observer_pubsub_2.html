@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Publish/Subscribe Pattern Example</title>
+  <style>
+    label {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h2>Publish/Subscribe Pattern Example</h2>
+
+  <h3>Topics</h3>
+  <div id="topicsList"></div>
+
+  <h3>Subscriptions</h3>
+  <div id="subscriptionsList"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const pubsub = (function() {
+        const topics = {};
+        let subUid = 0;
+
+        return {
+          publish: function(topic, data) {
+            if (!topics[topic]) {
+              return false;
+            }
+
+            const subscribers = topics[topic];
+            let len = subscribers ? subscribers.length : 0;
+
+            while (len--) {
+              subscribers[len].func(data);
+            }
+
+            return this;
+          },
+
+          subscribe: function(topic, func) {
+            if (!topics[topic]) {
+              topics[topic] = [];
+            }
+
+            const token = (++subUid).toString();
+            topics[topic].push({
+              token,
+              func,
+            });
+
+            return token;
+          },
+
+          unsubscribe: function(token) {
+            for (const topic in topics) {
+              if (topics.hasOwnProperty(topic)) {
+                const subscribers = topics[topic];
+                for (let i = 0; i < subscribers.length; i++) {
+                  if (subscribers[i].token === token) {
+                    subscribers.splice(i, 1);
+                    return token;
+                  }
+                }
+              }
+            }
+
+            return null;
+          }
+        };
+      })();
+
+      const topicsList = document.querySelector('#topicsList');
+      const subscriptionsList = document.querySelector('#subscriptionsList');
+
+      const createTopicCheckbox = (topic) => {
+        const label = document.createElement('label');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.dataset.topic = topic;
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(topic));
+        return label;
+      };
+
+      const createSubscriptionMessage = (topic) => {
+        const p = document.createElement('p');
+        p.textContent = `Subscribed to topic: ${topic}`;
+        return p;
+      };
+
+      const handleCheckboxChange = (event) => {
+        const checkbox = event.target;
+        const topic = checkbox.dataset.topic;
+
+        if (checkbox.checked) {
+          const token = pubsub.subscribe(topic, (data) => {
+            console.log(`Received message for topic '${topic}':`, data);
+          });
+
+          const subscriptionMessage = createSubscriptionMessage(topic);
+          subscriptionsList.appendChild(subscriptionMessage);
+
+          checkbox.dataset.token = token;
+        } else {
+          const token = checkbox.dataset.token;
+          if (token) {
+            pubsub.unsubscribe(token);
+            delete checkbox.dataset.token;
+          }
+
+          const subscriptionMessage = Array.from(subscriptionsList.children).find((elem) => {
+            return elem.textContent.includes(topic);
+          });
+
+          if (subscriptionMessage) {
+            subscriptionsList.removeChild(subscriptionMessage);
+          }
+        }
+      };
+
+      const topics = ['topic1', 'topic2', 'topic3'];
+      topics.forEach((topic) => {
+        const topicCheckbox = createTopicCheckbox(topic);
+        topicCheckbox.querySelector('input').addEventListener('change', handleCheckboxChange);
+        topicsList.appendChild(topicCheckbox);
+      });
+    });
+  </script>
+</body
