@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Flyweight Design Pattern Example</title>
+  </head>
+  <body>
+    <h1>Flyweight Design Pattern Example</h1>
+    <button id="runButton">Run Flyweight</button>
+    <div id="output"></div>
+
+    <script>
+      // Book class representing individual books
+      class Book {
+        constructor(
+          id,
+          title,
+          author,
+          genre,
+          pageCount,
+          publisherID,
+          ISBN,
+          checkoutDate,
+          checkoutMember,
+          dueReturnDate,
+          availability
+        ) {
+          this.id = id;
+          this.title = title;
+          this.author = author;
+          this.genre = genre;
+          this.pageCount = pageCount;
+          this.publisherID = publisherID;
+          this.ISBN = ISBN;
+          this.checkoutDate = checkoutDate;
+          this.checkoutMember = checkoutMember;
+          this.dueReturnDate = dueReturnDate;
+          this.availability = availability;
+        }
+
+        getTitle() {
+          return this.title;
+        }
+
+        getAuthor() {
+          return this.author;
+        }
+
+        getISBN() {
+          return this.ISBN;
+        }
+
+        updateCheckoutStatus(
+          bookID,
+          newStatus,
+          checkoutDate,
+          checkoutMember,
+          newReturnDate
+        ) {
+          this.id = bookID;
+          this.availability = newStatus;
+          this.checkoutDate = checkoutDate;
+          this.checkoutMember = checkoutMember;
+          this.dueReturnDate = newReturnDate;
+        }
+
+        extendCheckoutPeriod(bookID, newReturnDate) {
+          this.id = bookID;
+          this.dueReturnDate = newReturnDate;
+        }
+
+        isPastDue(bookID) {
+          const currentDate = new Date();
+          return currentDate.getTime() > Date.parse(this.dueReturnDate);
+        }
+      }
+
+      // Flyweight Factory for managing book instances
+      class BookFactory {
+        constructor() {
+          this.books = {};
+        }
+
+        getBook(
+          id,
+          title,
+          author,
+          genre,
+          pageCount,
+          publisherID,
+          ISBN,
+          checkoutDate,
+          checkoutMember,
+          dueReturnDate,
+          availability
+        ) {
+          let book = this.books[id];
+          if (!book) {
+            book = new Book(
+              id,
+              title,
+              author,
+              genre,
+              pageCount,
+              publisherID,
+              ISBN,
+              checkoutDate,
+              checkoutMember,
+              dueReturnDate,
+              availability
+            );
+            this.books[id] = book;
+          }
+          return book;
+        }
+
+        getTotalBooks() {
+          return Object.keys(this.books).length;
+        }
+      }
+
+      // Button click event
+      const runButton = document.getElementById('runButton');
+      runButton.addEventListener('click', function () {
+        testFlyweight();
+      });
+
+      // Test Flyweight
+      function testFlyweight() {
+        const bookFactory = new BookFactory();
+
+        const book1 = bookFactory.getBook(
+          '123',
+          'The Great Gatsby',
+          'F. Scott Fitzgerald',
+          'Classic',
+          180,
+          'Penguin',
+          '978-0141182636',
+          null,
+          null,
+          null,
+          'Available'
+        );
+
+        const book2 = bookFactory.getBook(
+          '456',
+          'To Kill a Mockingbird',
+          'Harper Lee',
+          'Classic',
+          281,
+          'HarperCollins',
+          '978-0061120084',
+          null,
+          null,
+          null,
+          null,
+          'Available'
+          );
+
+            const book3 = bookFactory.getBook(
+      '789',
+      'Harry Potter and the Sorcerer\'s Stone',
+      'J.K. Rowling',
+      'Fantasy',
+      320,
+      'Scholastic',
+      '978-0590353427',
+      null,
+      null,
+      null,
+      'Available'
+    );
+
+    const book4 = bookFactory.getBook(
+      '123',
+      'The Great Gatsby',
+      'F. Scott Fitzgerald',
+      'Classic',
+      180,
+      'Penguin',
+      '978-0141182636',
+      null,
+      null,
+      null,
+      'Available'
+    );
+
+    const output = document.getElementById('output');
+    output.innerHTML = `
+      <p><strong>Total Books Created:</strong> ${bookFactory.getTotalBooks()}</p>
+      <h3>Book Details</h3>
+      <ul>
+        <li>${book1.getTitle()} by ${book1.getAuthor()} - ISBN: ${book1.getISBN()}</li>
+        <li>${book2.getTitle()} by ${book2.getAuthor()} - ISBN: ${book2.getISBN()}</li>
+        <li>${book3.getTitle()} by ${book3.getAuthor()} - ISBN: ${book3.getISBN()}</li>
+        <li>${book4.getTitle()} by ${book4.getAuthor()} - ISBN: ${book4.getISBN()}</li>
+      </ul>
+    `;
+  }
+</script>
