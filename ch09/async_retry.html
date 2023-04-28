@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retrying an Async Operation on Failure</title>
+  <style>
+    button {
+      margin-top: 10px;
+    }
+    pre {
+      background-color: #f7f7f7;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Retrying an Async Operation on Failure</h1>
+  <button id="retryButton">Retry</button>
+  <pre id="output"></pre>
+
+  <script>
+    async function makeRequest(url) {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    async function retry(fn, maxRetries = 3, retryDelay = 1000) {
+      let retries = 0;
+
+      while (retries <= maxRetries) {
+        try {
+          return await fn();
+        } catch (error) {
+          retries++;
+          console.error(error);
+          await new Promise(resolve => setTimeout(resolve, retryDelay));
+        }
+      }
+
+      throw new Error(`Failed after ${retries} retries.`);
+    }
+
+    const retryButton = document.getElementById('retryButton');
+    const output = document.getElementById('output');
+
+    retryButton.addEventListener('click', async () => {
+      output.innerText = '';
+
+      try {
+        const data = await retry(() => makeRequest('https://jsonplaceholder.typicode.com/posts/1'));
+        output.innerText = JSON.stringify(data, null, 2);
+      } catch (error) {
+        output.innerText = `Error: ${error.message}`;
+      }
+    });
+  </script>
+</body>
+</html>
