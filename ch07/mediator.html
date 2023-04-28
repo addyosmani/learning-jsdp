@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediator Pattern Interactive Example</title>
+    <style>
+        button {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mediator Pattern Interactive Example</h1>
+    <button id="addEmployee">Add New Employee</button>
+    <div id="app"></div>
+    <script>
+        // Mediator
+        const orgChart = {
+            employees: [],
+            addNewEmployee() {
+                const employeeDetail = this.getEmployeeDetail();
+                employeeDetail.on('complete', employee => {
+                    const managerSelector = this.selectManager(employee);
+                    managerSelector.on('save', employee => {
+                        employee.save();
+                        this.employees.push(employee);
+                        console.log('Employee saved:', employee);
+                    });
+                });
+            },
+    
+            getEmployeeDetail() {
+                const detailContainer = document.createElement('div');
+                const nameInput = document.createElement('input');
+                nameInput.placeholder = 'Employee Name';
+                detailContainer.appendChild(nameInput);
+                const roleInput = document.createElement('input');
+                roleInput.placeholder = 'Employee Role';
+                detailContainer.appendChild(roleInput);
+                const submitBtn = document.createElement('button');
+                submitBtn.textContent = 'Submit';
+                detailContainer.appendChild(submitBtn);
+    
+                const eventHandlers = {};
+    
+                submitBtn.addEventListener('click', () => {
+                    const employee = new Employee(nameInput.value, roleInput.value);
+                    if (eventHandlers['complete']) {
+                        eventHandlers['complete'](employee);
+                    }
+                });
+    
+                document.getElementById('app').appendChild(detailContainer);
+    
+                return {
+                    on(event, callback) {
+                        eventHandlers[event] = callback;
+                    }
+                };
+            },
+    
+            selectManager(employee) {
+                const managerContainer = document.createElement('div');
+                const managerInput = document.createElement('input');
+                managerInput.placeholder = 'Manager Name';
+                managerContainer.appendChild(managerInput);
+                const saveBtn = document.createElement('button');
+                saveBtn.textContent = 'Save';
+                managerContainer.appendChild(saveBtn);
+    
+                const eventHandlers = {};
+    
+                saveBtn.addEventListener('click', () => {
+                    employee.manager = managerInput.value;
+                    if (eventHandlers['save']) {
+                        eventHandlers['save'](employee);
+                    }
+                });
+    
+                document.getElementById('app').appendChild(managerContainer);
+    
+                return {
+                    on(event, callback) {
+                        eventHandlers[event] = callback;
+                    }
+                };
+            }
+        };
+    
+        // Employee class
+        class Employee {
+            constructor(name, role) {
+                this.name = name;
+                this.role = role;
+                this.manager = null;
+            }
+    
+            save() {
+                console.log(`${this.name} (${this.role}) saved with manager ${this.manager}`);
+            }
+        }
+    
+        // Add event listener to the Add New Employee button
+        document.getElementById('addEmployee').addEventListener('click', () => {
+            orgChart.addNewEmployee();
+        });
+    
+    </script>
+    </body>
+    </html>    
