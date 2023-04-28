@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Deeply Nested Object Literal Notation Example</title>
+    <script>
+        const myApplication = {
+            getInfo() {
+                console.log('Application Information');
+            },
+            models: {
+                user: {
+                    login() {
+                        console.log('User Logged In');
+                    },
+                    logout() {
+                        console.log('User Logged Out');
+                    }
+                }
+            },
+            views: {
+                pages: {
+                    home: {
+                        show() {
+                            console.log('Home Page Shown');
+                        }
+                    },
+                    about: {
+                        show() {
+                            console.log('About Page Shown');
+                        }
+                    }
+                }
+            },
+            collections: {}
+        };
+
+    </script>
+</head>
+
+<body>
+    <button onclick="myApplication.views.pages.home.show()">Show Home Page</button>
+    <button onclick="myApplication.views.pages.about.show()">Show About Page</button>
+    <button onclick="myApplication.models.user.login()">Login</button>
+    <button onclick="myApplication.models.user.logout()">Logout</button>
+</body>
+
+</html>
