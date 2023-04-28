@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3 MVC Example</title>
+  <script src="https://unpkg.com/vue@3.2.23/dist/vue.global.prod.js"></script>
+</head>
+<body>
+  <div id="app">
+    <photo-list :photos="photos"></photo-list>
+  </div>
+  <script>
+    window.addEventListener('load', () => {
+      // Model
+      const photos = [
+            { caption: 'Sample Photo 1', src: 'https://via.placeholder.com/300x200?text=Sample+Photo+1', metadata: 'Some metadata for photo 1' },
+            { caption: 'Sample Photo 2', src: 'https://via.placeholder.com/300x200?text=Sample+Photo+2', metadata: 'Some metadata for photo 2' },
+    ];
+
+      // View
+      const Photo = {
+        props: ['photo'],
+        template: `
+          <li class="photo">
+            <h2>{{ photo.caption }}</h2>
+            <img class="source" :src="photo.src" />
+            <div class="metadata">{{ photo.metadata }}</div>
+          </li>
+        `
+      };
+
+      // Controller
+      const PhotoList = {
+        components: { Photo },
+        props: ['photos'],
+        template: `
+          <ul>
+            <photo v-for="(photo, index) in photos" :key="index" :photo="photo"></photo>
+          </ul>
+        `
+      };
+
+      // Create Vue 3 app and mount it to the DOM
+      const app = Vue.createApp({
+        data() {
+          return {
+            photos
+          };
+        },
+        components: {
+          'photo-list': PhotoList
+        }
+      });
+      app.component('photo', Photo);
+      app.mount('#app');
+    });
+  </script>
+</body>
+</html>
