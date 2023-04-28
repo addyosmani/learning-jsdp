@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pub/Sub Example</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+  <script>
+/*! Tiny Pub/Sub - v0.7.0 - 2013-01-29
+* https://github.com/cowboy/jquery-tiny-pubsub
+* Copyright (c) 2013 "Cowboy" Ben Alman; Licensed MIT */
+(function(n){var u=n({});n.subscribe=function(){u.on.apply(u,arguments)},n.unsubscribe=function(){u.off.apply(u,arguments)},n.publish=function(){u.trigger.apply(u,arguments)}})(jQuery);    
+  </script>
+</head>
+<body>
+  <script id="userTemplate" type="text/html">
+    <li><%- name %></li>
+  </script>
+
+  <script id="ratingsTemplate" type="text/html">
+    <li><strong><%- title %></strong> was rated <%- rating %>/5</li>
+  </script>
+
+  <div id="container">
+    <div class="sampleForm">
+      <p>
+        <label for="twitter_handle">Twitter handle:</label>
+        <input type="text" id="twitter_handle" />
+      </p>
+      <p>
+        <label for="movie_seen">Name a movie you've seen this year:</label>
+        <input type="text" id="movie_seen" />
+      </p>
+      <p>
+        <label for="movie_rating">Rate the movie you saw:</label>
+        <select id="movie_rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5" selected>5</option>
+        </select>
+      </p>
+      <p>
+        <button id="add">Submit rating</button>
+      </p>
+    </div>
+
+    <div class="summaryTable">
+      <div id="users"><h3>Recent users</h3></div>
+      <div id="ratings"><h3>Recent movies rated</h3></div>
+    </div>
+  </div>
+
+  <script>
+    ;($ => {
+      // Pre-compile templates and "cache" them using closure
+      const userTemplate = _.template($('#userTemplate').html());
+      const ratingsTemplate = _.template($('#ratingsTemplate').html());
+
+      // Subscribe to the new user topic, which adds a user
+      // to a list of users who have submitted reviews
+      $.subscribe('/new/user', (e, data) => {
+        if (data) {
+          $('#users').append(userTemplate(data));
+        }
+      });
+
+      // Subscribe to the new rating topic. This is composed of a title and
+      // rating. New ratings are appended to a running list of added user
+      // ratings.
+      $.subscribe('/new/rating', (e, data) => {
+        if (data) {
+          $('#ratings').append(ratingsTemplate(data));
+        }
+      });
+
+      // Handler for adding a new user
+      $('#add').on('click', e => {
+        e.preventDefault();
+
+        const strUser = $('#twitter_handle').val();
+        const strMovie = $('#movie_seen').val();
+        const strRating = $('#movie_rating').val();
+
+        // Inform the application a new user is available
+        $.publish('/new/user', {
+          name: strUser,
+        });
+
+        // Inform the app a new rating is available
+        $.publish('/new/rating', {
+          title: strMovie,
+          rating: strRating,
+        });
+      });
+    })(jQuery);
+  </script>
+</body>
+</html>
