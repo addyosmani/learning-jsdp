@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Memoization in JavaScript</title>
+    <style>
+        button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<!--
+    In this example, we have two buttons that demonstrate promise memoization. The "Fetch Data 1" and "Fetch Data 2" buttons fetch data from two different endpoints using the memoizedFetchData function, which caches the results to avoid making duplicate requests. The fetched data is then displayed in a formatted way.
+-->
+    <h1>Promise Memoization in JavaScript</h1>
+    <p>Click the buttons below to demonstrate promise memoization:</p>
+    <button id="fetchData1">Fetch Data 1</button>
+    <button id="fetchData2">Fetch Data 2</button>
+    <pre id="output"></pre>
+    <script>
+        const output = document.getElementById('output');
+        const apiUrl1 = 'https://jsonplaceholder.typicode.com/todos/1';
+        const apiUrl2 = 'https://jsonplaceholder.typicode.com/todos/2';
+
+        function printResult(result) {
+            output.innerText = JSON.stringify(result, null, 2);
+        }
+
+        const cache = new Map();
+
+        function memoizedFetchData(url) {
+            if (cache.has(url)) {
+                return cache.get(url);
+            }
+
+            return new Promise((resolve, reject) => {
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        cache.set(url, Promise.resolve(data));
+                        resolve(data);
+                    })
+                    .catch(error => reject(error));
+            });
+        }
+
+        document.getElementById('fetchData1').addEventListener('click', () => {
+            memoizedFetchData(apiUrl1)
+                .then(data => printResult(data))
+                .catch(error => {
+                    output.innerText = `Error: ${error.message}`;
+                });
+        });
+
+        document.getElementById('fetchData2').addEventListener('click', () => {
+            memoizedFetchData(apiUrl2)
+                .then(data => printResult(data))
+                .catch(error => {
+                    output.innerText = `Error: ${error.message}`;
+                });
+        });
+    </script>
+</body>
+</html>
