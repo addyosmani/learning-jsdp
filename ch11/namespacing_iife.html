@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>IIFE Namespacing Patterns Example</title>
+    <script>
+        // Object Literal Namespacing Pattern
+
+        // Example 1: Basic Object Literal Namespacing
+        const namespace = {};
+        ((o) => {
+            o.foobar = "foobar";
+            o.sayHello = () => {
+                console.log("Hello");
+            };
+        })(namespace);
+
+        // Example 2: Enhanced Object Literal Namespacing
+        ((namespace, undefined) => {
+            const foo = "foo";
+            const bar = "bar";
+            namespace.foobar = "foobar";
+            namespace.sayHello = () => {
+                speak("Hello World");
+            };
+            namespace.sayGoodbye = () => {
+                speak("Goodbye peeps");
+            };
+            function speak(msg) {
+                console.log(`You said: ${msg}`);
+            }
+        })(window.namespace2 = window.namespace2 || {});
+
+        // Namespace Injection Pattern
+
+        // Example 3: Namespace Injection
+        const myApp = {};
+        myApp.utils = {};
+        (function () {
+            let val = 5;
+            this.getValue = () => val;
+            this.setValue = (newVal) => {
+                val = newVal;
+            };
+            this.tools = {};
+        }.apply(myApp.utils));
+        (function () {
+            this.diagnose = () => "Diagnosis";
+        }.apply(myApp.utils.tools));
+
+    </script>
+</head>
+
+<body>
+    <h2>Object Literal Namespacing Pattern</h2>
+    <p>Open the browser console to see the output.</p>
+
+    <h3>Example 1: Basic Object Literal Namespacing</h3>
+    <button onclick="namespace.sayHello()">Say Hello</button>
+    <button onclick="console.log(namespace.foobar)">Log foobar</button>
+
+    <h3>Example 2: Enhanced Object Literal Namespacing</h3>
+    <button onclick="namespace2.sayGoodbye()">Say Goodbye</button>
+
+    <h2>Namespace Injection Pattern</h2>
+    <h3>Example 3: Namespace Injection</h3>
+    <button onclick="console.log(myApp.utils.getValue())">Log Value</button>
+    <button onclick="myApp.utils.setValue(25)">Set Value</button>
+    <button onclick="console.log(myApp.utils.getValue())">Log Value</button>
+    <button onclick="console.log(myApp.utils.tools.diagnose())">Diagnose</button>
+</body>
+
+</html>
