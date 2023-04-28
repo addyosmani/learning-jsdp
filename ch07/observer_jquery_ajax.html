@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ajax-based jQuery Application with Pub/Sub</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+  <script>
+    /*! Tiny Pub/Sub - v0.7.0 - 2013-01-29
+    * https://github.com/cowboy/jquery-tiny-pubsub
+    * Copyright (c) 2013 "Cowboy" Ben Alman; Licensed MIT */
+    (function(n){var u=n({});n.subscribe=function(){u.on.apply(u,arguments)},n.unsubscribe=function(){u.off.apply(u,arguments)},n.publish=function(){u.trigger.apply(u,arguments)}})(jQuery);    
+      </script>
+</head>
+<body>
+  <h1>Flickr Image Search</h1>
+  <form id="flickrSearch">
+    <input type="text" name="tag" id="query" />
+    <input type="submit" name="submit" value="Submit" />
+  </form>
+
+  <div id="lastQuery"></div>
+  <ol id="searchResults"></ol>
+
+  <script id="resultTemplate" type="text/html">
+    <% _.each(items, function(item) { %>
+      <li><img src="<%= item.media.m %>" /></li>
+    <% }); %>
+  </script>
+
+  <script>
+    ($ => {
+      // Pre-compile template and "cache" it using closure
+      const resultTemplate = _.template($('#resultTemplate').html());
+
+      // Subscribe to the new search tags topic
+      $.subscribe('/search/tags', (e, tags) => {
+        $('#lastQuery').html(`Searched for: ${tags}`);
+      });
+
+      // Subscribe to the new results topic
+      $.subscribe('/search/resultSet', (e, results) => {
+        $('#searchResults')
+          .empty()
+          .append(resultTemplate(results));
+      });
+
+      // Submit a search query and publish tags on the /search/tags topic
+      $('#flickrSearch').submit(function(e) {
+        e.preventDefault();
+        const tags = $(this)
+          .find('#query')
+          .val();
+
+        if (!tags) {
+          return;
+        }
+
+        $.publish('/search/tags', [$.trim(tags)]);
+      });
+
+      // Subscribe to new tags being published and perform a search query 
+      // using them. Once data has returned, publish this data for the rest
+      // of the application to consume.
+      $.subscribe('/search/tags', (e, tags) => {
+        $.getJSON(
+          'http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?',
+          {
+            tags,
+            tagmode: 'any',
+            format: 'json',
+          },
+          ({ items }) => {
+            if (!items.length) {
+              return;
+            }
+            $.publish('/search/resultSet', { items });
+          }
+        );
+      });
+    })(jQuery);
+  </script>
+</body>
+</html>
