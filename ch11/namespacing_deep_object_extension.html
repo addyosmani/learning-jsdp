@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Deep Object Extension Example</title>
+    <script>
+        /*
+        In this example, we have an HTML file (index.html) that includes buttons to log different parts of the myNamespace object. The JavaScript file (script.js) implements the deep object extension pattern using the extendObjects function.
+    
+    The extendObjects function recursively iterates over the source object and deeply extends the destination object using Object.assign. It checks if a property is an object (excluding arrays) and creates a new nested object in the destination if necessary.
+    
+    The buttons trigger console logs to showcase different levels of the extended myNamespace object.
+        */
+        function extendObjects(destinationObject, sourceObject) {
+  for (const property in sourceObject) {
+    if (
+      sourceObject[property] &&
+      typeof sourceObject[property] === "object" &&
+      !Array.isArray(sourceObject[property])
+    ) {
+      destinationObject[property] = destinationObject[property] || {};
+      extendObjects(destinationObject[property], sourceObject[property]);
+    } else {
+      destinationObject[property] = sourceObject[property];
+    }
+  }
+  return destinationObject;
+}
+
+const myNamespace = {};
+
+extendObjects(myNamespace, {
+  utils: {},
+});
+
+console.log("test 1", myNamespace);
+
+extendObjects(myNamespace, {
+  hello: {
+    world: {
+      wave: {
+        test() {
+          console.log("Hello, world!");
+        },
+      },
+    },
+  },
+});
+
+myNamespace.hello.test1 = "This is a test";
+myNamespace.hello.world.test2 = "This is another test";
+console.log("test 2", myNamespace);
+
+myNamespace.library = {
+  foo() {
+    console.log("Foo");
+  },
+};
+
+extendObjects(myNamespace, {
+  library: {
+    bar() {
+      console.log("Bar");
+    },
+  },
+});
+
+console.log("test 3", myNamespace);
+
+const shorterNamespaceAccess = myNamespace.hello.world;
+shorterNamespaceAccess.test3 = "Hello again";
+console.log("test 4", myNamespace);
+
+
+    </script>
+</head>
+
+<body>
+    <h2>Deep Object Extension</h2>
+    <p>Open the browser console to see the output.</p>
+    <button onclick="console.log(myNamespace)">Log myNamespace</button>
+    <button onclick="console.log(myNamespace.hello.world)">Log hello.world</button>
+    <button onclick="console.log(myNamespace.library)">Log library</button>
+    <button onclick="console.log(myNamespace.hello.world.test3)">Log test3</button>
+</body>
+
+</html>
