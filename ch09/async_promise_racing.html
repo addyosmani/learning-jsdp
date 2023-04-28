@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Race in JavaScript</title>
+    <style>
+        button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        In this example, we have a button that demonstrates promise racing. The "Start Promise Race" button fetches data concurrently from two different endpoints using the Promise.race() method. The result of the first one to settle will be displayed in a formatted way.
+    -->
+    <h1>Promise Race in JavaScript</h1>
+    <p>Click the button below to demonstrate a promise race:</p>
+    <button id="startPromiseRace">Start Promise Race</button>
+    <pre id="output"></pre>
+    <script>
+        const output = document.getElementById('output');
+        const apiUrl1 = 'https://jsonplaceholder.typicode.com/todos/1';
+        const apiUrl2 = 'https://jsonplaceholder.typicode.com/todos/2';
+
+        function printResult(result) {
+            output.innerText = JSON.stringify(result, null, 2);
+        }
+
+        function makeRequest(url) {
+            return new Promise((resolve, reject) => {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => resolve(data))
+                    .catch(error => reject(error));
+            });
+        }
+
+        document.getElementById('startPromiseRace').addEventListener('click', () => {
+            Promise.race([
+                makeRequest(apiUrl1),
+                makeRequest(apiUrl2)
+            ]).then(data => {
+                printResult(data);
+            }).catch(error => {
+                output.innerText = `Error: ${error.message}`;
+            });
+        });
+    </script>
+</body>
+</html>
