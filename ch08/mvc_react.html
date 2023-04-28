@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React MVC Example</title>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        /*
+          In this example, I've created a simple Model (an array of photo objects), a View component Photo that receives photo data as props, and a Controller component PhotoList that maps over the photos and renders a Photo component for each item. The application is then rendered using ReactDOM.render.
+        */
+        // Model
+        const photos = [
+            { caption: 'Sample Photo 1', src: 'https://via.placeholder.com/300x200?text=Sample+Photo+1', metadata: 'Some metadata for photo 1' },
+            { caption: 'Sample Photo 2', src: 'https://via.placeholder.com/300x200?text=Sample+Photo+2', metadata: 'Some metadata for photo 2' },
+        ];
+
+        // View
+        function Photo(props) {
+            const { photo } = props;
+            return (
+                <li className="photo">
+                    <h2>{photo.caption}</h2>
+                    <img className="source" src={photo.src} />
+                    <div className="metadata">{photo.metadata}</div>
+                </li>
+            );
+        }
+
+        // Controller
+        function PhotoList(props) {
+            const { photos } = props;
+            return (
+                <ul>
+                    {photos.map((photo, index) => (
+                        <Photo key={index} photo={photo} />
+                    ))}
+                </ul>
+            );
+        }
+
+        // Render the application
+        ReactDOM.render(<PhotoList photos={photos} />, document.getElementById('root'));
+    </script>
+</body>
+
+</html>
