@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Hooks Example</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+  <style>
+    /* Add some basic styling */
+    body { font-family: Arial, sans-serif; }
+    .search-bar { margin-bottom: 1rem; }
+    .tweet-list { margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    // Sample tweets data
+    const tweets = [
+      { id: 1, text: 'Hello, world!', location: 'New York' },
+      { id: 2, text: 'React is awesome!', location: 'San Francisco' },
+      { id: 3, text: 'I love programming!', location: 'New York' },
+    ];
+
+    const SearchBar = ({ filterText, inThisLocation, setFilterText, setInThisLocation }) => {
+      const handleFilterTextChange = (e) => {
+        setFilterText(e.target.value);
+      };
+
+      const handleInThisLocationChange = (e) => {
+        setInThisLocation(e.target.checked);
+      };
+
+      return (
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search tweets..."
+            value={filterText}
+            onChange={handleFilterTextChange}
+          />
+          <label>
+            <input
+              type="checkbox"
+              checked={inThisLocation}
+              onChange={handleInThisLocationChange}
+            />
+            Only show tweets from New York
+          </label>
+        </div>
+      );
+    }
+
+    const TweetList = ({ tweets, filterText, inThisLocation }) => {
+      const filteredTweets = tweets.filter(tweet => {
+        if (inThisLocation && tweet.location !== 'New York') {
+          return false;
+        }
+        return tweet.text.toLowerCase().includes(filterText.toLowerCase());
+      });
+
+      return (
+        <div className="tweet-list">
+          <ul>
+            {filteredTweets.map(tweet => (
+              <li key={tweet.id}>{tweet.text}</li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    const TweetSearchResults = ({tweets}) => {
+      const [filterText, setFilterText] = React.useState('');
+      const [inThisLocation, setInThisLocation] = React.useState(false);
+      return (
+        <div>
+          <SearchBar
+            filterText={filterText}
+            inThisLocation={inThisLocation}
+            setFilterText={setFilterText}
+            setInThisLocation={setInThisLocation}
+          />
+          <TweetList
+            tweets={tweets}
+            filterText={filterText}
+            inThisLocation={inThisLocation}
+          />
+        </div>
+      );
+    }
+
+    ReactDOM.render(
+      <TweetSearchResults tweets={tweets} />,
+      document.getElementById('root')
+    );
+  </script>
+</body>
+</html>
