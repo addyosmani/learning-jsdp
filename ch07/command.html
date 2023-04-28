@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Pattern Interactive Example with List</title>
+    <style>
+        button {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Command Pattern Interactive Example with List</h1>
+    <ul id="carList">
+        <li>
+            <input type="checkbox" id="car1" data-model="Ford Mondeo" data-id="54323" data-info="The Ford Mondeo is a mid-size car with great fuel efficiency.">
+            <label for="car1">Ford Mondeo (ID: 54323)</label>
+        </li>
+        <li>
+            <input type="checkbox" id="car2" data-model="Ford Escort" data-id="34232" data-info="The Ford Escort is a compact car known for its reliability and affordable price.">
+            <label for="car2">Ford Escort (ID: 34232)</label>
+        </li>
+        <li>
+            <input type="checkbox" id="car3" data-model="Ferrari" data-id="14523" data-info="The Ferrari is a luxury sports car with high performance and stunning design.">
+            <label for="car3">Ferrari (ID: 14523)</label>
+        </li>
+    </ul>
+    <button id="requestInfo">Request Car Information</button>
+    <button id="buyVehicle">Buy Car</button>
+    <button id="arrangeViewing">Arrange Viewing</button>
+    <div id="output"></div>
+    <script>
+        const CarManager = {
+            requestInfo(model, id, info) {
+                return `The information for ${model} with ID ${id} is: ${info}`;
+            },
+    
+            buyVehicle(model, id) {
+                return `You have successfully purchased Item ${id}, a ${model}`;
+            },
+    
+            arrangeViewing(model, id) {
+                return `You have booked a viewing of ${model} ( ${id} ) `;
+            }
+        };
+    
+        CarManager.execute = function(name) {
+            return (
+                CarManager[name] &&
+                CarManager[name].apply(CarManager, [].slice.call(arguments, 1))
+            );
+        };
+    
+        const getCheckedCar = () => {
+            const checkboxes = document.querySelectorAll('#carList input[type="checkbox"]');
+            let checkedCar = null;
+    
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedCar = {
+                        model: checkbox.dataset.model,
+                        id: checkbox.dataset.id,
+                        info: checkbox.dataset.info
+                    };
+                }
+            });
+    
+            return checkedCar;
+        };
+    
+        document.getElementById('requestInfo').addEventListener('click', () => {
+            const car = getCheckedCar();
+    
+            if (car) {
+                const result = CarManager.execute('requestInfo', car.model, car.id, car.info);
+                document.getElementById('output').innerHTML = result;
+            } else {
+                alert('Please select a car.');
+            }
+        });
+    
+        document.getElementById('buyVehicle').addEventListener('click', () => {
+            const car = getCheckedCar();
+    
+            if (car) {
+                const result = CarManager.execute('buyVehicle', car.model, car.id);
+                document.getElementById('output').innerHTML = result;
+            } else {
+                alert('Please select a car.');
+            }
+        });
+    
+        document.getElementById('arrangeViewing').addEventListener('click', () => {
+            const car = getCheckedCar();
+    
+            if (car) {
+                const result = CarManager.execute('arrangeViewing', car.model, car.id);
+            document.getElementById('output').innerHTML = result;
+        } else {
+            console.log('Please select a car.');
+        }
+    });
+</script>
