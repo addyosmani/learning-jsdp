@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async Function Composition in JavaScript</title>
+  <style>
+    button {
+      margin-top: 10px;
+    }
+    pre {
+      background-color: #f7f7f7;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!--
+    In this example, we have a button labeled "Start Async Composition" that demonstrates async function composition. When the button is clicked, the main() function is invoked. The makeRequest() function makes an asynchronous request to an API endpoint using fetch() and awaits the response. Then, the processData() function simulates data processing by waiting for 2 seconds using setTimeout(). Finally, the processed data is displayed in the <pre> element.
+  -->
+  <h1>Async Function Composition in JavaScript</h1>
+  <p>Click the button below to demonstrate async function composition:</p>
+  <button id="startAsyncComposition">Start Async Composition</button>
+  <pre id="output"></pre>
+  <script>
+    const output = document.getElementById('output');
+
+    async function makeRequest(url) {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data;
+    }
+
+    async function processData(data) {
+      // Simulating data processing
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      const processedData = `Processed data: ${data.title}`;
+      return processedData;
+    }
+
+    async function main() {
+      try {
+        const data = await makeRequest('https://jsonplaceholder.typicode.com/posts/1');
+        const processedData = await processData(data);
+        output.innerText = processedData;
+      } catch (error) {
+        output.innerText = `Error: ${error.message}`;
+      }
+    }
+
+    document.getElementById('startAsyncComposition').addEventListener('click', () => {
+      main();
+    });
+  </script>
+</body>
+</html>
