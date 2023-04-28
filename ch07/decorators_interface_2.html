@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>MacBook Decorators Example</title>
+  </head>
+  <body>
+    <h1>MacBook Decorators Example</h1>
+    <form id="decoratorForm">
+      <label for="engravingCheckbox">Engraving</label>
+      <input type="checkbox" id="engravingCheckbox" />
+      <br />
+      <label for="parallelsCheckbox">Parallels</label>
+      <input type="checkbox" id="parallelsCheckbox" />
+      <br />
+      <label for="ramSelect">RAM:</label>
+      <select id="ramSelect">
+        <option value="4">4GB</option>
+        <option value="8">8GB</option>
+      </select>
+      <br />
+      <label for="caseCheckbox">Case</label>
+      <input type="checkbox" id="caseCheckbox" />
+      <br />
+      <button type="submit">Create MacBook</button>
+    </form>
+    <div id="macBookOutput"></div>
+
+    <script>
+      // Interface constructor
+      function Interface(name, methods) {
+        if (arguments.length !== 2) {
+          throw new Error('Interface constructor called with ' + arguments.length + ' arguments, but expected exactly 2.');
+        }
+        this.name = name;
+        this.methods = [];
+        for (let i = 0; i < methods.length; i++) {
+          if (typeof methods[i] !== 'string') {
+            throw new Error('Interface constructor expects method names to be passed in as strings.');
+          }
+          this.methods.push(methods[i]);
+        }
+      }
+
+      // Ensure implementation of an interface
+      Interface.ensureImplements = function (object, ...interfaces) {
+        if (arguments.length < 2) {
+          throw new Error('Function Interface.ensureImplements called with ' + arguments.length + ' arguments, but expected at least 2.');
+        }
+
+        for (let i = 0; i < interfaces.length; i++) {
+          const interfaceInstance = interfaces[i];
+          if (interfaceInstance.constructor !== Interface) {
+            throw new Error('Function Interface.ensureImplements expects arguments two and above to be instances of Interface.');
+          }
+
+          for (let j = 0; j < interfaceInstance.methods.length; j++) {
+            const method = interfaceInstance.methods[j];
+            if (!object[method] || typeof object[method] !== 'function') {
+              throw new Error('Function Interface.ensureImplements: object does not implement the ' + interfaceInstance.name + ' interface. Method ' + method + ' was not found.');
+            }
+          }
+        }
+      };
+
+      // Define MacBook interface
+      const MacBook = new Interface('MacBook', [
+        'addEngraving',
+        'addParallels',
+        'add4GBRam',
+        'add8GBRam',
+        'addCase',
+        'getPrice',
+      ]);
+
+      // MacBook Pro class
+      class MacBookPro {
+        addEngraving() {
+          return 'Added Engraving';
+        }
+
+        addParallels() {
+          return 'Added Parallels';
+        }
+
+        add4GBRam() {
+          return 'Added 4GB RAM';
+        }
+
+        add8GBRam() {
+          return 'Added 8GB RAM';
+        }
+
+        addCase() {
+          return 'Added Case';
+        }
+
+        getPrice() {
+          return 900.0;
+        }
+      }
+
+      // Abstract Decorator class
+      class MacBookDecorator {
+        constructor(macbook) {
+          Interface.ensureImplements(macbook, MacBook);
+          this.macbook = macbook;
+        }
+
+        addEngraving() {
+          return this.macbook.addEngraving();
+        }
+
+        addParallels() {
+          return this.macbook.addParallels();
+        }
+
+        add4GBRam() {
+          return this.macbook.add4GBRam();
+        }
+
+        add8GBRam() {
+          return this.macbook.add8GBRam();
+        }
+
+        addCase() {
+          return this.macbook.addCase();
+        }
+
+        getPrice() {
+          return this.macbook.getPrice();
+        }
+      }
+
+      // Decorator form
+      const decoratorForm = document.getElementById('decoratorForm');
+      decoratorForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const engravingCheckbox = document.getElementById('engravingCheckbox');
+        const parallelsCheckbox = document.getElementById('parallelsCheckbox');
+        const ramSelect = document.getElementById('ramSelect');
+        const caseCheckbox = document.getElementById('caseCheckbox');
+
+        let macBook = new MacBookPro();
+
+        if (engravingCheckbox.checked) {
+          macBook = new MacBookDecorator(macBook);
+        }
+
+        if (parallelsCheckbox.checked) {
+          macBook = new MacBookDecorator(macBook);
+        }
+
+        if (ramSelect.value === '4') {
+          macBook = new MacBookDecorator(macBook);
+        }
+
+        if (caseCheckbox.checked) {
+          macBook = new MacBookDecorator(macBook);
+        }
+
+        displayMacBook(macBook);
+      });
+
+      // Display MacBook details
+      function displayMacBook(macBook) {
+        const output = document.getElementById('macBookOutput');
+        output.innerHTML = `
+          <p>${macBook.addEngraving()}</p>
+          <p>${macBook.addParallels()}</p>
+          <p>${macBook.add4GBRam()}</p>
+          <p>${macBook.add8GBRam()}</p>
+          <p>${macBook.addCase()}</p>
+          <p><strong>Price:</strong> $${macBook.getPrice()}</p>
+        `;
+      }
+    </script>
+  </body>
+</html>
