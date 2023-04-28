@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Decorator in JavaScript</title>
+    <style>
+        button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        In this example, we have a button that demonstrates a promise decorator. The "Fetch Data with Logger" button fetches data from an endpoint using the makeRequestWithLogger function, which logs when the request starts and completes. The fetched data is then displayed in a formatted way.
+    -->
+    <h1>Promise Decorator in JavaScript</h1>
+    <p>Click the button below to demonstrate a promise decorator:</p>
+    <button id="fetchWithLogger">Fetch Data with Logger</button>
+    <pre id="output"></pre>
+    <script>
+        const output = document.getElementById('output');
+        const apiUrl = 'https://jsonplaceholder.typicode.com/todos/1';
+
+        function printResult(result) {
+            output.innerText = JSON.stringify(result, null, 2);
+        }
+
+        function makeRequest(url) {
+            return new Promise((resolve, reject) => {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => resolve(data))
+                    .catch(error => reject(error));
+            });
+        }
+
+        function logger(fn) {
+            return function (...args) {
+                console.log('Starting function...');
+                return fn(...args).then(result => {
+                    console.log('Function completed.');
+                    return result;
+                });
+            };
+        }
+
+        const makeRequestWithLogger = logger(makeRequest);
+
+        document.getElementById('fetchWithLogger').addEventListener('click', () => {
+            makeRequestWithLogger(apiUrl)
+                .then(data => printResult(data))
+                .catch(error => {
+                    output.innerText = `Error: ${error.message}`;
+                });
+        });
+    </script>
+</body>
+</html>
+
