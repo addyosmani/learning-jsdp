@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Centralized Event Handling</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      .toggle {
+        cursor: pointer;
+      }
+
+      .info {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div class="toggle">More Info (Address)
+        <span class="info">
+            Googleplex, 1600 Amphitheatre Pkwy, Mountain View, CA 94043
+        </span>
+      </div>
+      <div class="toggle">Even More Info (Map)
+        <span class="info">
+         
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.6363305008776!2d-122.08666998881337!3d37.422069832282894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba02425dad8f%3A0x6c296c66619367e0!2sGoogleplex!5e0!3m2!1sen!2sus!4v1682640145628!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </span>
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        const stateManager = {
+          fly() {
+            const self = this;
+            $('#container')
+              .off()
+              .on('click', 'div.toggle', function() {
+                self.handleClick(this);
+              });
+          },
+          handleClick(elem) {
+            $(elem)
+              .find('span')
+              .toggle('slow');
+          },
+        };
+
+        // Initialize event listeners
+        stateManager.fly();
+      })();
+    </script>
+  </body>
+</html>
