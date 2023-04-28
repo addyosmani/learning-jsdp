@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVC Pattern Example</title>
+    <style>
+        .photo-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .photo {
+            width: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .photo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .caption {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>MVC Pattern Example</h1>
+    <div id="photoGallery" class="photo-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+    <script type="text/template" id="photoTemplate">
+    <img src="<%= src %>" alt="<%= caption %>">
+    <div class="caption"><%= caption %></div>
+</script>
+    <script>
+        // Model
+        class Photo {
+            constructor(caption, src) {
+                this.caption = caption;
+                this.src = src;
+            }
+
+            getCaption() {
+                return this.caption;
+            }
+
+            getSrc() {
+                return this.src;
+            }
+        }
+
+        // View
+        class PhotoView {
+            constructor(photoModel) {
+                this.photoModel = photoModel;
+                this.photoEl = document.createElement('div');
+                this.photoEl.classList.add('photo');
+            }
+
+            render() {
+                const template = document.getElementById('photoTemplate').innerHTML;
+                const compiled = _.template(template);
+                const html = compiled({
+                    caption: this.photoModel.getCaption(),
+                    src: this.photoModel.getSrc(),
+                });
+                this.photoEl.innerHTML = html;
+            }
+
+            getElement() {
+                return this.photoEl;
+            }
+        }
+
+        // Controller
+        class PhotoController {
+            constructor(photoModel, photoView) {
+                this.photoModel = photoModel;
+                this.photoView = photoView;
+            }
+
+            render() {
+                this.photoView.render();
+                return this.photoView.getElement();
+            }
+        }
+
+        // Application
+        const photoData = [
+            {
+                caption: 'Sample Photo 1',
+                src: 'https://via.placeholder.com/300x200?text=Sample+Photo+1',
+            },
+            {
+                caption: 'Sample Photo 2',
+                src: 'https://via.placeholder.com/300x200?text=Sample+Photo+2',
+            },
+            {
+                caption: 'Sample Photo 3',
+                src: 'https://via.placeholder.com/300x200?text=Sample+Photo+3',
+            },
+        ];
+
+        const photoGallery = document.getElementById('photoGallery');
+        photoData.forEach((data) => {
+            const photoModel = new Photo(data.caption, data.src);
+            const photoView = new PhotoView(photoModel);
+            const photoController = new PhotoController(photoModel, photoView);
+            photoGallery.appendChild(photoController.render());
+        });
+    </script>
+</body>
+
+</html>
