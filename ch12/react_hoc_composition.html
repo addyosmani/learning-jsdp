@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Composition of Higher-Order Components Example</title>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script type="text/babel">
+    // Higher-Order Component (HOC) - withLoader
+    function withLoader(Element, url) {
+      return function WithLoader(props) {
+        const [data, setData] = React.useState(null);
+
+        React.useEffect(() => {
+          async function fetchData() {
+            const response = await fetch(url);
+            const data = await response.json();
+            setData(data);
+          }
+
+          fetchData();
+        }, []);
+
+        if (!data) {
+          return <div>Loading...</div>;
+        }
+
+        return <Element {...props} data={data} />;
+      };
+    }
+
+    // Higher-Order Component (HOC) - withHover
+    function withHover(Element) {
+      return function WithHover(props) {
+        const [isHovering, setIsHovering] = React.useState(false);
+
+        return (
+          <div
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+          >
+            <Element {...props} isHovering={isHovering} />
+          </div>
+        );
+      };
+    }
+
+    // DogImages component
+    function DogImages(props) {
+      const { data, isHovering } = props;
+
+      return (
+        <div>
+          {data.message.map((dog, index) => (
+            <img src={dog} alt="Dog" key={index} />
+          ))}
+          {isHovering && <div>Hovering over the Dog Images</div>}
+        </div>
+      );
+    }
+
+    // Compose withLoader and withHover HOCs
+    const ComposedComponent = withHover(
+      withLoader(
+        DogImages,
+        "https://dog.ceo/api/breed/labrador/images/random/6"
+      )
+    );
+
+    // Render the app
+    ReactDOM.render(<ComposedComponent />, document.getElementById("app"));
+  </script>
+</body>
+</html>
+<!--
+In this extended example, we have added a new higher-order component called withHover. It takes an Element component and returns a new functional component called WithHover. Within WithHover, we use the React.useState hook to track whether the user is hovering over the component. We wrap the Element component with a <div> that listens to the onMouseEnter and onMouseLeave events to set the isHovering state. The isHovering prop is then passed down to the Element component.
+
+The DogImages component now receives both the data prop from the withLoader HOC and the isHovering prop from the withHover HOC. It renders the dog images as before, and if the user is hovering over the component, it displays the "Hovering over the Dog Images" message.
+
+To compose the HOCs, we wrap the DogImages component first with the withLoader HOC and then with the withHover HOC. The resulting composed component is assigned to ComposedComponent.
+
+Finally, we use ReactDOM.render to render the ComposedComponent inside the <div id="app"></div> element.
+-->
