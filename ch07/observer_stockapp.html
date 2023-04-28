@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Stock Information App</title>
+</head>
+
+<body>
+    <h1>Stock Information App</h1>
+
+    <table id="stockTable">
+        <thead>
+            <tr>
+                <th>Summary</th>
+                <th>Identifier</th>
+                <th>Stock Price</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div id="lastUpdated"></div>
+
+    <script>
+        // PubSub implementation
+        class PubSub {
+            constructor() {
+                this.topics = {};
+                this.subUid = -1;
+            }
+
+            publish(topic, args) {
+                if (!this.topics[topic]) {
+                    return false;
+                }
+
+                const subscribers = this.topics[topic];
+                let len = subscribers.length;
+
+                while (len--) {
+                    subscribers[len].func(topic, args);
+                }
+
+                return this;
+            }
+
+            subscribe(topic, func) {
+                if (!this.topics[topic]) {
+                    this.topics[topic] = [];
+                }
+
+                const token = (++this.subUid).toString();
+                this.topics[topic].push({
+                    token,
+                    func,
+                });
+                return token;
+            }
+
+            unsubscribe(token) {
+                for (const topic in this.topics) {
+                    if (this.topics.hasOwnProperty(topic)) {
+                        const subscribers = this.topics[topic];
+                        for (let i = 0; i < subscribers.length; i++) {
+                            if (subscribers[i].token === token) {
+                                subscribers.splice(i, 1);
+                                return token;
+                            }
+                        }
+                    }
+                }
+                return this;
+            }
+        }
+
+        const pubsub = new PubSub();
+
+        // Return the current local time to be used in our UI later
+        const getCurrentTime = () => {
+            const date = new Date();
+            const m = date.getMonth() + 1;
+            const d = date.getDate();
+            const y = date.getFullYear();
+            const t = date.toLocaleTimeString().toLowerCase();
+
+            return `${m}/${d}/${y} ${t}`;
+        };
+
+        // Add a new row of data to our fictional grid component
+        const addGridRow = (data) => {
+            const stockTable = document.getElementById('stockTable');
+            const tbody = stockTable.querySelector('tbody');
+
+            const row = document.createElement('tr');
+            const summaryCell = document.createElement('td');
+            const identifierCell = document.createElement('td');
+            const stockPriceCell = document.createElement('td');
+
+            summaryCell.textContent = data.summary;
+            identifierCell.textContent = data.identifier;
+            stockPriceCell.textContent = data.stockPrice.toFixed(2);
+
+            row.appendChild(summaryCell);
+            row.appendChild(identifierCell);
+            row.appendChild(stockPriceCell);
+
+            tbody.appendChild(row);
+        };
+
+        // Update our fictional grid to show the time it was last updated
+        const updateCounter = () => {
+            const lastUpdated = document.getElementById('lastUpdated');
+            lastUpdated.textContent = `Last Updated: ${getCurrentTime()}`;
+        };
+
+        // Update the grid using the data passed to our subscribers
+        const gridUpdate = (topic, data) => {
+            if (data !== undefined) {
+                addGridRow(data);
+                updateCounter();
+            }
+        };
+
+        // Create a subscription to the newDataAvailable topic
+        const subscriber = pubsub.subscribe('newDataAvailable', gridUpdate);
+
+        // Simulate publishing new stock data at regular intervals
+        setTimeout(() => {
+            pubsub.publish('newDataAvailable', {
+                summary: 'Apple made $5 billion',
+                identifier: 'APPL',
+                stockPrice: 570.91,
+            });
+        }, 2000);
+
+        setTimeout(() => {
+            pubsub.publish('newDataAvailable', {
+                summary: 'Microsoft made $20 million',
+                identifier: 'MSFT',
+                stockPrice: 30.85,
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>
