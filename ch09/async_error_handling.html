@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Error Handling in JavaScript</title>
+    <style>
+        button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<!--
+In this example, we have two buttons that demonstrate promise error handling. The "Fetch Data (Success)" button fetches data using the fetchData function, processes the data using the processData function, and then displays the result in a formatted way. The "Fetch Data (Error)" button tries to fetch data from an invalid URL, which will trigger an error.
+
+The fetchData function now checks if the response is successful (response.ok) and throws an error if it's not. The catch method at the end of the promise chain is used to handle any errors that may occur during the execution of the promise chain. To understand the concepts, developers can interact with this example by clicking the buttons and observing the output.
+-->
+    <h1>Promise Error Handling in JavaScript</h1>
+    <p>Click the buttons below to demonstrate promise error handling:</p>
+    <button id="successBtn">Fetch Data (Success)</button>
+    <button id="errorBtn">Fetch Data (Error)</button>
+    <pre id="output"></pre>
+    <script>
+        const output = document.getElementById('output');
+        const apiUrl = 'https://jsonplaceholder.typicode.com/todos';
+        const invalidUrl = 'https://invalid-url.example.com';
+
+        function printResult(result) {
+            output.innerText = JSON.stringify(result, null, 2);
+        }
+
+        function printError(error) {
+            output.innerText = `Error: ${error.message}`;
+        }
+
+        // Fetch data
+        function fetchData(url) {
+            return new Promise((resolve, reject) => {
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => resolve(data))
+                    .catch(error => reject(error));
+            });
+        }
+
+        // Process data
+        function processData(data) {
+            // In this example, we filter the todos to only show those that are not completed
+            const processedData = data.filter(todo => !todo.completed);
+            return processedData;
+        }
+
+        document.getElementById('successBtn').addEventListener('click', () => {
+            fetchData(apiUrl)
+                .then(data => processData(data))
+                .then(processedData => printResult(processedData))
+                .catch(error => printError(error));
+        });
+
+        document.getElementById('errorBtn').addEventListener('click', () => {
+            fetchData(invalidUrl)
+                .then(data => processData(data))
+                .then(processedData => printResult(processedData))
+                .catch(error => printError(error));
+        });
+    </script>
+</body>
+</html>
