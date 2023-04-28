@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Publish/Subscribe Pattern</title>
+</head>
+<body>
+  <h1>Publish/Subscribe Pattern</h1>
+
+  <div>
+    <h2>New Message</h2>
+    <form id="newMessageForm">
+      <label for="senderInput">Sender:</label>
+      <input type="text" id="senderInput" required><br>
+      <label for="bodyInput">Message:</label>
+      <textarea id="bodyInput" required></textarea><br>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <div>
+    <h2>Message Preview</h2>
+    <div class="messageSender"></div>
+    <div class="messagePreview"></div>
+  </div>
+
+  <div>
+    <h2>New Message Counter</h2>
+    <div class="newMessageCounter"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // A simple Publish/Subscribe implementation
+      const events = (function() {
+        const topics = {};
+        const hOP = topics.hasOwnProperty;
+
+        return {
+          subscribe: function(topic, listener) {
+            if (!hOP.call(topics, topic)) topics[topic] = [];
+            const index = topics[topic].push(listener) - 1;
+
+            return {
+              remove: function() {
+                delete topics[topic][index];
+              }
+            };
+          },
+          publish: function(topic, info) {
+            if (!hOP.call(topics, topic)) return;
+            topics[topic].forEach(function(item) {
+              item(info !== undefined ? info : {});
+            });
+          }
+        };
+      })();
+
+      // A count of the number of messages received
+      let mailCounter = 0;
+
+      // Initialize subscribers that will listen out for a topic
+      // with the name "inbox/newMessage".
+      // Render a preview of new messages
+      const subscriber1 = events.subscribe('inbox/newMessage', function(data) {
+        // Log the topic for debugging purposes
+        console.log('A new message was received:', data);
+
+        // Use the data that was passed from our subject
+        // to display a message preview to the user
+        const messageSender = document.querySelector('.messageSender');
+        const messagePreview = document.querySelector('.messagePreview');
+        messageSender.textContent = data.sender;
+        messagePreview.textContent = data.body;
+      });
+
+      // Here's another subscriber using the same data to perform
+      // a different task.
+      // Update the counter displaying the number of new
+      // messages received via the publisher
+      const subscriber2 = events.subscribe('inbox/newMessage', function(data) {
+        const newMessageCounter = document.querySelector('.newMessageCounter');
+        newMessageCounter.textContent = ++mailCounter;
+      });
+
+      const newMessageForm = document.getElementById('newMessageForm');
+      newMessageForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const senderInput = document.getElementById('senderInput');
+        const bodyInput = document.getElementById('bodyInput');
+        const sender = senderInput.value;
+        const body = bodyInput.value;
+
+        events.publish('inbox/newMessage', {
+          sender: sender,
+          body: body
+        });
+
+        senderInput.value = '';
+        bodyInput.value = '';
+      });
+
+      // Uncomment the following lines to unsubscribe the subscribers
+      // subscriber1.remove();
+      // subscriber2.remove();
+    });
+  </script>
+</body>
+</html>
