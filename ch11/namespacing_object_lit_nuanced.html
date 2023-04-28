@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nuanced Object Literal Namespacing Example</title>
+    <script>
+        /*
+        In this example, we use an immediately invoked function expression (IIFE) to create the namespace object, which serves as our namespacing mechanism. Within the IIFE, we define private methods (privateMethod1 and privateMethod2), a private property (privateProperty1), and the public API that we want to expose.
+        
+        The index.html file includes buttons that interact with the namespace object. Clicking the buttons triggers the corresponding methods or logs the value of the public property.
+        */
+        const namespace = (() => {
+            // Private members
+            const privateMethod1 = () => {
+                console.log('Private Method 1');
+            };
+
+            const privateMethod2 = () => {
+                console.log('Private Method 2');
+            };
+
+            let privateProperty1 = 'foobar';
+
+            // Public API
+            return {
+                publicMethod1: privateMethod1,
+                properties: {
+                    publicProperty1: privateProperty1
+                },
+                utils: {
+                    publicMethod2: privateMethod2
+                }
+            };
+        })();
+
+    </script>
+</head>
+
+<body>
+    <button onclick="namespace.publicMethod1()">Public Method 1</button>
+    <button onclick="console.log(namespace.properties.publicProperty1)">Log Public Property 1</button>
+    <button onclick="namespace.utils.publicMethod2()">Public Method 2</button>
+</body>
+
+</html>
