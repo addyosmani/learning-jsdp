@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediator Pattern with Event Aggregator Interactive Example</title>
+    <style>
+        button {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Mediator Pattern with Event Aggregator Interactive Example</h1>
+    <button id="addEmployee">Add New Employee</button>
+    <div id="app"></div>
+    <script>
+        // Event Aggregator
+        class EventAggregator {
+            constructor() {
+                this.events = {};
+            }
+
+            on(event, callback) {
+                this.events[event] = callback;
+            }
+
+            trigger(event, data) {
+                if (this.events[event]) {
+                    this.events[event](data);
+                }
+            }
+        }
+
+        const eventAggregator = new EventAggregator();
+
+        // Mediator
+        class OrgChart {
+            constructor(eventAggregator) {
+                this.eventAggregator = eventAggregator;
+                this.employees = [];
+                this.eventAggregator.on('employee:complete', this.assignManager.bind(this));
+                this.eventAggregator.on('manager:save', this.saveEmployee.bind(this));
+            }
+
+            addNewEmployee() {
+                this.getEmployeeDetail();
+            }
+
+            getEmployeeDetail() {
+                const detailContainer = document.createElement('div');
+                const nameInput = document.createElement('input');
+                nameInput.placeholder = 'Employee Name';
+                detailContainer.appendChild(nameInput);
+                const roleInput = document.createElement('input');
+                roleInput.placeholder = 'Employee Role';
+                detailContainer.appendChild(roleInput);
+                const submitBtn = document.createElement('button');
+                submitBtn.textContent = 'Submit';
+                detailContainer.appendChild(submitBtn);
+
+                submitBtn.addEventListener('click', () => {
+                    const employee = new Employee(nameInput.value, roleInput.value);
+                    this.eventAggregator.trigger('employee:complete', employee);
+                });
+
+                document.getElementById('app').appendChild(detailContainer);
+            }
+
+            assignManager(employee) {
+                const managerContainer = document.createElement('div');
+                const managerInput = document.createElement('input');
+                managerInput.placeholder = 'Manager Name';
+                managerContainer.appendChild(managerInput);
+                const saveBtn = document.createElement('button');
+                saveBtn.textContent = 'Save';
+                managerContainer.appendChild(saveBtn);
+
+                saveBtn.addEventListener('click', () => {
+                    employee.manager = managerInput.value;
+                    this.eventAggregator.trigger('manager:save', employee);
+                });
+
+                document.getElementById('app').appendChild(managerContainer);
+            }
+
+            saveEmployee(employee) {
+                employee.save();
+                this.employees.push(employee);
+                console.log('Employee saved:', employee);
+            }
+        }
+
+        // Employee class
+        class Employee {
+            constructor(name, role) {
+                this.name = name;
+                this.role = role;
+                this.manager = null;
+            }
+
+            save() {
+                console.log(`${this.name} (${this.role}) saved with manager ${this.manager}`);
+            }
+        }
+
+        // Instantiate the OrgChart mediator with the EventAggregator
+        const orgChart = new OrgChart(eventAggregator);
+
+        // Add event listener to the Add New Employee button
+        document.getElementById('addEmployee').addEventListener('click', () => {
+            orgChart.addNewEmployee();
+        });
+
+    </script>
+</body>
+
+</html>
