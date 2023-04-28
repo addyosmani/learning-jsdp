@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Basic Factory Pattern Example</title>
+  </head>
+  <body>
+    <h1>Basic Factory Pattern Example</h1>
+    <button id="createButton">Create Book</button>
+    <div id="output"></div>
+
+    <script>
+      // Book class representing individual books
+      class Book {
+        constructor({ title, author, genre, pageCount, publisherID, ISBN }) {
+          this.title = title;
+          this.author = author;
+          this.genre = genre;
+          this.pageCount = pageCount;
+          this.publisherID = publisherID;
+          this.ISBN = ISBN;
+        }
+
+        getTitle() {
+          return this.title;
+        }
+
+        getAuthor() {
+          return this.author;
+        }
+
+        getISBN() {
+          return this.ISBN;
+        }
+      }
+
+      // Book Factory Singleton
+      const existingBooks = {};
+
+      class BookFactory {
+        createBook({ title, author, genre, pageCount, publisherID, ISBN }) {
+          const existingBook = existingBooks[ISBN];
+          if (!!existingBook) {
+            return existingBook;
+          } else {
+            const book = new Book({
+              title,
+              author,
+              genre,
+              pageCount,
+              publisherID,
+              ISBN,
+            });
+            existingBooks[ISBN] = book;
+            return book;
+          }
+        }
+      }
+
+      // Button click event
+      const createButton = document.getElementById('createButton');
+      createButton.addEventListener('click', function () {
+        createBook();
+      });
+
+      // Create a new book
+      function createBook() {
+        const bookFactory = new BookFactory();
+        const bookData = {
+          title: 'The Great Gatsby',
+          author: 'F. Scott Fitzgerald',
+          genre: 'Classic',
+          pageCount: 180,
+          publisherID: 'Penguin',
+          ISBN: '978-0141182636',
+        };
+
+        const book = bookFactory.createBook(bookData);
+
+        const output = document.getElementById('output');
+        output.innerHTML = `
+          <h3>Book Created</h3>
+          <ul>
+            <li><strong>Title:</strong> ${book.getTitle()}</li>
+            <li><strong>Author:</strong> ${book.getAuthor()}</li>
+            <li><strong>ISBN:</strong> ${book.getISBN()}</li>
+          </ul>
+        `;
+      }
+    </script>
+  </body>
+</html>
