@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>MacBook Decorator Example</title>
+  </head>
+  <body>
+    <h1>MacBook Decorator Example</h1>
+    <button id="createMacBook">Create MacBook</button>
+    <button id="decorateMacBook">Decorate MacBook</button>
+    <div id="macBookOutput"></div>
+
+    <script>
+      // Interface constructor
+      function Interface(name, methods) {
+        if (arguments.length !== 2) {
+          throw new Error('Interface constructor called with ' + arguments.length + ' arguments, but expected exactly 2.');
+        }
+        this.name = name;
+        this.methods = [];
+        for (let i = 0; i < methods.length; i++) {
+          if (typeof methods[i] !== 'string') {
+            throw new Error('Interface constructor expects method names to be passed in as strings.');
+          }
+          this.methods.push(methods[i]);
+        }
+      }
+
+      // Ensure implementation of an interface
+      Interface.ensureImplements = function (object, ...interfaces) {
+        if (arguments.length < 2) {
+          throw new Error('Function Interface.ensureImplements called with ' + arguments.length + ' arguments, but expected at least 2.');
+        }
+
+        for (let i = 0; i < interfaces.length; i++) {
+          const interfaceInstance = interfaces[i];
+          if (interfaceInstance.constructor !== Interface) {
+            throw new Error('Function Interface.ensureImplements expects arguments two and above to be instances of Interface.');
+          }
+
+          for (let j = 0; j < interfaceInstance.methods.length; j++) {
+            const method = interfaceInstance.methods[j];
+            if (!object[method] || typeof object[method] !== 'function') {
+              throw new Error('Function Interface.ensureImplements: object does not implement the ' + interfaceInstance.name + ' interface. Method ' + method + ' was not found.');
+            }
+          }
+        }
+      };
+
+      // MacBook interface
+      const MacBook = new Interface('MacBook', ['addCase', 'getPrice']);
+
+      // MacBook Pro class
+      class MacBookPro {
+        addCase() {
+          return 'Adding case to MacBook Pro';
+        }
+
+        getPrice() {
+          return 900.0;
+        }
+      }
+
+      // MacBook Decorator class
+      class MacBookDecorator {
+        constructor(macbook) {
+          Interface.ensureImplements(macbook, MacBook);
+          this.macbook = macbook;
+        }
+
+        addCase() {
+          return this.macbook.addCase();
+        }
+
+        getPrice() {
+          return this.macbook.getPrice();
+        }
+      }
+
+      // Case Decorator class
+      class CaseDecorator extends MacBookDecorator {
+        constructor(macbook) {
+          super(macbook);
+        }
+
+        addCase() {
+          return `${super.addCase()}, and additional case`;
+        }
+
+        getPrice() {
+          return super.getPrice() + 45.0;
+        }
+      }
+
+      // Create MacBook button click event
+      const createMacBookButton = document.getElementById('createMacBook');
+      createMacBookButton.addEventListener('click', function () {
+        const macBookPro = new MacBookPro();
+        displayMacBook(macBookPro);
+      });
+
+      // Decorate MacBook button click event
+      const decorateMacBookButton = document.getElementById('decorateMacBook');
+      decorateMacBookButton.addEventListener('click', function () {
+        const macBookPro = new MacBookPro();
+        const decoratedMacBookPro = new CaseDecorator(macBookPro);
+        displayMacBook(decoratedMacBookPro);
+      });
+
+      // Display MacBook details
+      function displayMacBook(macBook) {
+        const output = document.getElementById('macBookOutput');
+        output.innerHTML = `
+          <p><strong>Add Case:</strong> ${macBook.addCase()}</p>
+          <p><strong>Price:</strong> $${macBook.getPrice()}</p>
+        `;
+      }
+    </script>
+  </body>
+</html>
