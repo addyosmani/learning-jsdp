@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Render Props Example</title>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // Title component using render prop
+    const Title = (props) => props.render();
+
+    // App component
+    function App() {
+      return (
+        <div className="App">
+          <Title
+            render={() => (
+              <h1>
+                <span role="img" aria-label="emoji">
+                  ✨
+                </span>
+                I am a render prop!{" "}
+                <span role="img" aria-label="emoji">
+                  ✨
+                </span>
+              </h1>
+            )}
+          />
+        </div>
+      );
+    }
+
+    // Render the App component
+    ReactDOM.render(<App />, document.getElementById("root"));
+  </script>
+</body>
+</html>
+<!--
+In this example, we have a Title component that uses a render prop. The Title component takes a prop called render, which is a function that returns a JSX element. Inside the Title component, we simply invoke the render function to render the JSX element.
+
+The App component is where we use the Title component. We pass a render prop to the Title component, which returns an <h1> element with a fancy text. This allows us to customize the content of the Title component without modifying the component itself.
+-->
