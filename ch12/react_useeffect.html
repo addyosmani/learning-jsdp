@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>React useEffect Example</title>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function Input() {
+      const [inputValue, setInputValue] = React.useState("");
+
+      React.useEffect(() => {
+        console.log(`The user typed: ${inputValue}`);
+      }, [inputValue]);
+
+      function handleInput(e) {
+        setInputValue(e.target.value);
+      }
+
+      return (
+        <input
+          onChange={handleInput}
+          value={inputValue}
+          placeholder="Type something..."
+        />
+      );
+    }
+
+    ReactDOM.render(<Input />, document.getElementById("root"));
+  </script>
+</body>
+</html>
+<!--
+In this example, we have a functional component called Input that utilizes the useEffect Hook. It manages a state variable called inputValue, representing the value of the input field.
+
+The useEffect Hook is used to log a message to the console whenever the inputValue changes. It's called after each render and includes inputValue in its dependency array, [inputValue]. This ensures that the effect is triggered only when the inputValue changes.
+
+Within the component, the handleInput function is triggered whenever the user types in the input field. It updates the state by calling setInputValue with the new value obtained from the event target.
+
+The rendered output includes an input field with the onChange event handler bound to handleInput. The value of the input field is set to the inputValue state. As you type in the input field, the value will be logged to the console due to the effect.
+
+You can save the code in a single HTML file and open it in a web browser to see the React useEffect example in action. Open the browser's console to observe the logged messages as you type in the input field.
+-->
