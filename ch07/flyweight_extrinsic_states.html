@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Flyweight Design Pattern Example</title>
+    <style>
+      /* CSS styles here */
+    </style>
+  </head>
+  <body>
+    <h1>Flyweight Design Pattern Example</h1>
+    <div id="output"></div>
+
+    <h2>Add Book Record</h2>
+    <form id="addRecordForm">
+      <label for="title">Title:</label>
+      <input type="text" id="title" required /><br />
+
+      <label for="author">Author:</label>
+      <input type="text" id="author" required /><br />
+
+      <label for="genre">Genre:</label>
+      <input type="text" id="genre" required /><br />
+
+      <label for="pageCount">Page Count:</label>
+      <input type="number" id="pageCount" required /><br />
+
+      <label for="publisherID">Publisher ID:</label>
+      <input type="text" id="publisherID" required /><br />
+
+      <label for="ISBN">ISBN:</label>
+      <input type="text" id="ISBN" required /><br />
+
+      <button type="submit">Add Book Record</button>
+    </form>
+
+    <h2>Update Checkout Status</h2>
+    <form id="updateStatusForm">
+      <label for="bookID">Book ID:</label>
+      <input type="text" id="bookID" required /><br />
+
+      <label for="newStatus">Availability:</label>
+      <select id="newStatus" required>
+        <option value="true">Available</option>
+        <option value="false">Not Available</option>
+      </select><br />
+
+      <label for="checkoutDate">Checkout Date:</label>
+      <input type="date" id="checkoutDate" required /><br />
+
+      <label for="checkoutMember">Checkout Member:</label>
+      <input type="text" id="checkoutMember" required /><br />
+
+      <label for="newReturnDate">New Return Date:</label>
+      <input type="date" id="newReturnDate" required /><br />
+
+      <button type="submit">Update Checkout Status</button>
+    </form>
+
+    <h2>Extend Checkout Period</h2>
+    <form id="extendPeriodForm">
+      <label for="bookIDExtend">Book ID:</label>
+      <input type="text" id="bookIDExtend" required /><br />
+
+      <label for="newReturnDateExtend">New Return Date:</label>
+      <input type="date" id="newReturnDateExtend" required /><br />
+
+      <button type="submit">Extend Checkout Period</button>
+    </form>
+
+    <h2>Check Past Due</h2>
+    <form id="checkPastDueForm">
+      <label for="bookIDCheck">Book ID:</label>
+      <input type="text" id="bookIDCheck" required /><br />
+
+      <button type="submit">Check Past Due</button>
+    </form>
+
+    <script>
+      // Book class
+      class Book {
+        constructor(
+          id,
+          title,
+          author,
+          genre,
+          pageCount,
+          publisherID,
+          ISBN,
+          checkoutDate,
+          checkoutMember,
+          dueReturnDate,
+          availability
+        ) {
+          this.id = id;
+          this.title = title;
+          this.author = author;
+          this.genre = genre;
+          this.pageCount = pageCount;
+          this.publisherID = publisherID;
+          this.ISBN = ISBN;
+          this.checkoutDate = checkoutDate;
+          this.checkoutMember = checkoutMember;
+          this.dueReturnDate = dueReturnDate;
+          this.availability = availability;
+        }
+
+        getTitle() {
+          return this.title;
+        }
+
+        getAuthor() {
+          return this.author;
+        }
+
+        getISBN() {
+          return this.ISBN;
+        }
+
+        updateCheckoutStatus(
+          bookID,
+          newStatus,
+          checkoutDate,
+          checkoutMember,
+          newReturnDate
+        ) {
+          this.id = bookID;
+          this.availability = newStatus;
+          this.checkoutDate = checkoutDate;
+          this.checkoutMember = checkoutMember;
+          this.dueReturnDate = newReturnDate;
+        }
+
+        extendCheckoutPeriod(bookID, newReturnDate) {
+          this.id = bookID;
+          this.dueReturnDate = newReturnDate;
+        }
+
+        isPastDue(bookID) {
+          const currentDate = new Date();
+          return (
+            currentDate.getTime() > Date.parse(this.dueReturnDate)
+          );
+        }
+      }
+
+      // Book Record Manager Singleton
+      const bookRecordDatabase = {};
+
+      class BookRecordManager {
+        addBookRecord({
+          id,
+          title,
+          author,
+          genre,
+          pageCount,
+          publisherID,
+          ISBN,
+          checkoutDate,
+          checkoutMember,
+          dueReturnDate,
+          availability
+        }) {
+          const book = new Book(
+            id,
+            title,
+            author,
+            genre,
+            pageCount,
+            publisherID,
+            ISBN,
+            checkoutDate,
+            checkoutMember,
+            dueReturnDate,
+            availability
+          );
+          console.log(book);
+          bookRecordDatabase[id] = {
+            checkoutMember,
+            checkoutDate,
+            dueReturnDate,
+            availability,
+            book
+          };
+        }
+
+        updateCheckoutStatus({
+          bookID,
+          newStatus,
+          checkoutDate,
+          checkoutMember,
+          newReturnDate
+        }) {
+          const record = bookRecordDatabase[bookID];
+          record.availability = newStatus;
+          record.checkoutDate = checkoutDate;
+          record.checkoutMember = checkoutMember;
+          record.dueReturnDate = newReturnDate;
+        }
+
+        extendCheckoutPeriod(bookID, newReturnDate) {
+          bookRecordDatabase[bookID].dueReturnDate = newReturnDate;
+        }
+
+        isPastDue(bookID) {
+          const currentDate = new Date();
+          return (
+            currentDate.getTime() > Date.parse(bookRecordDatabase[bookID].dueReturnDate)
+          );
+        }
+      }
+
+      // Book Factory Singleton
+      const bookFactory = {
+        createBook({
+          id,
+          title,
+          author,
+          genre,
+          pageCount,
+          publisherID,
+          ISBN
+        }) {
+          const existingBook = bookRecordDatabase[id];
+          if (existingBook) {
+            return existingBook.book;
+          } else {
+            const book = new Book(
+              id,
+              title,
+              author,
+              genre,
+              pageCount,
+              publisherID,
+              ISBN
+            );
+            bookRecordDatabase[id] = {
+              checkoutMember: null,
+              checkoutDate: null,
+              dueReturnDate: null,
+              availability: true,
+              book
+            };
+            return book;
+          }
+        }
+      };
+
+      // Event listeners
+      const addRecordForm = document.getElementById('addRecordForm');
+      const updateStatusForm = document.getElementById('updateStatusForm');
+      const extendPeriodForm = document.getElementById('extendPeriodForm');
+      const checkPastDueForm = document.getElementById('checkPastDueForm');
+      const output = document.getElementById('output');
+
+      addRecordForm.addEventListener('submit', (event) => {
+        event
+        event.preventDefault();
+
+        const id = Math.random().toString(36).substr(2, 9);
+        const title = addRecordForm.elements.title.value;
+        const author = addRecordForm.elements.author.value;
+        const genre = addRecordForm.elements.genre.value;
+        const pageCount = parseInt(addRecordForm.elements.pageCount.value);
+        const publisherID = addRecordForm.elements.publisherID.value;
+        const ISBN = addRecordForm.elements.ISBN.value;
+
+        bookRecordManager.addBookRecord({
+          id,
+          title,
+          author,
+          genre,
+          pageCount,
+          publisherID,
+          ISBN,
+          checkoutDate: null,
+          checkoutMember: null,
+          dueReturnDate: null,
+          availability: true
+        });
+
+        output.innerHTML = 'Book record added successfully.';
+        addRecordForm.reset();
+      });
+
+      updateStatusForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const bookID = updateStatusForm.elements.bookID.value;
+        const newStatus = updateStatusForm.elements.newStatus.value === 'true';
+        const checkoutDate = updateStatusForm.elements.checkoutDate.value;
+        const checkoutMember = updateStatusForm.elements.checkoutMember.value;
+        const newReturnDate = updateStatusForm.elements.newReturnDate.value;
+
+        bookRecordManager.updateCheckoutStatus({
+          bookID,
+          newStatus,
+          checkoutDate,
+          checkoutMember,
+          newReturnDate
+        });
+
+        output.innerHTML = 'Checkout status updated successfully.';
+        updateStatusForm.reset();
+      });
+
+      extendPeriodForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const bookID = extendPeriodForm.elements.bookIDExtend.value;
+        const newReturnDate = extendPeriodForm.elements.newReturnDateExtend.value;
+
+        bookRecordManager.extendCheckoutPeriod(bookID, newReturnDate);
+
+        output.innerHTML = 'Checkout period extended successfully.';
+        extendPeriodForm.reset();
+      });
+
+      checkPastDueForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const bookID = checkPastDueForm.elements.bookIDCheck.value;
+        const isPastDue = bookRecordManager.isPastDue(bookID);
+
+        if (isPastDue) {
+          output.innerHTML = 'The book is past due.';
+        } else {
+          output.innerHTML = 'The book is not past due.';
+        }
+
+        checkPastDueForm.reset();
+      });
+
+      // Create a BookRecordManager instance
+      const bookRecordManager = new BookRecordManager();
+    </script>
+  </body>
+</html>
+
