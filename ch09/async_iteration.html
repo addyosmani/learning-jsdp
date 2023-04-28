@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async Iteration in JavaScript</title>
+  <style>
+    button {
+      margin-top: 10px;
+    }
+    pre {
+      background-color: #f7f7f7;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+    <!--
+     In this example, we have a button labeled "Start Async Iteration" that demonstrates async iteration using the for await...of loop. When the button is clicked, the main() function is invoked.
+
+    The createAsyncIterable() function creates an async iterable that yields values 1, 2, and 3. This async iterable is then used in the main() function, where the for await...of loop is used to iterate over the values.
+
+    Inside the loop, each value is logged to the console and displayed in the pre element. The loop continues until all values have been iterated.   
+    -->
+  <h1>Async Iteration in JavaScript</h1>
+  <p>Click the button below to demonstrate async iteration:</p>
+  <button id="startAsyncIteration">Start Async Iteration</button>
+  <pre id="output"></pre>
+  <script>
+    const output = document.getElementById('output');
+
+    async function* createAsyncIterable() {
+      yield 1;
+      yield 2;
+      yield 3;
+    }
+
+    async function main() {
+      try {
+        const asyncIterable = createAsyncIterable();
+        const asyncIterator = asyncIterable[Symbol.asyncIterator]();
+
+        while (true) {
+          const { done, value } = await asyncIterator.next();
+
+          if (done) {
+            break;
+          }
+
+          output.innerText += `${value}\n`;
+        }
+      } catch (error) {
+        output.innerText = `Error: ${error.message}`;
+      }
+    }
+
+    document.getElementById('startAsyncIteration').addEventListener('click', () => {
+      output.innerText = '';
+      main();
+    });
+  </script>
+</body>
+</html>
