@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Retrying in JavaScript</title>
+    <style>
+        button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!--
+In this example, we have a button that demonstrates promise retrying. The "Fetch Data with Retry" button fetches data from an endpoint using the makeRequestWithRetry function. If the request fails, it will retry up to 3 times. The fetched data is then displayed in a formatted way.
+    -->
+    <h1>Promise Retrying in JavaScript</h1>
+    <p>Click the button below to demonstrate promise retrying:</p>
+    <button id="fetchWithRetry">Fetch Data with Retry</button>
+    <pre id="output"></pre>
+    <script>
+        const output = document.getElementById('output');
+        const apiUrl = 'https://jsonplaceholder.typicode.com/todos/1';
+
+        function printResult(result) {
+            output.innerText = JSON.stringify(result, null, 2);
+        }
+
+        function makeRequestWithRetry(url) {
+            let attempts = 0;
+
+            const makeRequest = () => new Promise((resolve, reject) => {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => resolve(data))
+                    .catch(error => reject(error));
+            });
+
+            const retry = error => {
+                attempts++;
+                if (attempts >= 3) {
+                    throw new Error('Request failed after 3 attempts.');
+                }
+                console.log(`Retrying request: attempt ${attempts}`);
+                return makeRequest().catch(retry);
+            };
+
+            return makeRequest().catch(retry);
+        }
+
+        document.getElementById('fetchWithRetry').addEventListener('click', () => {
+            makeRequestWithRetry(apiUrl)
+                .then(data => printResult(data))
+                .catch(error => {
+                    output.innerText = `Error: ${error.message}`;
+                });
+        });
+    </script>
+</body>
+</html>
