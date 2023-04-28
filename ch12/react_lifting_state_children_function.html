@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lifting State Example</title>
+  <style>
+    .temp {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // Input component using children as a function
+    function Input(props) {
+      const [value, setValue] = React.useState("");
+
+      return (
+        <div>
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder="Temp in °C"
+          />
+          {props.children(value)}
+        </div>
+      );
+    }
+
+    // Kelvin component
+    function Kelvin({ value = 0 }) {
+      return <div className="temp">{Number(value) + 273.15}K</div>;
+    }
+
+    // Fahrenheit component
+    function Fahrenheit({ value = 0 }) {
+      return <div className="temp">{(Number(value) * 9) / 5 + 32}°F</div>;
+    }
+
+    // App component
+    function App() {
+      return (
+        <div className="App">
+          <h1>Temperature Converter</h1>
+          <Input>
+            {(value) => (
+              <>
+                <Kelvin value={value} />
+                <Fahrenheit value={value} />
+              </>
+            )}
+          </Input>
+        </div>
+      );
+    }
+
+    // Render the App component
+    ReactDOM.render(<App />, document.getElementById("root"));
+  </script>
+</body>
+</html>
+
+<!--
+In this updated example, instead of using a separate render prop, we utilize the children prop of the Input component. We pass a function as a child to the Input component, and this function receives the input value as an argument.
+
+The Input component renders an input field and calls the props.children function, passing the input value as an argument. The child function can then handle the value and render the Kelvin and Fahrenheit components accordingly.
+
+The App component remains the same, rendering the Input component and providing the child function through the children prop.
+-->
