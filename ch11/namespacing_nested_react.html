@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>React Movie List Example</title>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+  <div id="app"></div>
+  <!--
+    Note: This is a proof of concept leveraging nested namespacing patterns in React. In most production applications, file-based namespacing (breaking distinct functionality down by files/concerns) may be preferred, however you may leverage some of these ideas within a component if you wish.
+  -->
+
+  <script type="text/babel">
+    // Top-level namespace
+    const MyApp = {};
+
+    // Nested namespace for movie components
+    MyApp.Components = {};
+
+    // Movie list component
+    MyApp.Components.MovieList = function (props) {
+      const { movies } = props;
+      
+      return (
+        <ul>
+          {movies.map((movie) => (
+            <li key={movie.id}>{movie.title}</li>
+          ))}
+        </ul>
+      );
+    };
+
+    // Main app component
+    MyApp.App = function () {
+      const movies = [
+        { id: 1, title: 'Movie 1' },
+        { id: 2, title: 'Movie 2' },
+        { id: 3, title: 'Movie 3' },
+      ];
+
+      return (
+        <div>
+          <h1>Movie List</h1>
+          <MyApp.Components.MovieList movies={movies} />
+        </div>
+      );
+    };
+
+    // Render the app
+    ReactDOM.render(<MyApp.App />, document.getElementById('app'));
+  </script>
+</body>
+</html>
