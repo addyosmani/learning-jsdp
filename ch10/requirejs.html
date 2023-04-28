@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMD/RequireJS Example</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+</head>
+<body>
+  <h1>AMD/RequireJS Example</h1>
+  <button id="button">Do Stuff</button>
+
+  <script>
+    require.config({
+      paths: {
+        foo: './foo',
+        bar: './bar'
+      }
+    });
+
+    require(['foo', 'bar'], function (foo, bar) {
+      document.getElementById('button').addEventListener('click', function () {
+        foo.doSomething();
+        bar.doSomething();
+      });
+    });
+  </script>
+</body>
+</html>
