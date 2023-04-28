@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>React useState Example</title>
+  <style>
+    .input-container {
+      margin-bottom: 10px;
+    }
+  </style>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function Input() {
+      const [inputValue, setInputValue] = React.useState("");
+
+      function handleInput(e) {
+        setInputValue(e.target.value);
+      }
+
+      return (
+        <div className="input-container">
+          <input onChange={handleInput} value={inputValue} />
+          <p>Input value: {inputValue}</p>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<Input />, document.getElementById("root"));
+  </script>
+</body>
+</html>
+<!--
+In this example, we have a functional component called Input that utilizes the useState Hook. It manages a state variable called inputValue which represents the value of the input field.
+
+Within the component, we destructure the inputValue from the useState Hook, which initializes the state to an empty string. We also destructure the setInputValue function, which will be used to update the state.
+
+The handleInput function is triggered whenever the user types in the input field. It updates the state by calling setInputValue with the new value obtained from the event target.
+
+The rendered output includes an input field with the onChange event handler bound to handleInput. The value of the input field is set to the inputValue state. Additionally, a paragraph element displays the current value of the input field.
+
+You can save the code in a single HTML file and open it in a web browser to see the React useState example in action. As you type in the input field, the value will be reflected in the paragraph element below.
+
+
+-->
