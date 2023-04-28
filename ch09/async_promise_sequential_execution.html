@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Sequential Execution in JavaScript</title>
+    <style>
+        button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<!--
+In this example, we have a button that demonstrates promise sequential execution. The "Fetch Data Sequentially" button fetches data from two different endpoints sequentially using the Promise.resolve method. The fetched data is then displayed in a formatted way.
+-->
+
+    <h1>Promise Sequential Execution in JavaScript</h1>
+    <p>Click the button below to demonstrate promise sequential execution:</p>
+    <button id="fetchSequential">Fetch Data Sequentially</button>
+    <pre id="output"></pre>
+    <script>
+        const output = document.getElementById('output');
+        const apiUrl1 = 'https://jsonplaceholder.typicode.com/todos/1';
+        const apiUrl2 = 'https://jsonplaceholder.typicode.com/todos/2';
+
+        function printResult(result) {
+            output.innerText = JSON.stringify(result, null, 2);
+        }
+
+        // Fetch data
+        function fetchData(url) {
+            return new Promise((resolve, reject) => {
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => resolve(data))
+                    .catch(error => reject(error));
+            });
+        }
+
+        document.getElementById('fetchSequential').addEventListener('click', () => {
+            const results = [];
+
+            Promise.resolve()
+                .then(() => fetchData(apiUrl1))
+                .then(data1 => {
+                    results.push(data1);
+                    return fetchData(apiUrl2);
+                })
+                .then(data2 => {
+                    results.push(data2);
+                    printResult(results);
+                })
+                .catch(error => {
+                    output.innerText = `Error: ${error.message}`;
+                });
+        });
+    </script>
+</body>
+</html>
