@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Higher-Order Component Example</title>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script type="text/babel">
+    // Higher-Order Component (HOC)
+    function withLoader(Element, url) {
+      return function WithLoader(props) {
+        const [data, setData] = React.useState(null);
+
+        React.useEffect(() => {
+          async function fetchData() {
+            const response = await fetch(url);
+            const data = await response.json();
+            setData(data);
+          }
+
+          fetchData();
+        }, []);
+
+        if (!data) {
+          return <div>Loading...</div>;
+        }
+
+        return <Element {...props} data={data} />;
+      };
+    }
+
+    // DogImages component
+    function DogImages(props) {
+      return props.data.message.map((dog, index) => (
+        <img src={dog} alt="Dog" key={index} />
+      ));
+    }
+
+    // Wrap DogImages with withLoader HOC
+    const WrappedDogImages = withLoader(
+      DogImages,
+      "https://dog.ceo/api/breed/labrador/images/random/6"
+    );
+
+    // Render the app
+    ReactDOM.render(<WrappedDogImages />, document.getElementById("app"));
+  </script>
+</body>
+</html>
+
+<!--
+In this example, we have a self-contained HTML file that includes React and ReactDOM libraries via CDN. The JavaScript code is embedded within the <script> tag.
+
+The withLoader function is the higher-order component (HOC) that receives an Element and a url. It returns a new functional component called WithLoader. Within WithLoader, we use the React.useState and React.useEffect hooks to fetch data from the provided url. While the data is being fetched, we display a "Loading..." message. Once the data is fetched, we pass it as a prop named data to the Element component.
+
+The DogImages component is the component we want to enhance with the loader functionality. It receives the data prop, which is an array of dog images, and renders them as <img> elements.
+
+We wrap the DogImages component with the withLoader HOC, passing the DogImages component and the URL for fetching dog images. The resulting component, WrappedDogImages, now has the loader functionality.
+
+Finally, we use ReactDOM.render to render the WrappedDogImages component inside the <div id="app"></div> element.
+-->
