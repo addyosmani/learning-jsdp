@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Email Inbox</title>
+  </head>
+  <body>
+    <h1>Email Inbox</h1>
+
+    <div id="inbox">
+      <h2>Inbox</h2>
+      <ul id="inboxList"></ul>
+      <button id="countBtn">Count Emails</button>
+      <button id="removeBtn">Remove Emails</button>
+    </div>
+
+    <form id="emailForm">
+      <h2>New Email</h2>
+      <label for="subjectInput">Subject:</label>
+      <input type="text" id="subjectInput" required>
+      <br>
+      <label for="bodyInput">Body:</label>
+      <textarea id="bodyInput" required></textarea>
+      <br>
+      <button type="submit">Send</button>
+    </form>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        class Email {
+          constructor(subject, body) {
+            this.subject = subject;
+            this.body = body;
+          }
+        }
+
+        class EmailSubject {
+          constructor() {
+            this.emails = [];
+            this.observers = [];
+          }
+
+          addObserver(observer) {
+            this.observers.push(observer);
+          }
+
+          removeObserver(observer) {
+            const index = this.observers.indexOf(observer);
+            if (index !== -1) {
+              this.observers.splice(index, 1);
+            }
+          }
+
+          sendEmail(email) {
+            this.emails.push(email);
+            this.notifyObservers();
+          }
+
+          notifyObservers() {
+            for (const observer of this.observers) {
+              observer.update(this.emails);
+            }
+          }
+
+          clearEmails() {
+            this.emails = [];
+            this.notifyObservers();
+          }
+        }
+
+        class InboxObserver {
+          constructor(elementId) {
+            this.element = document.getElementById(elementId);
+          }
+
+          update(emails) {
+            const inboxList = this.element;
+            inboxList.innerHTML = '';
+
+            for (const email of emails) {
+              const li = document.createElement('li');
+              li.textContent = email.subject;
+              inboxList.appendChild(li);
+            }
+          }
+        }
+
+        const emailSubject = new EmailSubject();
+        const inboxObserver = new InboxObserver('inboxList');
+        emailSubject.addObserver(inboxObserver);
+
+        const form = document.getElementById('emailForm');
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const subject = document.getElementById('subjectInput').value;
+          const body = document.getElementById('bodyInput').value;
+          const email = new Email(subject, body);
+          emailSubject.sendEmail(email);
+          form.reset();
+        });
+
+        const countBtn = document.getElementById('countBtn');
+        countBtn.addEventListener('click', () => {
+          const emailCount = emailSubject.emails.length;
+          alert(`Total Emails: ${emailCount}`);
+        });
+
+        const removeBtn = document.getElementById('removeBtn');
+        removeBtn.addEventListener('click', () => {
+          emailSubject.clearEmails();
+          const inboxList = document.getElementById('inboxList');
+          inboxList.innerHTML = '';
+        });
+      });
+    </script>
+  </body>
+</html>
