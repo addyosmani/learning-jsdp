@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prefix Namespacing Example</title>
+  <script>
+var myApplication = myApplication || {};
+
+myApplication.utils = {};
+myApplication.core = {};
+
+myApplication.utils.myMethod = function() {
+  console.log('[Utils] Button clicked!');
+};
+  </script>
+</head>
+<body>
+  <button onclick="myApplication.utils.myMethod()">Click Me</button>
+</body>
+</html>
