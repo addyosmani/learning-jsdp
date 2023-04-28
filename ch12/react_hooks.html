@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>React Hooks Example</title>
+  <style>
+    .counter {
+      margin-bottom: 10px;
+    }
+    button {
+      margin-right: 10px;
+    }
+  </style>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // useState Hook example
+    function Counter() {
+      const [count, setCount] = React.useState(0);
+
+      function increment() {
+        setCount(count + 1);
+      }
+
+      function decrement() {
+        setCount(count - 1);
+      }
+
+      return (
+        <div className="counter">
+          <button onClick={decrement}>-</button>
+          <span>{count}</span>
+          <button onClick={increment}>+</button>
+        </div>
+      );
+    }
+
+    // useEffect Hook example
+    function Timer() {
+      const [time, setTime] = React.useState(0);
+
+      React.useEffect(() => {
+        const intervalId = setInterval(() => {
+          setTime((prevTime) => prevTime + 1);
+        }, 1000);
+
+        return () => {
+          clearInterval(intervalId);
+        };
+      }, []);
+
+      return <div>Time: {time} seconds</div>;
+    }
+
+    // Render the example components
+    ReactDOM.render(
+      <div>
+        <h1>React Hooks Example</h1>
+        <Counter />
+        <Timer />
+      </div>,
+      document.getElementById("root")
+    );
+  </script>
+</body>
+</html>
+<!--
+In this example, we showcase two popular React Hooks: useState and useEffect.
+
+The Counter component demonstrates the usage of the useState Hook. It initializes a state variable called count with an initial value of 0 using useState(0). The increment and decrement functions modify the count state by calling the setCount function, which is provided by the useState Hook. The component renders a counter UI, allowing the user to increment and decrement the count.
+
+The Timer component showcases the useEffect Hook. It sets up a timer that updates the time state every second. The useEffect Hook takes a function as its first argument, which will be executed after the component renders. In this example, the function sets up an interval that increments the time state every second. The useEffect Hook also returns a cleanup function that clears the interval when the component is unmounted.
+
+Both components are rendered within the ReactDOM.render function, and their output is displayed in the root div.
+-->
