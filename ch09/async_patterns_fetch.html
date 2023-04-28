@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Patterns in JavaScript</title>
+    <style>
+        button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Async Patterns in JavaScript</h1>
+    <p>Click a button below to demonstrate the corresponding async pattern:</p>
+    <button id="callbackBtn">Callbacks</button>
+    <button id="promiseBtn">Promises</button>
+    <button id="asyncAwaitBtn">Async/Await</button>
+    <pre id="output"></pre>
+    <script>
+        const output = document.getElementById('output');
+        const apiUrl = 'https://jsonplaceholder.typicode.com/todos';
+
+        function printResult(result) {
+            output.innerText = JSON.stringify(result, null, 2);
+        }
+
+        function printError(error) {
+            output.innerText = `Error: ${error.message}`;
+        }
+
+        // Callbacks
+        function fetchDataWithCallback(url, callback) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => callback(null, data))
+                .catch(error => callback(error));
+        }
+
+        document.getElementById('callbackBtn').addEventListener('click', () => {
+            fetchDataWithCallback(apiUrl, (error, data) => {
+                if (error) {
+                    printError(error);
+                } else {
+                    printResult(data);
+                }
+            });
+        });
+
+        // Promises
+        function fetchDataWithPromise(url) {
+            return new Promise((resolve, reject) => {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => resolve(data))
+                    .catch(error => reject(error));
+            });
+        }
+
+        document.getElementById('promiseBtn').addEventListener('click', () => {
+            fetchDataWithPromise(apiUrl)
+                .then(printResult)
+                .catch(printError);
+        });
+
+        // Async/Await
+        async function fetchDataWithAsyncAwait(url) {
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                printResult(data);
+            } catch (error) {
+                printError(error);
+            }
+        }
+
+        document.getElementById('asyncAwaitBtn').addEventListener('click', () => {
+            fetchDataWithAsyncAwait(apiUrl);
+        });
+    </script>
+</body>
+</html>
