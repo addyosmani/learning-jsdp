@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RxJS Example - User Dragging</title>
+  <style>
+    .App {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+  <script src="https://unpkg.com/rxjs@6.5.2/bundles/rxjs.umd.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script>
+    const { fromEvent, merge } = rxjs;
+    const { sample, mapTo } = rxjs.operators;
+
+    const rootElement = document.getElementById("root");
+    const appElement = document.createElement("div");
+    appElement.classList.add("App");
+    appElement.textContent = "Click or drag anywhere and check the console!";
+    rootElement.appendChild(appElement);
+
+    merge(
+      fromEvent(document, "mousedown").pipe(mapTo(false)),
+      fromEvent(document, "mousemove").pipe(mapTo(true))
+    )
+      .pipe(sample(fromEvent(document, "mouseup")))
+      .subscribe(isDragging => {
+        console.log("Were you dragging?", isDragging);
+      });
+  </script>
+</body>
+</html>
