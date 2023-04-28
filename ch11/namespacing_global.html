@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Global Namespacing Example</title>
+  <script>
+    var myUniqueApplication = {
+      myMethod: function () {
+        console.log('myMethod has been called.');
+      }
+    };
+    </script>
+</head>
+<body>
+  <button onclick="myUniqueApplication.myMethod()">Click Me</button>
+</body>
+</html>
