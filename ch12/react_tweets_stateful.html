@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Stateful Component Example</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .search-bar {
+            margin-bottom: 1rem;
+        }
+
+        .tweet-list {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        // Sample tweets data
+        const tweets = [
+            { id: 1, text: 'Hello, world!', location: 'New York' },
+            { id: 2, text: 'React is awesome!', location: 'San Francisco' },
+            { id: 3, text: 'I love programming!', location: 'New York' },
+        ];
+
+        class SearchBar extends React.Component {
+            constructor(props) {
+                super(props);
+                this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+                this.handleInThisLocationChange = this.handleInThisLocationChange.bind(this);
+            }
+
+            handleFilterTextChange(e) {
+                this.props.onFilterTextChange(e.target.value);
+            }
+
+            handleInThisLocationChange(e) {
+                this.props.onInThisLocationChange(e.target.checked);
+            }
+
+            render() {
+                return (
+                    <div className="search-bar">
+                        <input
+                            type="text"
+                            placeholder="Search tweets..."
+                            value={this.props.filterText}
+                            onChange={this.handleFilterTextChange}
+                        />
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={this.props.inThisLocation}
+                                onChange={this.handleInThisLocationChange}
+                            />
+                            Only show tweets from New York
+                        </label>
+                    </div>
+                );
+            }
+        }
+
+        class TweetList extends React.Component {
+            render() {
+                const filteredTweets = this.props.tweets.filter(tweet => {
+                    if (this.props.inThisLocation && tweet.location !== 'New York') {
+                        return false;
+                    }
+                    return tweet.text.toLowerCase().includes(this.props.filterText.toLowerCase());
+                });
+
+                return (
+                    <div className="tweet-list">
+                        <ul>
+                            {filteredTweets.map(tweet => (
+                                <li key={tweet.id}>{tweet.text}</li>
+                            ))}
+                        </ul>
+                    </div>
+                );
+            }
+        }
+
+        class TweetSearchResults extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    filterText: '',
+                    inThisLocation: false
+                };
+
+                this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+                this.handleInThisLocationChange = this.handleInThisLocationChange.bind(this);
+            }
+
+            handleFilterTextChange(filterText) {
+                this.setState({
+                    filterText: filterText
+                });
+            }
+
+            handleInThisLocationChange(inThisLocation) {
+                this.setState({
+                    inThisLocation: inThisLocation
+                });
+            }
+
+            render() {
+                return (
+                    <div>
+                        <SearchBar
+                            filterText={this.state.filterText}
+                            inThisLocation={this.state.inThisLocation}
+                            onFilterTextChange={this.handleFilterTextChange}
+                            onInThisLocationChange={this.handleInThisLocationChange}
+                        />
+                        <TweetList
+                            tweets={this.props.tweets}
+                            filterText={this.state.filterText}
+                            inThisLocation={this.state.inThisLocation}
+                        />
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <TweetSearchResults tweets={tweets} />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
