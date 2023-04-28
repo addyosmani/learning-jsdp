@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File System Access API Example</title>
+</head>
+<body>
+  <button id="readFileBtn">Read File</button>
+  <button id="writeFileBtn">Write File</button>
+  <textarea id="fileContent" rows="10" cols="30"></textarea>
+  <script>
+document.getElementById('readFileBtn').addEventListener('click', async () => {
+  try {
+    const fileHandles = await window.showOpenFilePicker();
+    const fileHandle = fileHandles[0];
+    const file = await fileHandle.getFile();
+    const fileContent = await file.text();
+    document.getElementById('fileContent').value = fileContent;
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+document.getElementById('writeFileBtn').addEventListener('click', async () => {
+  try {
+    const fileContent = document.getElementById('fileContent').value;
+    const fileHandle = await window.showSaveFilePicker();
+    const writableStream = await fileHandle.createWritable();
+    await writableStream.write(fileContent);
+    await writableStream.close();
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+
+
+  </script>
+</body>
+</html>
