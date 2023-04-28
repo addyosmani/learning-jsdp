@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Observer Pattern</title>
+    <style>
+      .observer {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="addNewObserver">Add New Observer Checkbox</button>
+    <input id="mainCheckbox" type="checkbox" />
+    <div id="observersContainer"></div>
+    <div>
+      <button id="countObservers">Count Observers</button>
+      <button id="removeObservers">Remove Observers</button>
+    </div>
+    <p id="observerCount"></p>
+
+    <script>
+      // ObserverList class
+      class ObserverList {
+        constructor() {
+          this.observerList = [];
+        }
+
+        add(obj) {
+          return this.observerList.push(obj);
+        }
+
+        count() {
+          return this.observerList.length;
+        }
+
+        get(index) {
+          if (index > -1 && index < this.observerList.length) {
+            return this.observerList[index];
+          }
+        }
+
+        indexOf(obj, startIndex) {
+          let i = startIndex;
+
+          while (i < this.observerList.length) {
+            if (this.observerList[i] === obj) {
+              return i;
+            }
+            i++;
+          }
+
+          return -1;
+        }
+
+        removeAt(index) {
+          this.observerList.splice(index, 1);
+        }
+      }
+
+      // Subject class
+      class Subject {
+        constructor() {
+          this.observers = new ObserverList();
+        }
+
+        addObserver(observer) {
+          this.observers.add(observer);
+        }
+
+        removeObserver(observer) {
+          this.observers.removeAt(
+            this.observers.indexOf(observer, 0)
+          );
+        }
+
+        notify(context) {
+          const observerCount = this.observers.count();
+          for (let i = 0; i < observerCount; i++) {
+            this.observers.get(i).update(context);
+          }
+        }
+      }
+
+      // Observer class
+      class Observer {
+        constructor() {}
+
+        update() {
+          // ...
+        }
+      }
+
+      // ConcreteSubject class
+      class ConcreteSubject extends Subject {
+        constructor(element) {
+          super();
+          this.element = element;
+
+          this.element.onclick = () => {
+            this.notify(this.element.checked);
+          };
+        }
+      }
+
+      // ConcreteObserver class
+      class ConcreteObserver extends Observer {
+        constructor(element) {
+          super();
+          this.element = element;
+        }
+
+        update(value) {
+          this.element.checked = value;
+        }
+      }
+
+      // Get references to DOM elements
+      const addBtn = document.getElementById('addNewObserver');
+      const container = document.getElementById('observersContainer');
+      const countBtn = document.getElementById('countObservers');
+      const removeBtn = document.getElementById('removeObservers');
+      const observerCountElem = document.getElementById('observerCount');
+      const mainCheckbox = document.getElementById('mainCheckbox');
+
+      const controlCheckbox = new ConcreteSubject(mainCheckbox);
+      let observerCount = 0;
+
+      const addNewObserver = () => {
+        const check = document.createElement('input');
+        check.type = 'checkbox';
+        check.classList.add('observer');
+        const checkObserver = new ConcreteObserver(check);
+
+        controlCheckbox.addObserver(checkObserver);
+
+        container.appendChild(check);
+        observerCount++;
+        updateObserverCount();
+      };
+
+      const countObservers = () => {
+        observerCountElem.textContent = `Observer Count: ${observerCount}`;
+      };
+
+      const removeObservers = () => {
+        const checkboxes = container.getElementsByClassName('observer');
+        while (checkboxes.length > 0) {
+          const checkbox = checkboxes[0];
+          container.removeChild(checkbox);
+          observerCount--;
+        }
+        updateObserverCount();
+      };
+
+      const updateObserverCount = () => {
+        observerCountElem.textContent = `Observer Count: ${observerCount}`;
+      };
+
+      addBtn.onclick = addNewObserver;
+      countBtn.onclick = countObservers;
+      removeBtn.onclick = removeObservers;
+    </script>
+  </body>
+</html>
