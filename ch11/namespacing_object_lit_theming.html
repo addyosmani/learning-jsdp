@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CSS Theming UI Example</title>
+    <style>
+        .ui-toolbar {
+            padding: 10px;
+            color: #ccc;
+            transition: background-color 0.3s ease;
+        }
+
+        .ui-navigation-toolbar {
+            background-color: #007bff;
+        }
+
+        .ui-custom-toolbar {
+            background-color: #dc3545;
+        }
+
+        .theme-options {
+            margin-top: 20px;
+        }
+
+        #ui-button {
+            padding: 10px;
+            border: none;
+            color: #fff;
+            background-color: #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        #ui-page-element {
+            padding: 10px;
+            color: #fff;
+            background-color: #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        .low-contrast-theme .ui-toolbar,
+        .low-contrast-theme #ui-button,
+        .low-contrast-theme #ui-page-element {
+            color: #333;
+        }
+
+        .low-contrast-theme #ui-button {
+            background-color: #f1f1f1;
+        }
+
+        .low-contrast-theme #ui-page-element {
+            background-color: #f1f1f1;
+        }
+    </style>
+    <script>
+        const myConfig = {
+            language: "english",
+            defaults: {
+                enableGeolocation: true,
+                enableSharing: false,
+                maxPhotos: 20
+            },
+            themes: {
+                default: "default-theme",
+                lowContrast: "low-contrast-theme"
+            }
+        };
+
+        function applyTheme(theme) {
+            const body = document.querySelector("body");
+            body.classList.remove(myConfig.themes.default, myConfig.themes.lowContrast);
+            body.classList.add(theme);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const defaultThemeCheckbox = document.getElementById("default-theme");
+            const lowContrastThemeCheckbox = document.getElementById("low-contrast-theme");
+
+            defaultThemeCheckbox.addEventListener("change", () => {
+                if (defaultThemeCheckbox.checked) {
+                    applyTheme(myConfig.themes.default);
+                }
+            });
+
+            lowContrastThemeCheckbox.addEventListener("change", () => {
+                if (lowContrastThemeCheckbox.checked) {
+                    applyTheme(myConfig.themes.lowContrast);
+                }
+            });
+        });
+
+    </script>
+</head>
+
+<body>
+    <header class="ui-toolbar" id="ui-navigation-toolbar">
+        <h1>Navigation Toolbar</h1>
+    </header>
+
+    <header class="ui-toolbar" id="ui-custom-toolbar">
+        <h1>Custom Toolbar</h1>
+    </header>
+
+    <div class="theme-options">
+        <label>
+            <input type="checkbox" id="default-theme" checked>
+            Default Theme
+        </label>
+        <label>
+            <input type="checkbox" id="low-contrast-theme">
+            Low Contrast Theme
+        </label>
+    </div>
+
+    <button id="ui-button">Button</button>
+    <div id="ui-page-element">Page Element</div>
+</body>
+
+</html>
