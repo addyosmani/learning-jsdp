@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Pipeline in JavaScript</title>
+    <style>
+        button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        In this example, we have a button that demonstrates a promise pipeline. The "Fetch and Transform Data" button fetches data from an endpoint using the fetchRequest function, and then it passes the fetched data through a pipeline of async transformations (transform1 and transform2). The transformed data is then displayed in a formatted way.
+    -->
+    <h1>Promise Pipeline in JavaScript</h1>
+    <p>Click the button below to demonstrate a promise pipeline:</p>
+    <button id="fetchAndTransform">Fetch and Transform Data</button>
+    <pre id="output"></pre>
+    <script>
+        const output = document.getElementById('output');
+        const apiUrl = 'https://jsonplaceholder.typicode.com/todos/1';
+
+        function printResult(result) {
+            output.innerText = JSON.stringify(result, null, 2);
+        }
+
+        function fetchRequest(url) {
+            return fetch(url).then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error: ${response.status}`);
+                }
+                return response.json();
+            });
+        }
+
+        function pipeline(value) {
+            return Promise.resolve(value);
+        }
+
+        function transform1(data) {
+            data.title = data.title.toUpperCase();
+            return data;
+        }
+
+        function transform2(data) {
+            data.completed = !data.completed;
+            return data;
+        }
+
+        document.getElementById('fetchAndTransform').addEventListener('click', () => {
+            fetchRequest(apiUrl)
+                .then(data => pipeline(data)
+                    .then(transform1)
+                    .then(transform2))
+                .then(transformedData => printResult(transformedData))
+                .catch(error => {
+                    output.innerText = `Error: ${error.message}`;
+                });
+        });
+    </script>
+</body>
+</html>
