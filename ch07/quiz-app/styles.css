@@ -5,7 +5,7 @@ body {
 }
 
 header {
-    background-color: #4CAF50;
+    background-color: black;
     color: white;
     text-align: center;
     padding: 1em;
@@ -76,4 +76,26 @@ main {
     font-size: 16px;
     margin: 10px 2px;
     cursor: pointer;
+}
+
+
+.jsdp-section-header-title span {
+    background: linear-gradient(180deg, #fff 22.5%, rgba(255, 255, 255, .7) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    letter-spacing: -1px;
+}
+
+.jsdp-section-header-title {
+    text-align: center;
+}
+
+@media (min-width: 1248px) {
+    .jsdp-section-header-title {
+        font-size: 36px;
+        line-height: 44px;
+    }
 }
