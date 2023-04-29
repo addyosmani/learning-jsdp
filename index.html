@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +23,13 @@
             overflow: hidden;
         }
 
+        @media screen and (max-width: 900px) {
+            body {
+                overflow: auto;
+                height: auto;
+            }
+        }
+
         .grid-container {
             display: grid;
             grid-template-columns: 46rem 1fr;
@@ -36,6 +42,10 @@
             color: white;
             background-image: url(images/purple-orbit.jpg);
             background-position: right;
+        }
+
+        .black-column a {
+            color: #7DD3FC;
         }
 
         .purple-gradient {
@@ -137,7 +147,7 @@
             }
         }
 
-        .section-header-title span {
+        .jsdp-section-header-title span {
             background: linear-gradient(180deg, #fff 22.5%, rgba(255, 255, 255, .7) 100%);
             -webkit-background-clip: text;
             background-clip: text;
@@ -147,11 +157,11 @@
             letter-spacing: -1px;
         }
 
-        .section-header-title {
+        .jsdp-section-header-title {
             text-align: center;
         }
 
-        .section-header-description {
+        .jsdp-section-header-description {
             color: #9b96b0;
             margin: 12px auto 0;
             max-width: 520px;
@@ -159,20 +169,20 @@
         }
 
         @media (max-width: 1248px) {
-            .section-header-description {
+            .jsdp-section-header-description {
                 font-size: 16px;
                 line-height: 24px;
             }
         }
 
         @media (min-width: 1248px) {
-            .section-header-title {
+            .jsdp-section-header-title {
                 font-size: 36px;
                 line-height: 44px;
             }
         }
 
-        .section-header-description {
+        .jsdp-section-header-description {
             font-feature-settings: "cv06" on, "calt" off, "liga" off;
             font-size: 20px;
             font-weight: 400;
@@ -225,18 +235,18 @@
 
             <div class="content-black">
                 <div class="section-header">
-                    <h2 class="section-header-title">
+                    <h2 class="jsdp-section-header-title">
                         <span>Learning JavaScript Design Patterns</span>
                     </h2>
                 </div>
-                <p class="section-header-description">Do you want clean, efficient, manageable code? If so, the updated
-                    second edition of Learning
-                    JavaScript Design Patterns is the ideal place to start.</p>
+                <p class="jsdp-section-header-description">Do you want clean, efficient, manageable code? If so, the updated
+                    second edition of <a href="https://www.amazon.com/Learning-JavaScript-Design-Patterns-Developers/dp/1098139879/">Learning
+                    JavaScript Design Patterns</a> is the ideal place to start.</p>
 
                 <div class="info-box">
                     <div class="info-box-inner">
                         <div class="section-header">
-                            <h3 class="section-header-title">
+                            <h3 class="jsdp-section-header-title">
                                 <span style="font-size:0.7em">Sit back and enjoy the examples</span>
                             </h3>
 
