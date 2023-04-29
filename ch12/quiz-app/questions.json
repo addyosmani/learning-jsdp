@@ -1,0 +1,398 @@
+[
+  {
+    "topic": "React Hooks",
+    "questions": [
+      {
+        "question": "What are React Hooks?",
+        "options": [
+          "Hooks that hold components together",
+          "Functions that let you use state and other React features without writing a class",
+          "A tool to create React components from plain HTML"
+        ],
+        "answer": "Functions that let you use state and other React features without writing a class"
+      },
+      {
+        "question": "Which of the following is a built-in React Hook?",
+        "options": [
+          "useFetch",
+          "useEffect",
+          "useAjax"
+        ],
+        "answer": "useEffect"
+      },
+      {
+        "question": "What is the purpose of custom hooks in React?",
+        "options": [
+          "To create reusable stateful logic",
+          "To optimize the performance of function components",
+          "To create higher-order components"
+        ],
+        "answer": "To create reusable stateful logic"
+      }
+    ]
+  },
+  {
+    "topic": "useEffect",
+    "questions": [
+      {
+        "question": "What is the purpose of the useEffect Hook?",
+        "options": [
+          "To manage state in a function component",
+          "To perform side effects in a function component",
+          "To share state between components"
+        ],
+        "answer": "To perform side effects in a function component"
+      },
+      {
+        "question": "Which lifecycle methods does useEffect replace?",
+        "options": [
+          "componentDidMount, componentDidUpdate, and componentWillUnmount",
+          "componentWillReceiveProps and shouldComponentUpdate",
+          "componentWillUpdate and componentDidUpdate"
+        ],
+        "answer": "componentDidMount, componentDidUpdate, and componentWillUnmount"
+      },
+      {
+        "question": "How can you run an effect only when a component mounts and unmounts?",
+        "options": [
+          "Pass an empty array [] as a second argument to useEffect",
+          "Pass null as a second argument to useEffect",
+          "Pass the component's state as a second argument to useEffect"
+        ],
+        "answer": "Pass an empty array [] as a second argument to useEffect"
+      }
+    ]
+  },
+  {
+    "topic": "useState",
+    "questions": [
+      {
+        "question": "What is the purpose of the useState Hook?",
+        "options": [
+          "To manage state in a function component",
+          "To perform side effects in a function component",
+          "To share state between components"
+        ],
+        "answer": "To manage state in a function component"
+      },
+      {
+        "question": "What does useState return?",
+        "options": [
+          "An array with the current state value and a function to update it",
+          "A single function to update the state",
+          "The current state value"
+        ],
+        "answer": "An array with the current state value and a function to update it"
+      },
+      {
+        "question": "How do you initialize state with useState?",
+        "options": [
+          "Pass the initial state as an argument",
+          "Call useState with no arguments",
+          "Pass a function returning the initial state as an argument"
+        ],
+        "answer": "Pass the initial state as an argument"
+      }
+    ]
+  },
+  {
+    "topic": "useMemo",
+    "questions": [
+      {
+        "question": "What is the purpose of the useMemo Hook?",
+        "options": [
+          "To memoize an expensive computation",
+          "To manage state in a function component",
+          "To perform side effects in a function component"
+        ],
+        "answer": "To memoize an expensive computation"
+      },
+      {
+        "question": "When should you use useMemo?",
+        "options": [
+          "When you need to optimize the performance of an expensive computation",
+          "When you need to store a component's state",
+          "When you need to update the DOM"
+        ],
+        "answer": "When you need to optimize the performance of an expensive computation"
+      },
+      {
+        "question": "What does useMemo return?",
+        "options": [
+          "A memoized version of the passed function",
+          "A new function that wraps the passed function",
+          "The result of calling the passed function"
+        ],
+        "answer": "A memoized version of the passed function"
+      }
+    ]
+  },
+  {
+    "topic": "Higher Order Components",
+    "questions": [
+      {
+        "question": "What is a Higher Order Component (HOC) in React?",
+        "options": [
+          "A component that takes another component as an argument and returns a new component",
+          "A component that manages state and logic for other components",
+          "A component that can be used as a parent for any other component"
+        ],
+        "answer": "A component that takes another component as an argument and returns a new component"
+      },
+      {
+        "question": "What is a common use case for Higher Order Components?",
+        "options": [
+          "Reusing component logic",
+          "Optimizing performance",
+          "Managing application state"
+        ],
+        "answer": "Reusing component logic"
+      },
+      {
+        "question": "How can you share state or props between Higher Order Components?",
+        "options": [
+          "Using context",
+          "Using refs",
+          "Using the useState Hook"
+        ],
+        "answer": "Using context"
+      }
+    ]
+  },
+  {
+    "topic": "Next.js",
+    "questions": [
+      {
+        "question": "What is Next.js?",
+        "options": [
+          "A React-based framework for server-rendered applications",
+          "A tool for managing application state in React",
+          "A library for animating components in React"
+        ],
+        "answer": "A React-based framework for server-rendered applications"
+      },
+      {
+        "question": "Which feature does Next.js provide out of the box?",
+        "options": [
+          "Hot Module Replacement",
+          "Built-in CSS-in-JS",
+          "Both Hot Module Replacement and Built-in CSS-in-JS"
+        ],
+        "answer": "Both Hot Module Replacement and Built-in CSS-in-JS"
+      },
+      {
+        "question": "How does Next.js handle static site generation?",
+        "options": [
+          "Using the getStaticProps function",
+          "Using the getServerSideProps function",
+          "Using the getInitialProps function"
+        ],
+        "answer": "Using the getStaticProps function"
+      }
+    ]
+  },
+  {
+    "topic": "React.Lazy and Suspense",
+    "questions": [
+      {
+        "question": "What is React.Lazy used for?",
+        "options": [
+          "Loading components lazily as they are needed",
+          "Delaying the rendering of components until a certain condition is met",
+          "Managing state in a function component"
+        ],
+        "answer": "Loading components lazily as they are needed"
+      },
+      {
+        "question": "What is the purpose of Suspense in React?",
+        "options": [
+          "To provide a fallback UI while a component is being loaded",
+          "To optimize the performance of an expensive computation",
+          "To manage application state"
+        ],
+        "answer": "To provide a fallback UI while a component is being loaded"
+      },
+      {
+        "question": "How can you use React.Lazy and Suspense together?",
+        "options": [
+          "Wrap a lazily-loaded component with a Suspense component",
+          "Pass a lazily-loaded component as a prop to a Suspense component",
+          "Use a Suspense component as a child of a lazily-loaded component"
+        ],
+        "answer": "Wrap a lazily-loaded component with a Suspense component"
+      }
+    ]
+  },
+  {
+    "topic": "JSX",
+    "questions": [
+      {
+        "question": "What is JSX?",
+        "options": [
+          "A JavaScript syntax extension that allows you to write HTML-like code in your JavaScript code",
+          "A templating language for React components",
+          "A JavaScript library for building user interfaces"
+        ],
+        "answer": "A JavaScript syntax extension that allows you to write HTML-like code in your JavaScript code"
+      },
+      {
+        "question": "How can you embed JavaScript expressions in JSX?",
+        "options": [
+          "Using double curly braces {{ }}",
+          "Using single curly braces { }",
+          "Using angle brackets < >"
+        ],
+        "answer": "Using single curly braces { }"
+      },
+      {
+        "question": "What is the main difference between JSX and HTML?",
+        "options": [
+          "JSX is a templating language, while HTML is a markup language",
+          "JSX requires all tags to be closed, even self-closing tags",
+          "JSX uses camelCase for attribute names, while HTML uses kebab-case"
+        ],
+        "answer": "JSX uses camelCase for attribute names, while HTML uses kebab-case"
+      }
+    ]
+  },
+  {
+    "topic": "Virtual DOM",
+    "questions": [
+      {
+        "question": "What is the purpose of the Virtual DOM in React?",
+        "options": [
+          "To optimize the performance of updates to the actual DOM",
+          "To store the state of a React application",
+          "To enable server-side rendering in React"
+        ],
+        "answer": "To optimize the performance of updates to the actual DOM"
+      },
+      {
+        "question": "How does the Virtual DOM work?",
+        "options": [
+          "It calculates the difference between the current DOM and the new DOM, and applies the minimal set of changes",
+          "It updates the entire DOM tree whenever a change is made",
+          "It stores a snapshot of the DOM and restores it when needed"
+        ],
+        "answer": "It calculates the difference between the current DOM and the new DOM, and applies the minimal set of changes"
+      },
+      {
+        "question": "What is the process of calculating the difference between the current DOM and the new DOM called?",
+        "options": [
+          "Diffing",
+          "Reconciliation",
+          "Synchronization"
+        ],
+        "answer": "Reconciliation"
+      }
+    ]
+  },
+  {
+    "topic": "Refs",
+    "questions": [
+      {
+        "question": "What is the purpose of refs in React?",
+        "options": [
+          "To create a reference to a DOM element or a class component instance",
+          "To optimize the performance of an expensive computation",
+          "To share state between components"
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "React Portals",
+    "questions": [
+      {
+        "question": "What is a React Portal?",
+        "options": [
+          "A way to transport a component's children to a different DOM node",
+          "A feature that enables routing in React applications",
+          "A method to improve the performance of the Virtual DOM"
+        ],
+        "answer": "A way to transport a component's children to a different DOM node"
+      },
+      {
+        "question": "Which function is used to create a portal?",
+        "options": [
+          "ReactDOM.createPortal",
+          "React.createPortal",
+          "ReactDOM.Portal"
+        ],
+        "answer": "ReactDOM.createPortal"
+      },
+      {
+        "question": "When is it useful to use a React Portal?",
+        "options": [
+          "When you want to avoid CSS clashes between parent and child components",
+          "When you want to improve performance of DOM updates",
+          "When you need to share state between unrelated components"
+        ],
+        "answer": "When you want to avoid CSS clashes between parent and child components"
+      }
+    ]
+  },
+  {
+    "topic": "React Error Boundaries",
+    "questions": [
+      {
+        "question": "What is an Error Boundary in React?",
+        "options": [
+          "A component that catches JavaScript errors in its child component tree",
+          "A component that prevents errors from propagating to parent components",
+          "A feature that enables error handling in functional components"
+        ],
+        "answer": "A component that catches JavaScript errors in its child component tree"
+      },
+      {
+        "question": "Which lifecycle method is used in Error Boundaries to catch errors?",
+        "options": [
+          "componentDidCatch",
+          "componentDidThrow",
+          "componentDidError"
+        ],
+        "answer": "componentDidCatch"
+      },
+      {
+        "question": "Can Error Boundaries catch errors in their own render method?",
+        "options": [
+          "Yes",
+          "No"
+        ],
+        "answer": "No"
+      }
+    ]
+  },
+  {
+    "topic": "React Profiler",
+    "questions": [
+      {
+        "question": "What is the purpose of the React Profiler?",
+        "options": [
+          "To measure the performance of a React application",
+          "To debug JavaScript errors in a React application",
+          "To create reusable stateful logic in React components"
+        ],
+        "answer": "To measure the performance of a React application"
+      },
+      {
+        "question": "Where can you find the React Profiler?",
+        "options": [
+          "As a separate package",
+          "As part of the React Developer Tools browser extension",
+          "In the React core library"
+        ],
+        "answer": "As part of the React Developer Tools browser extension"
+      },
+      {
+        "question": "What information can you get from the React Profiler?",
+        "options": [
+          "Time spent on rendering components, commits, and component updates",
+          "Detailed error messages and stack traces",
+          "The current state and props of all components"
+        ],
+        "answer": "Time spent on rendering components, commits, and component updates"
+      }
+    ]
+  }
+]
