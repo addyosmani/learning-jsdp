@@ -1,58 +1,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-  background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
 .header {
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-  padding10: 1rem;
-  background-color: #333;
-  color: white;
-  margin-bottom: 1rem;
-  }
-  
-  .search {
-  display: block;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto 2rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  }
-  
-  .gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 1rem;
-  padding: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  }
-  
-  .photo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  border-radius: 4px;
-  padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .image {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-  }
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    padding10: 1rem;
+    background-color: #333;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.search {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 1rem;
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 4px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 270px;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
