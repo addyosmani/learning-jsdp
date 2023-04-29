@@ -1,0 +1,419 @@
+[
+    {
+      "pattern": "Modules",
+      "questions": [
+        {
+          "question": "What is the keyword for exporting a module in ES2015+?",
+          "options": ["export", "module.exports", "exports"],
+          "answer": "export"
+        },
+        {
+          "question": "What is the keyword for importing a module in ES2015+?",
+          "options": ["import", "require", "load"],
+          "answer": "import"
+        },
+        {
+          "question": "What is the file extension of ES2015+ modules?",
+          "options": [".mjs", ".module.js", ".esm.js"],
+          "answer": ".mjs"
+        }
+      ]
+    },
+    {
+      "pattern": "Classes",
+      "questions": [
+        {
+          "question": "What keyword is used to create a new class in JavaScript?",
+          "options": ["class", "constructor", "createClass"],
+          "answer": "class"
+        },
+        {
+          "question": "Which keyword is used to create a method that's shared among all instances of a class?",
+          "options": ["prototype", "static", "shared"],
+          "answer": "static"
+        },
+        {
+          "question": "What keyword is used to create a derived class?",
+          "options": ["inherits", "extends", "subclass"],
+          "answer": "extends"
+        }
+      ]
+    },
+    {
+      "pattern": "Mixins",
+      "questions": [
+        {
+          "question": "What is the primary purpose of a mixin?",
+          "options": [
+            "To share functionality between unrelated objects",
+            "To create a new class that inherits from multiple parent classes",
+            "To create a single instance of an object"
+          ],
+          "answer": "To share functionality between unrelated objects"
+        },
+        {
+          "question": "How is a mixin commonly applied to an object or class?",
+          "options": [
+            "Using the 'extends' keyword",
+            "Using the 'implements' keyword",
+            "By copying properties and methods directly onto the target object or class"
+          ],
+          "answer": "By copying properties and methods directly onto the target object or class"
+        },
+        {
+          "question": "Which ES2015 feature can be used to create mixins more easily?",
+          "options": ["Classes", "Symbols", "Proxies"],
+          "answer": "Symbols"
+        }
+      ]
+    },
+    {
+      "pattern": "Singletons",
+      "questions": [
+        {
+          "question": "What is a singleton pattern primarily used for?",
+          "options": [
+            "Ensuring that a class has only one instance",
+            "Creating objects with a shared prototype",
+            "Encapsulating the creation of objects"
+          ],
+          "answer": "Ensuring that a class has only one instance"
+        },
+        {
+          "question": "In a singleton pattern, how is the single instance usually accessed?",
+          "options": [
+            "Through a globally accessible variable",
+            "By calling a static method on the class",
+            "By creating a new instance of the class"
+          ],
+          "answer": "By calling a static method on the class"
+        },
+        {
+          "question": "Which of the following is a drawback of using the singleton pattern?",
+          "options": [
+            "Difficulty in testing and debugging",
+            "Increased memory usage",
+            "Decreased performance"
+          ],
+          "answer": "Difficulty in testing and debugging"
+        }
+      ]
+    },
+    {
+      "pattern": "Factory",
+      "questions": [
+        {
+          "question": "What is the main purpose of the factory pattern?",
+          "options": [
+            "To create objects without specifying the exact class of object that will be created",
+            "To ensure that a class has only one instance",
+            "To define an interface for creating objects in a superclass, but allowing subclasses to decide which class to instantiate"
+          ],
+          "answer": "To create objects without specifying the exact class of object that will be created"
+        },
+        {
+          "question": "Which of the following is an advantage of using the factory pattern?",
+          "options": [
+            "It makes it easier to add new types of objects",
+            "It reduces memory usage",
+            "It improves performance"
+          ],
+          "answer": "It makes it easier to add new types of objects"
+        },
+        {
+          "question": "In the factory pattern, which component is responsible for creating objects?",
+          "options": ["Factory", "Product", "Client"],
+          "answer": "Factory"
+        }
+      ]
+    },
+    {
+      "pattern": "Decorators",
+      "questions": [
+        {
+          "question": "What is the primary purpose of the decorator pattern?",
+          "options": [
+            "To add new behavior to an object without affecting other objects of the same class",
+            "To create a single instance of an object",
+            "To encapsulate the creation of objects"
+          ],
+          "answer": "To add new behavior to an object without affecting other objects of the same class"
+        },
+        {
+          "question": "Which of the following design principles does the decorator pattern follow?",
+          "options": [
+            "Open/Closed Principle",
+            "Single Responsibility Principle",
+            "Liskov Substitution Principle"
+          ],
+          "answer": "Open/Closed Principle"
+        },
+        {
+          "question": "In the decorator pattern, what do decorators have in common with the objects they decorate?",
+          "options": [
+            "The same class",
+            "The same prototype",
+            "The same interface or superclass"
+          ],
+          "answer": "The same interface or superclass"
+        }
+      ]
+    },
+    {
+      "pattern": "Flyweight",
+      "questions": [
+        {
+          "question": "What is the primary goal of the flyweight pattern?",
+          "options": [
+            "To share data between objects to reduce memory usage",
+            "To add new behavior to an object without affecting other objects of the same class",
+            "To ensure that a class has only one instance"
+          ],
+          "answer": "To share data between objects to reduce memory usage"
+        },
+        {
+          "question": "In the flyweight pattern, what kind of data is shared between objects?",
+          "options": ["Intrinsic state", "Extrinsic state", "Both intrinsic and extrinsic state"],
+          "answer": "Intrinsic state"
+        },
+        {
+          "question": "Which of the following is an example of a situation where the flyweight pattern could be useful?",
+          "options": [
+            "A text editor that needs to store the formatting information for each character",
+            "A game that needs to store information about each player's position and score",
+            "A drawing application that needs to store information about each shape and its position"
+          ],
+          "answer": "A text editor that needs to store the formatting information for each character"
+        }
+      ]
+    },
+    {
+      "pattern": "Observer",
+      "questions": [
+        {
+          "question": "What is the primary purpose of the observer pattern?",
+          "options": [
+            "To define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically",
+            "To ensure that a class has only one instance",
+            "To add new behavior to an object without affecting other objects of the same class"
+          ],
+          "answer": "To define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically"
+        },
+        {
+          "question": "In the observer pattern, which component is responsible for maintaining a list of observers?",
+          "options": ["Subject", "Observer", "Client"],
+          "answer": "Subject"
+        },
+        {
+          "question": "Which built-in JavaScript feature can be used to implement a simple observer pattern?",
+          "options": ["Promises", "EventEmitter", "Proxy"],
+          "answer": "EventEmitter"
+        }
+      ]
+    },
+    {
+      "pattern": "Mediator",
+      "questions": [
+        {
+          "question": "What is the primary purpose of the mediator pattern?",
+          "options": [
+            "To define an object that encapsulates how a set of objects interact",
+            "To add new behavior to an object without affecting other objects of the same class",
+            "To share data between objects to reduce memory usage"
+          ],
+          "answer": "To define an object that encapsulates how a set of objects interact"
+        },
+        {
+          "question": "Which of the following is an advantage of using the mediator pattern?",
+          "options": [
+            "It makes it easier to add new types of objects",
+            "It reduces memory usage",
+            "It decouples objects, promoting loose coupling"
+          ],
+          "answer": "It decouples objects, promoting loose coupling"
+        },
+        {
+          "question": "Which built-in JavaScript feature can be used to implement a simple mediator pattern?",
+          "options": ["Promises", "EventEmitter", "Proxy"],
+          "answer": "EventEmitter"
+        }
+      ]
+    },
+    {
+      "pattern": "Command",
+      "questions": [
+        {
+          "question": "What is the primary purpose of the command pattern?",
+          "options": [
+            "To encapsulate a request as an object, allowing you to parameterize clients with different requests, queue or log requests, and support undoable operations",
+            "To create objects without specifying the exact class of object that will be created",
+            "To define an object that encapsulates how a set of objects interact"
+          ],
+          "answer": "To encapsulate a request as an object, allowing you to parameterize clients with different requests, queue or log requests, and support undoable operations"
+        },
+        {
+          "question": "Which of the following is an advantage of using the command pattern?",
+          "options": [
+            "It makes it easier to add new types of objects",
+            "It decouples the sender and receiver of a request",
+            "It promotes tight coupling between objects"
+          ],
+          "answer": "It decouples the sender and receiver of a request"
+        },
+        {
+          "question": "In the command pattern, which component is responsible for carrying out the request?",
+          "options": ["Invoker", "Receiver", "Command"],
+          "answer": "Receiver"
+        }
+      ]
+    },
+    {
+      "pattern": "Prototype",
+      "questions": [
+        {
+          "question": "What is the primary purpose of the prototype pattern?",
+          "options": [
+            "To specify the kind of objects to create using a prototypical instance and create new objects by copying this prototype",
+            "To define an object that encapsulates how a set of objects interact",
+            "To ensure that a class has only one instance"
+          ],
+          "answer": "To specify the kind of objects to create using a prototypical instance and create new objects by copying this prototype"
+        },
+        {
+          "question": "Which built-in JavaScript feature can be used to implement the prototype pattern?",
+          "options": ["Object.create()", "Object.assign()", "Object.defineProperty()"],
+          "answer": "Object.create()"
+        },
+        {
+          "question": "In the prototype pattern, what is the main benefit of using prototypes over constructors?",
+          "options": [
+            "Prototypes allow for more efficient memory usage",
+            "Prototypes make it easier to add new types of objects",
+            "Prototypes promote loose coupling between objects"
+          ],
+          "answer": "Prototypes allow for more efficient memory usage"
+        }
+      ]
+    },
+    {
+      "pattern": "Builder",
+      "questions": [
+        {
+          "question": "What is the primary purpose of the builder pattern?",
+          "options": [
+            "To separate the construction of a complex object from its representation, allowing the same construction process to create different representations",
+            "To create objects without specifying the exact class of object that will be created",
+            "To define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically"
+          ],
+          "answer": "To separate the construction of a complex object from its representation, allowing the same construction process to create different representations"
+        },
+        {
+          "question": "In the builder pattern, which component is responsible for defining the steps required to build the object?",
+          "options": ["Director", "Builder", "Product"],
+          "answer": "Builder"
+        },
+        {
+          "question": "Which of the following is an advantage of using the builder pattern?",
+          "options": [
+            "It allows for more efficient memory usage",
+            "It promotes loose coupling between objects",
+            "It simplifies the client code that creates complex objects"
+          ],
+          "answer": "It simplifies the client code that creates complex objects"
+        }
+      ]
+    },
+    {
+      "pattern": "MVC",
+      "questions": [
+        {
+          "question": "What does MVC stand for in software design?",
+          "options": [
+            "Model-View-Controller",
+            "Module-Version-Configuration",
+            "Message-Variable-Command"
+          ],
+          "answer": "Model-View-Controller"
+        },
+        {
+          "question": "In the MVC pattern, what is the role of the Model?",
+          "options": [
+            "It represents the application data and business logic",
+            "It manages the user interface and presentation",
+            "It handles user input and updates the model and view accordingly"
+          ],
+          "answer": "It represents the application data and business logic"
+        },
+        {
+          "question": "In the MVC pattern, what is the role of the View?",
+          "options": [
+            "It manages the user interface and presentation",
+            "It represents the application data and business logic",
+            "It handles user input and updates the model and view accordingly"
+          ],
+          "answer": "It manages the user interface and presentation"
+        }
+      ]
+    },
+    {
+      "pattern": "Facade",
+      "questions": [
+        {
+          "question": "What is the primary purpose of the facade pattern?",
+          "options": [
+            "To provide a simplified interface to a more complex subsystem",
+            "To define an object that encapsulates how a set of objects interact",
+            "To separate the construction of a complex object from its representation"
+          ],
+          "answer": "To provide a simplified interface to a more complex subsystem"
+        },
+        {
+          "question": "Which of the following is an advantage of using the facade pattern?",
+          "options": [
+            "It makes the subsystem easier to use",
+            "It promotes tight coupling between objects",
+            "It increases the complexity of the subsystem"
+          ],
+          "answer": "It makes the subsystem easier to use"
+        },
+        {
+          "question": "In the facade pattern, what is the role of the facade?",
+          "options": [
+            "It provides a simplified interface to the more complex subsystem",
+            "It manages the user interface and presentation",
+            "It handles user input and updates the model and view accordingly"
+          ],
+          "answer": "It provides a simplified interface to the more complex subsystem"
+        }
+      ]
+    },
+    {
+      "pattern": "Dynamic Import",
+      "questions": [
+        {
+          "question": "What is the purpose of dynamic import in JavaScript?",
+          "options": [
+            "To load JavaScript modules dynamically at runtime",
+            "To provide a simplified interface to a more complex subsystem",
+            "To represent the application data and business logic"
+          ],
+          "answer": "To load JavaScript modules dynamically at runtime"
+        },
+        {
+          "question": "Which JavaScript function is used to dynamically import a module?",
+          "options": ["import()", "require()", "load()"],
+          "answer": "import()"
+        },
+        {
+          "question": "What is the main benefit of using dynamic import over static import?",
+          "options": [
+            "Dynamic import allows for code splitting and lazy loading of modules",
+            "Dynamic import promotes loose coupling between objects",
+            "Dynamic import simplifies the client code that creates complex objects"
+          ],
+          "answer": "Dynamic import allows for code splitting and lazy loading of modules"
+        }
+      ]
+    }
+  ]
+  
