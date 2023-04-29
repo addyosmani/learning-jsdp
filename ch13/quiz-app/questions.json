@@ -1,0 +1,186 @@
+[
+  {
+    "topic": "Client-Side Rendering",
+    "questions": [
+      {
+        "question": "What is Client-Side Rendering (CSR)?",
+        "options": [
+          "Rendering content directly in the browser using JavaScript",
+          "Rendering content on the server and sending the fully rendered HTML to the client",
+          "Generating static HTML pages for each possible view during the build process"
+        ],
+        "answer": "Rendering content directly in the browser using JavaScript"
+      },
+      {
+        "question": "What is a major disadvantage of CSR?",
+        "options": [
+          "Slower initial page load",
+          "Increased server load",
+          "Not suitable for highly dynamic content"
+        ],
+        "answer": "Slower initial page load"
+      },
+      {
+        "question": "Which of the following is a benefit of CSR?",
+        "options": [
+          "Fast subsequent page loads",
+          "Better SEO",
+          "Reduced server load"
+        ],
+        "answer": "Fast subsequent page loads"
+      }
+    ]
+  },
+  {
+    "topic": "Server-Side Rendering",
+    "questions": [
+      {
+        "question": "What is Server-Side Rendering (SSR)?",
+        "options": [
+          "Rendering content directly in the browser using JavaScript",
+          "Rendering content on the server and sending the fully rendered HTML to the client",
+          "Generating static HTML pages for each possible view during the build process"
+        ],
+        "answer": "Rendering content on the server and sending the fully rendered HTML to the client"
+      },
+      {
+        "question": "Which of the following is a benefit of SSR?",
+        "options": [
+          "Faster initial page load",
+          "Fast subsequent page loads",
+          "Reduced server load"
+        ],
+        "answer": "Faster initial page load"
+      },
+      {
+        "question": "What is a major disadvantage of SSR?",
+        "options": [
+          "Increased server load",
+          "Less SEO-friendly",
+          "Not suitable for highly dynamic content"
+        ],
+        "answer": "Increased server load"
+      }
+    ]
+  },
+  {
+    "topic": "Static Site Generation",
+    "questions": [
+      {
+        "question": "What is Static Site Generation (SSG)?",
+        "options": [
+          "Rendering content directly in the browser using JavaScript",
+          "Rendering content on the server and sending the fully rendered HTML to the client",
+          "Generating static HTML pages for each possible view during the build process"
+        ],
+        "answer": "Generating static HTML pages for each possible view during the build process"
+      },
+      {
+        "question": "Which of the following is a benefit of SSG?",
+        "options": [
+          "Fast page load times",
+          "Fast subsequent page loads",
+          "Reduced server load"
+        ],
+        "answer": "Fast page load times"
+      },
+      {
+        "question": "What is a major disadvantage of SSG?",
+        "options": [
+          "Increased server load",
+          "Less SEO-friendly",
+          "Not suitable for highly dynamic content"
+        ],
+        "answer": "Not suitable for highly dynamic content"
+      }
+    ]
+  },
+  {
+    "topic": "Incremental Static Regeneration",
+    "questions": [
+      {
+        "question": "What is Incremental Static Regeneration (ISR)?",
+        "options": [
+          "A feature of Next.js that allows for the regeneration of static pages at runtime",
+          "Rendering content on the server and sending the fully rendered HTML to the client",
+          "Generating static HTML pages for each possible view during the build process"
+        ],
+        "answer": "A feature of Next.js that allows for the regeneration of static pages at runtime"
+      },
+      {
+        "question": "Which of the following is a benefit of ISR?",
+        "options": [
+          "Serves the most recent content",
+          "Fast subsequent page loads",
+          "Reduced server load"
+        ],
+        "answer": "Serves the most recent content"
+      },
+      {
+        "question": "What is a disadvantage of ISR compared to SSG?",
+        "options": [
+          "Slightly slower page serve/render time",
+          "Increased server load",
+          "Less SEO-friendly"
+        ],
+        "answer": "Slightly slower page serve/render time"
+      }
+    ]
+  },
+  {
+    "topic": "React Server Components",
+    "questions": [
+      {
+        "question": "What is the main purpose of React Server Components?",
+        "options": [
+          "To build modern user interfaces while improving performance",
+          "To generate static HTML pages for each possible view during the build process",
+          "To render content on the server and send the fully rendered HTML to the client"
+        ],
+        "answer": "To build modern user interfaces while improving performance"
+      }
+    ]
+  },
+  {
+    "topic": "Islands Architecture",
+    "questions": [
+      {
+        "question": "What is the main idea behind Islands Architecture?",
+        "options": [
+          "Selectively hydrating UI components on an otherwies static HTML page. Each island renders in isolation, allowing multiple islands to exist on a page without affecting each other.",
+          "Generating static HTML pages for each possible view during the build process",
+          "Rendering content on the server and sending the fully rendered HTML to the client"
+        ],
+        "answer": "Selectively hydrating UI components on an otherwies static HTML page. Each island renders in isolation, allowing multiple islands to exist on a page without affecting each other."
+      }
+    ]
+  },
+  {
+    "topic": "Partial Hydration",
+    "questions": [
+      {
+        "question": "What is the main goal of partial hydration?",
+        "options": [
+          "Hydrating parts of a server-rendered page with JavaScript to reduce the amount of code needed for interactivity",
+          "Generating static HTML pages for each possible view during the build process",
+          "Rendering content on the server and sending the fully rendered HTML to the client"
+        ],
+        "answer": "Hydrating parts of a server-rendered page with JavaScript to reduce the amount of code needed for interactivity"
+      }
+    ]
+  },
+  {
+    "topic": "Hybrid Rendering",
+    "questions": [
+      {
+        "question": "What is the main idea behind Hybrid Rendering?",
+        "options": [
+          "Combining build-time, server, and client rendering to create a more flexible approach to web development",
+          "Generating static HTML pages for each possible view during the build process",
+          "Rendering content on the server and sending the fully rendered HTML to the client"
+        ],
+        "answer": "Combining build-time, server, and client rendering to create a more flexible approach to web development"
+      }
+    ]
+  }
+]
