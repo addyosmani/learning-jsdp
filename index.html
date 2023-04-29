@@ -34,6 +34,8 @@
         .black-column {
             background-color: black;
             color: white;
+            background-image: url(images/purple-orbit.jpg);
+            background-position: right;
         }
 
         .purple-gradient {
@@ -134,6 +136,82 @@
                 padding-top: 0;
             }
         }
+
+        .section-header-title span {
+            background: linear-gradient(180deg, #fff 22.5%, rgba(255, 255, 255, .7) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            letter-spacing: -1px;
+        }
+
+        .section-header-title {
+            text-align: center;
+        }
+
+        .section-header-description {
+            color: #9b96b0;
+            margin: 12px auto 0;
+            max-width: 520px;
+            text-align: center;
+        }
+
+        @media (max-width: 1248px) {
+            .section-header-description {
+                font-size: 16px;
+                line-height: 24px;
+            }
+        }
+
+        @media (min-width: 1248px) {
+            .section-header-title {
+                font-size: 36px;
+                line-height: 44px;
+            }
+        }
+
+        .section-header-description {
+            font-feature-settings: "cv06" on, "calt" off, "liga" off;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: -.01em;
+            line-height: 28px;
+        }
+
+        .info-box {
+            display: block;
+            width: 80%;
+            height: 400px;
+            background-color: #0a0118;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #5B5668;
+            flex-grow: 1;
+            inset: 1px;
+            margin: 0 auto;
+            margin-top: 2rem;
+            z-index: 2;
+            background: radial-gradient(47.16% 90.82% at 50% 0%, rgba(133, 102, 255, .08) 0%, rgba(133, 102, 255, 0) 100%), radial-gradient(67.49% 100% at 50% 0%, rgba(255, 255, 255, .04) 0%, rgba(255, 255, 255, 0) 100%), #0a0118;
+            overflow: hidden;
+        }
+
+        .info-box-inner {
+            background: url(images/blue-orbit.jpg);
+            height: 100%;
+            background-size: cover;
+            padding: 2rem;
+        }
+
+        .info-box-inner:hover {
+            background: url(images/blue-orbit.jpg);
+            height: 100%;
+            background-size: cover;
+            padding: 2rem;
+            filter: brightness(1.2);
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -142,16 +220,31 @@
 
 <body>
     <div class="grid-container">
-        <div class="black-column purple-gradient">
+        <div class="black-column">
 
 
             <div class="content-black">
-                <h2>Learning JavaScript Design Patterns</h2>
-                <h3 class="color-lightpurple">Second Edition: Samples</h3>
-                <p style="padding-top: 2rem;">Do you want to write beautiful, structured, and maintainable JavaScript by
-                    applying modern design patterns to the language? Do you want clean, efficient, manageable code? Want
-                    to stay up-to-date with the latest best practices? If so, the updated second edition of Learning
+                <div class="section-header">
+                    <h2 class="section-header-title">
+                        <span>Learning JavaScript Design Patterns</span>
+                    </h2>
+                </div>
+                <p class="section-header-description">Do you want clean, efficient, manageable code? If so, the updated
+                    second edition of Learning
                     JavaScript Design Patterns is the ideal place to start.</p>
+
+                <div class="info-box">
+                    <div class="info-box-inner">
+                        <div class="section-header">
+                            <h3 class="section-header-title">
+                                <span style="font-size:0.7em">Sit back and enjoy the examples</span>
+                            </h3>
+
+                        </div>
+                        <img style="display: block;
+                        margin: 0 auto;" src="images/appicon2.webp" alt="Shapes" width="400" height="400" />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="white-column typography">
@@ -305,6 +398,7 @@
                 <h2>Chapter 12: React Patterns</h2>
                 <section>
                     <ul>
+                        <li><a href="https://loading-patterns.vercel.app/">React: Loading Patterns</a></li>
                         <li><a href="/ch12/react_hoc.html">React: Higher-Order Components</a></li>
                         <li><a href="/ch12/react_hoc_composition.html">React: HOC Composition</a></li>
                         <li><a href="/ch12/react_render_props.html">React: Render Props</a></li>
@@ -327,12 +421,12 @@
                     <ul>
 
 
-                        <li><a href="/ch13/nextjs-rendering-patterns/client-side-rendering.html">Next.js: Client-Side
+                        <li><a href="https://nextjs-rendering-jet.vercel.app/">Next.js: Client-Side
                                 Rendering</a></li>
-                        <li><a href="/ch13/nextjs-rendering-patterns/incremental-static-regeneration.html">Next.js:
+                        <li><a href="https://nextjs-rendering-jet.vercel.app/">Next.js:
                                 Incremental
                                 Static Regeneration</a></li>
-                        <li><a href="/ch13/nextjs-rendering-patterns/static-site-generation.html">Next.js: Static Site
+                        <li><a href="https://nextjs-rendering-jet.vercel.app/">Next.js: Static Site
                                 Generation</a></li>
                     </ul>
 
