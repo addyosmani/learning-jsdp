@@ -35,11 +35,12 @@
             background-color: black;
             color: white;
         }
-        
+
         .purple-gradient {
-            background: rgb(0,0,0);
-background: linear-gradient(90deg, rgba(0,0,0,1) 44%, rgba(60,25,126,1) 88%, rgba(117,47,196,1) 100%);
+            background: rgb(0, 0, 0);
+            background: linear-gradient(90deg, rgba(0, 0, 0, 1) 44%, rgba(60, 25, 126, 1) 88%, rgba(117, 47, 196, 1) 100%);
         }
+
         .white-column {
             background-color: white;
             overflow-y: auto;
@@ -80,7 +81,7 @@ background: linear-gradient(90deg, rgba(0,0,0,1) 44%, rgba(60,25,126,1) 88%, rgb
 
         .content-white h2 {
             font-size: 1.25rem;
-    line-height: 2rem;
+            line-height: 2rem;
         }
 
         .color-lightpurple {
@@ -89,28 +90,50 @@ background: linear-gradient(90deg, rgba(0,0,0,1) 44%, rgba(60,25,126,1) 88%, rgb
 
 
         .typography li {
-    margin-top: 1rem
-}
+            margin-top: 1rem
+        }
 
-.typography li>:is(p,ol,ul) {
-    margin-top: 1rem
-}
+        .typography li>:is(p, ol, ul) {
+            margin-top: 1rem
+        }
 
-.typography :is(h2,h3,h4)+* {
-    margin-top: 1rem
-}
+        .typography :is(h2, h3, h4)+* {
+            margin-top: 1rem
+        }
 
-.typography :is(blockquote,pre,table)+* {
-    margin-top: 2rem
-}
+        .typography :is(blockquote, pre, table)+* {
+            margin-top: 2rem
+        }
 
-.typography hr+* {
-    margin-top: 4rem
-}
+        .typography hr+* {
+            margin-top: 4rem
+        }
 
-.typography li>:first-child,.typography>:first-child {
-    margin-top: 0
-}
+        .typography li>:first-child,
+        .typography>:first-child {
+            margin-top: 0
+        }
+
+        @media (max-width: 900px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+            }
+
+            .black-column {
+                height: auto;
+            }
+
+            .content-black {
+                width: auto;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .white-column {
+                padding-top: 0;
+            }
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -120,8 +143,8 @@ background: linear-gradient(90deg, rgba(0,0,0,1) 44%, rgba(60,25,126,1) 88%, rgb
 <body>
     <div class="grid-container">
         <div class="black-column purple-gradient">
-            
-            
+
+
             <div class="content-black">
                 <h2>Learning JavaScript Design Patterns</h2>
                 <h3 class="color-lightpurple">Second Edition: Samples</h3>
@@ -138,7 +161,8 @@ background: linear-gradient(90deg, rgba(0,0,0,1) 44%, rgba(60,25,126,1) 88%, rgb
                 <section>
                     <ul>
                         <li><a href="/ch05/gallery/index.html">Modules: Dog Gallery</a></li>
-                        <li><a href="/ch05/gallery/index-dynamic-import.html">Modules: Dog Gallery (Favorites via Dynamic Import)</a></li>
+                        <li><a href="/ch05/gallery/index-dynamic-import.html">Modules: Dog Gallery (Favorites via
+                                Dynamic Import)</a></li>
                         <li><a href="/ch05/modules_bakery.html">Modules: Bakery</a></li>
                         <li><a href="/ch05/dynamic_import.html">Dynamic Import</a></li>
                         <li><a href="/ch05/dynamic_import_lodash.html">Dynamic Import: Lodash</a></li>
