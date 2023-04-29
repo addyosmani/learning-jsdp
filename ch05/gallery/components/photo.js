@@ -6,3 +6,4 @@ export function createPhoto(src, alt) {
   photo.appendChild(createImage(src, alt));
   return photo;
 }
+
