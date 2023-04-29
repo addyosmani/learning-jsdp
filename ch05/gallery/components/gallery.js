@@ -18,6 +18,20 @@ export async function createGallery() {
     gallery.appendChild(photoElement);
   }
 
+  // Only used for the dynamic import version
+  // Add the button
+  const favoriteButton = document.createElement('button');
+  favoriteButton.textContent = 'Select your favorite dogs';
+  favoriteButton.classList.add('favorite-button');
+  favoriteButton.addEventListener('click', async () => {
+    const { addFavoriteCheckboxes } = await import('./favorite.js');
+    addFavoriteCheckboxes(gallery);
+    favoriteButton.remove(); // remove the button after clicking
+  });
+
+  gallery.appendChild(favoriteButton);
+  //
+
   return gallery;
 }
 

@@ -57,3 +57,21 @@ body {
     height: auto;
     border-radius: 4px;
 }
+
+.photo.favorite {
+    background-color: lightblue;
+}
+
+.favorite-checkbox {
+    /* position: absolute; */
+    top: 10px;
+    left: 10px;
+}
+
+/* Hidden by default, show only in index-dynamic-import.html*/
+.favorite-button {
+    display:none;
+    background: black;
+    color: white;
+    font-size: 1rem;
+}
