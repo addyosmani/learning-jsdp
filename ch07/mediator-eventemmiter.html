@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediator Pattern with EventEmitter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #chat-log {
+            border: 1px solid #ccc;
+            height: 300px;
+            margin-bottom: 10px;
+            overflow-y: scroll;
+            padding: 5px;
+        }
+
+        #send-message {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat Application (Mediator Pattern)</h1>
+    <div id="chat-log"></div>
+    <input type="text" id="send-message" placeholder="Type your message here...">
+    <script>
+        class EventEmitter {
+            constructor() {
+                this.events = {};
+            }
+
+            on(eventName, listener) {
+                if (!this.events[eventName]) {
+                    this.events[eventName] = [];
+                }
+                this.events[eventName].push(listener);
+            }
+
+            emit(eventName, ...args) {
+                if (this.events[eventName]) {
+                    this.events[eventName].forEach(listener => listener.apply(null, args));
+                }
+            }
+        }
+
+        class User {
+            constructor(name, chatRoom) {
+                this.name = name;
+                this.chatRoom = chatRoom;
+                chatRoom.addUser(this);
+            }
+
+            sendMessage(message) {
+                this.chatRoom.sendMessage(this, message);
+            }
+        }
+
+        class ChatRoom extends EventEmitter {
+            constructor() {
+                super();
+                this.users = [];
+            }
+
+            addUser(user) {
+                this.users.push(user);
+            }
+
+            sendMessage(sender, message) {
+                this.emit('message', { sender, message });
+            }
+        }
+
+        const chatRoom = new ChatRoom();
+
+        const alice = new User('Alice', chatRoom);
+        const bob = new User('Bob', chatRoom);
+
+        chatRoom.on('message', ({ sender, message }) => {
+            const chatLog = document.getElementById('chat-log');
+            chatLog.innerHTML += `<p><strong>${sender.name}:</strong> ${message}</p>`;
+            chatLog.scrollTop = chatLog.scrollHeight;
+        });
+
+        document.getElementById('send-message').addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && event.target.value.trim() !== '') {
+                alice.sendMessage(event.target.value);
+                event.target.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
+<!--
+In this example, the EventEmitter class is responsible for handling events and listeners. The User class represents individual users in the chat room, and the ChatRoom class acts as a mediator for communication between users.
+
+When you run this example in a browser, you can type messages in the input field and press "Enter" to send them. The messages will be displayed in the chat log area, simulating communication between Alice and Bob. The ChatRoom class mediates this communication by emitting a 'message' event, which updates the chat log.
+-->
