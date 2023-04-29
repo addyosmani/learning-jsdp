@@ -4,193 +4,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning JavaScript Design Patterns</title>
     <style>
-        .container {
-            width: 70%;
-            margin: 0 auto;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+
         }
 
-        a {
+        html {
+            line-height: 1.5;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+            font-feature-settings: normal;
+            font-variation-settings: normal;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 46rem 1fr;
+            height: 100%;
+            width: 100%;
+        }
+
+        .black-column {
+            background-color: black;
+            color: white;
+        }
+        
+        .purple-gradient {
+            background: rgb(0,0,0);
+background: linear-gradient(90deg, rgba(0,0,0,1) 44%, rgba(60,25,126,1) 88%, rgba(117,47,196,1) 100%);
+        }
+        .white-column {
+            background-color: white;
+            overflow-y: auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-top: 2rem;
+            color: black
+        }
+
+        .content {
+            height: 200vh;
+        }
+
+        .content-white {
+            max-width: 36rem;
+            flex: 1 1 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        section {
+            padding-bottom: 36px;
+        }
+
+        .content-black {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            flex-direction: column;
+            width: 45rem;
+            padding-left: max(4rem, calc(50% - 38rem));
+        }
+
+        .content-black h2 {
+            font-size: 2rem;
+            line-height: 1.25;
+            letter-spacing: -1px;
+        }
+
+        .content-white h2 {
+            font-size: 1.25rem;
+    line-height: 2rem;
+        }
+
+        .color-lightpurple {
             color: #8C7FF0;
         }
 
-        header {
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(63, 201, 203, 1), rgba(77, 107, 224, 1));
-        }
+
+        .typography li {
+    margin-top: 1rem
+}
+
+.typography li>:is(p,ol,ul) {
+    margin-top: 1rem
+}
+
+.typography :is(h2,h3,h4)+* {
+    margin-top: 1rem
+}
+
+.typography :is(blockquote,pre,table)+* {
+    margin-top: 2rem
+}
+
+.typography hr+* {
+    margin-top: 4rem
+}
+
+.typography li>:first-child,.typography>:first-child {
+    margin-top: 0
+}
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <h1>Learning JavaScript Design Patterns</h1>
-        <h2>Chapter 5: Modules and Classes</h2>
-        <section>
-            <ul>
-                <li><a href="/ch05/modules_bakery.html">Modules: Bakery</a></li>
-                <li><a href="/ch05/dynamic_import.html">Dynamic Import</a></li>
-                <li><a href="/ch05/dynamic_import_lodash.html">Dynamic Import: Lodash</a></li>
-                <li><a href="/ch05/dynamic_import_visibility.html">Dynamic Import: Visibility</a></li>
-                <li><a href="/ch05/classes_cake.html">Classes: Cake</a></li>
-                <li><a href="/ch05/classes_birthdaycake.html">Classes: Birthday Cake</a></li>
-                <li><a href="/ch05/classes_cookies.html">Classes: Cookies</a></li>
-                <li><a href="/ch05/classes_cookies_private.html">Classes: Cookies with Private Members</a></li>
-            </ul>
-        </section>
-        <h2>Chapter 7: Advanced Design Patterns</h2>
-        <section>
-            <ul>
-                <li><a href="/ch07/object_properties.html">Object Properties</a></li>
-                <li><a href="/ch07/object_create.html">Object.create</a></li>
-                <li><a href="/ch07/basic_constructor.html">Basic Constructor</a></li>
-                <li><a href="/ch07/prototype_constructor.html">Prototype Constructor</a></li>
-                <li><a href="/ch07/object_literals.html">Object Literals</a></li>
-                <li><a href="/ch07/test_module.html">Test Module</a></li>
-                <li><a href="/ch07/namespace.html">Namespace</a></li>
-                <li><a href="/ch07/namespace_basket.html">Namespace: Basket</a></li>
-                <li><a href="/ch07/namespace_basket_2.html">Namespace: Basket 2</a></li>
-                <li><a href="/ch07/import_mixins.html">Import Mixins</a></li>
-                <li><a href="/ch07/module_weakmap.html">Module: WeakMap</a></li>
-                <li><a href="/ch07/module_weakmap_2.html">Module: WeakMap 2</a></li>
-                <li><a href="/ch07/module_weakmap_3.html">Module: WeakMap 3</a></li>
-                <li><a href="/ch07/module_react.html">Module: React</a></li>
-                <li><a href="/ch07/module_revealing.html">Module: Revealing</a></li>
-                <li><a href="/ch07/singleton.html">Singleton</a></li>
-                <li><a href="/ch07/singleton_options.html">Singleton: Options</a></li>
-                <li><a href="/ch07/prototype.html">Prototype</a></li>
-                <li><a href="/ch07/prototype_inheritance.html">Prototype Inheritance</a></li>
-                <li><a href="/ch07/prototype_extend.html">Prototype Extend</a></li>
-                <li><a href="/ch07/factory.html">Factory</a></li>
-                <li><a href="/ch07/factory_trucks1.html">Factory: Trucks 1</a></li>
-                <li><a href="/ch07/factory_trucks2.html">Factory: Trucks 2</a></li>
-                <li><a href="/ch07/factory_abstract.html">Factory: Abstract</a></li>
-                <li><a href="/ch07/facade.html">Facade</a></li>
-                <li><a href="/ch07/facade_module.html">Facade Module</a></li>
-                <li><a href="/ch07/mixins_subclassing.html">Mixins: Subclassing</a></li>
-                <li><a href="/ch07/mixins_superclassing.html">Mixins: Superclassing</a></li>
-                <li><a href="/ch07/mixins_constructor_augmenting.html">Mixins: Constructor Augmenting</a></li>
-                <li><a href="/ch07/decorators.html">Decorators</a></li>
-                <li><a href="/ch07/decorators_multiple.html">Decorators: Multiple</a></li>
-                <li><a href="/ch07/decorators_interface.html">Decorators: Interface</a></li>
-                <li><a href="/ch07/decorators_abstract.html">Decorators: Abstract</a></li>
-                <li><a href="/ch07/decorators_interface_2.html">Decorators: Interface 2</a></li>
-                <li><a href="/ch07/decorators_interface_3.html">Decorators: Interface 3</a></li>
-                <li><a href="/ch07/flyweight.html">Flyweight</a></li>
-                <li><a href="/ch07/flyweight_2.html">Flyweight 2</a></li>
-                <li><a href="/ch07/flyweight_bookfactory.html">Flyweight: Book Factory</a></li>
-                <li><a href="/ch07/flyweight_extrinsic_states.html">Flyweight: Extrinsic States</a></li>
-                <li><a href="/ch07/flyweight_event_handling.html">Flyweight: Event Handling</a></li>
-                <li><a href="/ch07/observer.html">Observer</a></li>
-                <li><a href="/ch07/observer_gmail.html">Observer: Gmail</a></li>
-                <li><a href="/ch07/observer_pubsub.html">Observer: PubSub</a></li>
-                <li><a href="/ch07/observer_pubsub_2.html">Observer: PubSub 2</a></li>
-                <li><a href="/ch07/observer_stockapp.html">Observer: Stock App</a></li>
-                <li><a href="/ch07/observer_jquery_pubsub.html">Observer: jQuery PubSub</a></li>
-                <li><a href="/ch07/observer_jquery_ajax.html">Observer: jQuery Ajax</a></li>
-                <li><a href="/ch07/observer_rxjs.html">Observer: RxJS</a></li>
-                <li><a href="/ch07/mediator.html">Mediator</a></li>
-                <li><a href="/ch07/mediator-event-aggregator.html">Mediator: Event Aggregator</a></li>
-                <li><a href="/ch07/command.html">Command</a></li>
+    <div class="grid-container">
+        <div class="black-column purple-gradient">
+            
+            
+            <div class="content-black">
+                <h2>Learning JavaScript Design Patterns</h2>
+                <h3 class="color-lightpurple">Second Edition: Samples</h3>
+                <p style="padding-top: 2rem;">Do you want to write beautiful, structured, and maintainable JavaScript by
+                    applying modern design patterns to the language? Do you want clean, efficient, manageable code? Want
+                    to stay up-to-date with the latest best practices? If so, the updated second edition of Learning
+                    JavaScript Design Patterns is the ideal place to start.</p>
+            </div>
+        </div>
+        <div class="white-column typography">
+            <div class="content content-white">
+                <!-- Your scrollable content goes here -->
+                <h2>Chapter 5: Modules and Classes</h2>
+                <section>
+                    <ul>
+                        <li><a href="/ch05/modules_bakery.html">Modules: Bakery</a></li>
+                        <li><a href="/ch05/dynamic_import.html">Dynamic Import</a></li>
+                        <li><a href="/ch05/dynamic_import_lodash.html">Dynamic Import: Lodash</a></li>
+                        <li><a href="/ch05/dynamic_import_visibility.html">Dynamic Import: Visibility</a></li>
+                        <li><a href="/ch05/classes_cake.html">Classes: Cake</a></li>
+                        <li><a href="/ch05/classes_birthdaycake.html">Classes: Birthday Cake</a></li>
+                        <li><a href="/ch05/classes_cookies.html">Classes: Cookies</a></li>
+                        <li><a href="/ch05/classes_cookies_private.html">Classes: Cookies with Private Members</a></li>
+                    </ul>
+                </section>
+                <h2>Chapter 7: Advanced Design Patterns</h2>
+                <section>
+                    <ul>
+                        <li><a href="/ch07/object_properties.html">Object Properties</a></li>
+                        <li><a href="/ch07/object_create.html">Object.create</a></li>
+                        <li><a href="/ch07/basic_constructor.html">Basic Constructor</a></li>
+                        <li><a href="/ch07/prototype_constructor.html">Prototype Constructor</a></li>
+                        <li><a href="/ch07/object_literals.html">Object Literals</a></li>
+                        <li><a href="/ch07/test_module.html">Test Module</a></li>
+                        <li><a href="/ch07/namespace.html">Namespace</a></li>
+                        <li><a href="/ch07/namespace_basket.html">Namespace: Basket</a></li>
+                        <li><a href="/ch07/namespace_basket_2.html">Namespace: Basket 2</a></li>
+                        <li><a href="/ch07/import_mixins.html">Import Mixins</a></li>
+                        <li><a href="/ch07/module_weakmap.html">Module: WeakMap</a></li>
+                        <li><a href="/ch07/module_weakmap_2.html">Module: WeakMap 2</a></li>
+                        <li><a href="/ch07/module_weakmap_3.html">Module: WeakMap 3</a></li>
+                        <li><a href="/ch07/module_react.html">Module: React</a></li>
+                        <li><a href="/ch07/module_revealing.html">Module: Revealing</a></li>
+                        <li><a href="/ch07/singleton.html">Singleton</a></li>
+                        <li><a href="/ch07/singleton_options.html">Singleton: Options</a></li>
+                        <li><a href="/ch07/prototype.html">Prototype</a></li>
+                        <li><a href="/ch07/prototype_inheritance.html">Prototype Inheritance</a></li>
+                        <li><a href="/ch07/prototype_extend.html">Prototype Extend</a></li>
+                        <li><a href="/ch07/factory.html">Factory</a></li>
+                        <li><a href="/ch07/factory_trucks1.html">Factory: Trucks 1</a></li>
+                        <li><a href="/ch07/factory_trucks2.html">Factory: Trucks 2</a></li>
+                        <li><a href="/ch07/factory_abstract.html">Factory: Abstract</a></li>
+                        <li><a href="/ch07/facade.html">Facade</a></li>
+                        <li><a href="/ch07/facade_module.html">Facade Module</a></li>
+                        <li><a href="/ch07/mixins_subclassing.html">Mixins: Subclassing</a></li>
+                        <li><a href="/ch07/mixins_superclassing.html">Mixins: Superclassing</a></li>
+                        <li><a href="/ch07/mixins_constructor_augmenting.html">Mixins: Constructor Augmenting</a></li>
+                        <li><a href="/ch07/decorators.html">Decorators</a></li>
+                        <li><a href="/ch07/decorators_multiple.html">Decorators: Multiple</a></li>
+                        <li><a href="/ch07/decorators_interface.html">Decorators: Interface</a></li>
+                        <li><a href="/ch07/decorators_abstract.html">Decorators: Abstract</a></li>
+                        <li><a href="/ch07/decorators_interface_2.html">Decorators: Interface 2</a></li>
+                        <li><a href="/ch07/decorators_interface_3.html">Decorators: Interface 3</a></li>
+                        <li><a href="/ch07/flyweight.html">Flyweight</a></li>
+                        <li><a href="/ch07/flyweight_2.html">Flyweight 2</a></li>
+                        <li><a href="/ch07/flyweight_bookfactory.html">Flyweight: Book Factory</a></li>
+                        <li><a href="/ch07/flyweight_extrinsic_states.html">Flyweight: Extrinsic States</a></li>
+                        <li><a href="/ch07/flyweight_event_handling.html">Flyweight: Event Handling</a></li>
+                        <li><a href="/ch07/observer.html">Observer</a></li>
+                        <li><a href="/ch07/observer_gmail.html">Observer: Gmail</a></li>
+                        <li><a href="/ch07/observer_pubsub.html">Observer: PubSub</a></li>
+                        <li><a href="/ch07/observer_pubsub_2.html">Observer: PubSub 2</a></li>
+                        <li><a href="/ch07/observer_stockapp.html">Observer: Stock App</a></li>
+                        <li><a href="/ch07/observer_jquery_pubsub.html">Observer: jQuery PubSub</a></li>
+                        <li><a href="/ch07/observer_jquery_ajax.html">Observer: jQuery Ajax</a></li>
+                        <li><a href="/ch07/observer_rxjs.html">Observer: RxJS</a></li>
+                        <li><a href="/ch07/mediator.html">Mediator</a></li>
+                        <li><a href="/ch07/mediator-event-aggregator.html">Mediator: Event Aggregator</a></li>
+                        <li><a href="/ch07/command.html">Command</a></li>
 
-            </ul>
-        </section>
-        <h2>Chapter 8: MV* Patterns</h2>
+                    </ul>
+                </section>
+                <h2>Chapter 8: MV* Patterns</h2>
 
-        <ul>
-            <li><a href="/ch08/mvc.html">MVC</a></li>
-            <li><a href="/ch08/mvc_lodash.html">MVC: Lodash</a></li>
-            <li><a href="/ch08/mvp.html">MVP</a></li>
-            <li><a href="/ch08/mvvm.html">MVVM</a></li>
-            <li><a href="/ch08/mvc_react.html">MVC: React</a></li>
-            <li><a href="/ch08/mvc_vue.html">MVC: Vue</a></li>
-        </ul>
-        </section>
+                <ul>
+                    <li><a href="/ch08/mvc.html">MVC</a></li>
+                    <li><a href="/ch08/mvc_lodash.html">MVC: Lodash</a></li>
+                    <li><a href="/ch08/mvp.html">MVP</a></li>
+                    <li><a href="/ch08/mvvm.html">MVVM</a></li>
+                    <li><a href="/ch08/mvc_react.html">MVC: React</a></li>
+                    <li><a href="/ch08/mvc_vue.html">MVC: Vue</a></li>
+                </ul>
+                </section>
 
-        <h2>Chapter 9: Async Patterns</h2>
-        <section>
-            <ul>
-                <li><a href="/ch09/async_patterns_fetch.html">Async Patterns: Fetch</a></li>
-                <li><a href="/ch09/async_promise_chaining.html">Async: Promise Chaining</a></li>
-                <li><a href="/ch09/async_error_handling.html">Async: Error Handling</a></li>
-                <li><a href="/ch09/async_promise_parallelism.html">Async: Promise Parallelism</a></li>
-                <li><a href="/ch09/async_promise_sequential_execution.html">Async: Promise Sequential Execution</a></li>
-                <li><a href="/ch09/async_promise_memoization.html">Async: Promise Memoization</a></li>
-                <li><a href="/ch09/async_promise_pipeline.html">Async: Promise Pipeline</a></li>
-                <li><a href="/ch09/async_promise_retry.html">Async: Promise Retry</a></li>
-                <li><a href="/ch09/async_promise_decorator.html">Async: Promise Decorator</a></li>
-                <li><a href="/ch09/async_promise_racing.html">Async: Promise Racing</a></li>
-                <li><a href="/ch09/async_function_composition.html">Async: Function Composition</a></li>
-                <li><a href="/ch09/async_iteration.html">Async: Iteration</a></li>
-                <li><a href="/ch09/async_readwrite_files.html">Async: Read/Write Files</a></li>
-                <li><a href="/ch09/async_retry.html">Async: Retry</a></li>
-            </ul>
-        </section>
+                <h2>Chapter 9: Async Patterns</h2>
+                <section>
+                    <ul>
+                        <li><a href="/ch09/async_patterns_fetch.html">Async Patterns: Fetch</a></li>
+                        <li><a href="/ch09/async_promise_chaining.html">Async: Promise Chaining</a></li>
+                        <li><a href="/ch09/async_error_handling.html">Async: Error Handling</a></li>
+                        <li><a href="/ch09/async_promise_parallelism.html">Async: Promise Parallelism</a></li>
+                        <li><a href="/ch09/async_promise_sequential_execution.html">Async: Promise Sequential
+                                Execution</a></li>
+                        <li><a href="/ch09/async_promise_memoization.html">Async: Promise Memoization</a></li>
+                        <li><a href="/ch09/async_promise_pipeline.html">Async: Promise Pipeline</a></li>
+                        <li><a href="/ch09/async_promise_retry.html">Async: Promise Retry</a></li>
+                        <li><a href="/ch09/async_promise_decorator.html">Async: Promise Decorator</a></li>
+                        <li><a href="/ch09/async_promise_racing.html">Async: Promise Racing</a></li>
+                        <li><a href="/ch09/async_function_composition.html">Async: Function Composition</a></li>
+                        <li><a href="/ch09/async_iteration.html">Async: Iteration</a></li>
+                        <li><a href="/ch09/async_readwrite_files.html">Async: Read/Write Files</a></li>
+                        <li><a href="/ch09/async_retry.html">Async: Retry</a></li>
+                    </ul>
+                </section>
 
-        <h2>Chapter 10: Modular Patterns</h2>
-        <section>
-            <ul>
+                <h2>Chapter 10: Modular Patterns</h2>
+                <section>
+                    <ul>
 
-                <li><a href="/ch10/requirejs.html">RequireJS</a></li>
-                <li><a href="/ch10/requirejs_plugins.html">RequireJS: Plugins</a></li>
-                <li><a href="/ch10/requirejs_jquery.html">RequireJS: jQuery</a></li>
-                <li><a href="/ch10/umd.html">UMD</a></li>
-            </ul>
-        </section>
+                        <li><a href="/ch10/requirejs.html">RequireJS</a></li>
+                        <li><a href="/ch10/requirejs_plugins.html">RequireJS: Plugins</a></li>
+                        <li><a href="/ch10/requirejs_jquery.html">RequireJS: jQuery</a></li>
+                        <li><a href="/ch10/umd.html">UMD</a></li>
+                    </ul>
+                </section>
 
-        <h2>Chapter 11: Namespacing Patterns</h2>
-        <section>
-            <ul>
-
-
-                <li><a href="/ch11/namespacing_global.html">Namespacing: Global</a></li>
-                <li><a href="/ch11/namespacing_prefix.html">Namespacing: Prefix</a></li>
-                <li><a href="/ch11/namespacing_object_lit_notation.html">Namespacing: Object Literal Notation</a></li>
-                <li><a href="/ch11/namespacing_object_lit_nuanced.html">Namespacing: Object Literal Notation
-                        (Nuanced)</a></li>
-                <li><a href="/ch11/namespacing_object_lit_theming.html">Namespacing: Object Literal Notation
-                        (Theming)</a></li>
-                <li><a href="/ch11/namespacing_iife.html">Namespacing: IIFE</a></li>
-                <li><a href="/ch11/namespacing_nested_automated.html">Namespacing: Nested (Automated)</a></li>
-                <li><a href="/ch11/namespacing_deep_object_extension.html">Namespacing: Deep Object Extension</a></li>
-                <li><a href="/ch11/namespacing_nested_react.html">Namespacing: Nested (React)</a></li>
-
-            </ul>
-        </section>
-
-        <h2>Chapter 12: React Patterns</h2>
-        <section>
-            <ul>
-                <li><a href="/ch12/react_hoc.html">React: Higher-Order Components</a></li>
-                <li><a href="/ch12/react_hoc_composition.html">React: HOC Composition</a></li>
-                <li><a href="/ch12/react_render_props.html">React: Render Props</a></li>
-                <li><a href="/ch12/react_render_props2.html">React: Render Props 2</a></li>
-                <li><a href="/ch12/react_lifting_state.html">React: Lifting State</a></li>
-                <li><a href="/ch12/react_lifting_state_children_function.html">React: Lifting State (Children as
-                        Function)</a></li>
-                <li><a href="/ch12/react_hooks.html">React: Hooks</a></li>
-                <li><a href="/ch12/react_usestate.html">React: useState</a></li>
-                <li><a href="/ch12/react_useeffect.html">React: useEffect</a></li>
-                <li><a href="/ch12/react_custom_hooks.html">React: Custom Hooks</a></li>
-                <li><a href="/ch12/react_tweets_stateful.html">React: Tweets (Stateful)</a></li>
-                <li><a href="/ch12/react_tweets_hooks.html">React: Tweets (Hooks)</a></li>
-
-            </ul>
-        </section>
-
-        <h2>Chapter 13: Next.js Rendering Patterns</h2>
-        <section>
-            <ul>
+                <h2>Chapter 11: Namespacing Patterns</h2>
+                <section>
+                    <ul>
 
 
-                <li><a href="/ch13/nextjs-rendering-patterns/client-side-rendering.html">Next.js: Client-Side
-                        Rendering</a></li>
-                <li><a href="/ch13/nextjs-rendering-patterns/incremental-static-regeneration.html">Next.js: Incremental
-                        Static Regeneration</a></li>
-                <li><a href="/ch13/nextjs-rendering-patterns/static-site-generation.html">Next.js: Static Site
-                        Generation</a></li>
-            </ul>
+                        <li><a href="/ch11/namespacing_global.html">Namespacing: Global</a></li>
+                        <li><a href="/ch11/namespacing_prefix.html">Namespacing: Prefix</a></li>
+                        <li><a href="/ch11/namespacing_object_lit_notation.html">Namespacing: Object Literal
+                                Notation</a></li>
+                        <li><a href="/ch11/namespacing_object_lit_nuanced.html">Namespacing: Object Literal Notation
+                                (Nuanced)</a></li>
+                        <li><a href="/ch11/namespacing_object_lit_theming.html">Namespacing: Object Literal Notation
+                                (Theming)</a></li>
+                        <li><a href="/ch11/namespacing_iife.html">Namespacing: IIFE</a></li>
+                        <li><a href="/ch11/namespacing_nested_automated.html">Namespacing: Nested (Automated)</a></li>
+                        <li><a href="/ch11/namespacing_deep_object_extension.html">Namespacing: Deep Object
+                                Extension</a></li>
+                        <li><a href="/ch11/namespacing_nested_react.html">Namespacing: Nested (React)</a></li>
 
-        </section>
+                    </ul>
+                </section>
+
+                <h2>Chapter 12: React Patterns</h2>
+                <section>
+                    <ul>
+                        <li><a href="/ch12/react_hoc.html">React: Higher-Order Components</a></li>
+                        <li><a href="/ch12/react_hoc_composition.html">React: HOC Composition</a></li>
+                        <li><a href="/ch12/react_render_props.html">React: Render Props</a></li>
+                        <li><a href="/ch12/react_render_props2.html">React: Render Props 2</a></li>
+                        <li><a href="/ch12/react_lifting_state.html">React: Lifting State</a></li>
+                        <li><a href="/ch12/react_lifting_state_children_function.html">React: Lifting State (Children as
+                                Function)</a></li>
+                        <li><a href="/ch12/react_hooks.html">React: Hooks</a></li>
+                        <li><a href="/ch12/react_usestate.html">React: useState</a></li>
+                        <li><a href="/ch12/react_useeffect.html">React: useEffect</a></li>
+                        <li><a href="/ch12/react_custom_hooks.html">React: Custom Hooks</a></li>
+                        <li><a href="/ch12/react_tweets_stateful.html">React: Tweets (Stateful)</a></li>
+                        <li><a href="/ch12/react_tweets_hooks.html">React: Tweets (Hooks)</a></li>
+
+                    </ul>
+                </section>
+
+                <h2>Chapter 13: Next.js Rendering Patterns</h2>
+                <section>
+                    <ul>
+
+
+                        <li><a href="/ch13/nextjs-rendering-patterns/client-side-rendering.html">Next.js: Client-Side
+                                Rendering</a></li>
+                        <li><a href="/ch13/nextjs-rendering-patterns/incremental-static-regeneration.html">Next.js:
+                                Incremental
+                                Static Regeneration</a></li>
+                        <li><a href="/ch13/nextjs-rendering-patterns/static-site-generation.html">Next.js: Static Site
+                                Generation</a></li>
+                    </ul>
+
+                </section>
+            </div>
+        </div>
     </div>
 </body>
 
