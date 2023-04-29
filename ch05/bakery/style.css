@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #f8b068;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+h1 {
+    margin: 0;
+    color: #fff;
+}
+
+#shopping-cart {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+.bakery-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.bakery-item img {
+    width: 100%;
+    height: auto;
+}
+
+button {
+    background-color: #f8b068;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f89c4c;
+}
+
+#bakery-items-container {
+    display: grid;
+    width: 80%;
+    grid-template-columns: 1fr 1fr 1fr;
+}
