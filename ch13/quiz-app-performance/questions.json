@@ -1,0 +1,426 @@
+[
+    {
+      "topic": "Preload and Prefetch",
+      "questions": [
+        {
+          "question": "What is the main purpose of preload in web performance?",
+          "options": [
+            "To allow the browser to fetch late-discovered important resources sooner",
+            "To fetch resources with a lower priority, before they are needed",
+            "To load resources only when they are needed"
+          ],
+          "answer": "To allow the browser to fetch late-discovered important resources sooner"
+        },
+        {
+          "question": "What is the main purpose of prefetch in web performance?",
+          "options": [
+            "To fetch resources with a higher priority, before they are needed",
+            "To fetch resources with a lower priority, before they are needed",
+            "To load resources only when they are needed"
+          ],
+          "answer": "To fetch resources with a lower priority, before they are needed"
+        }
+      ]
+    },
+    {
+      "topic": "Virtual List/Scroller",
+      "questions": [
+        {
+          "question": "What is the main benefit of using a virtual list or scroller?",
+          "options": [
+            "Improves performance by only rendering visible items",
+            "Reduces the amount of JavaScript needed for interactivity",
+            "Allows for faster initial page load"
+          ],
+          "answer": "Improves performance by only rendering visible items"
+        }
+      ]
+    },
+    {
+      "topic": "Static Import vs Dynamic Import",
+      "questions": [
+        {
+          "question": "What is the main advantage of using dynamic import over static import?",
+          "options": [
+            "It allows for code splitting and lazy-loading of modules",
+            "It ensures that all required modules are loaded before the script executes",
+            "It reduces the overall size of the JavaScript bundle"
+          ],
+          "answer": "It allows for code splitting and lazy-loading of modules"
+        }
+      ]
+    },
+    {
+      "topic": "Import on Visibility",
+      "questions": [
+        {
+          "question": "What is the main benefit of using import on visibility?",
+          "options": [
+            "Improves performance by only loading modules when they become visible",
+            "Reduces the amount of JavaScript needed for interactivity",
+            "Allows for faster initial page load"
+          ],
+          "answer": "Improves performance by only loading modules when they become visible"
+        }
+      ]
+    },
+    {
+      "topic": "Async vs Defer",
+      "questions": [
+        {
+          "question": "What is the main difference between async and defer attributes?",
+          "options": [
+            "Async downloads and executes the script as soon as possible, while defer downloads the script but executes it after the HTML has been parsed",
+            "Async downloads the script but executes it after the HTML has been parsed, while defer downloads and executes the script as soon as possible",
+            "Async and defer both download and execute the script as soon as possible"
+          ],
+          "answer": "Async downloads and executes the script as soon as possible, while defer downloads the script but executes it after the HTML has been parsed"
+        }
+      ]
+    },
+    {
+      "topic": "Priority Hints/FetchPriority",
+      "questions": [
+        {
+          "question": "What is the main purpose of priority hints or fetchPriority?",
+          "options": [
+            "To improve performance by providing hints to the browser about the priority of a resource (such as an LCP image)",
+            "To reduce the amount of JavaScript needed for interactivity",
+            "To load resources only when they are needed"
+          ],
+          "answer": "To improve performance by providing hints to the browser about the priority of a resource (such as an LCP image)"
+        }
+      ]
+    },
+    {
+      "topic": "Compression",
+      "questions": [
+        {
+          "question": "Why is compression important for web performance?",
+          "options": [
+            "It reduces the size of files, resulting in faster downloads and reduced load times",
+            "It increases the size of files, resulting in slower downloads and increased load times",
+            "It has no impact on web performance"
+          ],
+          "answer": "It reduces the size of files, resulting in faster downloads and reduced load times"
+        }
+      ]
+    },
+    {
+      "topic": "Brotli",
+      "questions": [
+        {
+          "question": "What is the main advantage of using Brotli over other compression algorithms?",
+          "options": [
+            "It provides better compression ratios, leading to smaller file sizes and faster load times",
+            "It provides worse compression ratios, leading to larger file sizes and slower load times",
+            "It has no impact on web performance"
+          ],
+          "answer": "It provides better compression ratios, leading to smaller file sizes and faster load times"
+        }
+      ]
+    },
+    {
+      "topic": "JavaScript Code-Splitting",
+      "questions": [
+        {
+          "question": "What is the primary purpose of JavaScript code-splitting?",
+          "options": [
+            "To divide JavaScript code into smaller, more manageable pieces for improved load times",
+            "To combine all JavaScript code into a single, large file",
+            "To remove unnecessary JavaScript code from the application"
+          ],
+          "answer": "To divide JavaScript code into smaller, more manageable pieces for improved load times"
+        }
+      ]
+    },
+    {
+      "topic": "Deferred Loading",
+      "questions": [
+        {
+          "question": "What is the main benefit of deferred loading?",
+          "options": [
+            "It improves performance by loading non-critical resources after the initial page load",
+            "It reduces the amount of JavaScript needed for interactivity",
+            "It allows for faster initial page load"
+          ],
+          "answer": "It improves performance by loading non-critical resources after the initial page load"
+        }
+      ]
+    },
+    {
+      "topic": "Load on Interaction",
+      "questions": [
+        {
+          "question": "Why is loading resources on interaction beneficial?",
+          "options": [
+            "It allows for faster initial page load by only loading resources when needed",
+            "It reduces the amount of JavaScript needed for interactivity",
+            "It ensures that all required resources are loaded before the page is displayed"
+          ],
+          "answer": "It allows for faster initial page load by only loading resources when needed"
+        }
+      ]
+    },
+    {
+      "topic": "Lazy-Loading",
+      "questions": [
+        {
+          "question": "What is the main advantage of lazy-loading?",
+          "options": [
+            "It improves performance by loading resources only when they are needed",
+            "It reduces the amount of JavaScript needed for interactivity",
+            "It ensures that all required resources are loaded before the page is displayed"
+          ],
+          "answer": "It improves performance by loading resources only when they are needed"
+        }
+      ]
+    },
+    {
+      "topic": "TTFB",
+      "questions": [
+        {
+          "question": "What does TTFB stand for?",
+          "options": [
+            "Time To First Byte",
+            "Time To First Block",
+            "Time To First Breakpoint",
+            "Time To Fetch Binary"
+          ],
+          "answer": "Time To First Byte"
+        },
+        {
+          "question": "Which of the following factors can impact TTFB?",
+          "options": [
+            "Server response time",
+            "Network latency",
+            "Both server response time and network latency",
+            "None of the above"
+          ],
+          "answer": "Both server response time and network latency"
+        },
+        {
+          "question": "What does a low TTFB indicate?",
+          "options": [
+            "Poor performance",
+            "Good performance",
+            "Large payload",
+            "High latency"
+          ],
+          "answer": "Good performance"
+        }
+      ]
+    },
+    {
+      "topic": "Edge-Caching",
+      "questions": [
+        {
+          "question": "What is the primary benefit of edge-caching?",
+          "options": [
+            "Reducing server load",
+            "Improving web performance by serving content from locations closer to users",
+            "Reducing the size of web assets",
+            "Reducing the number of HTTP requests"
+          ],
+          "answer": "Improving web performance by serving content from locations closer to users"
+        },
+        {
+          "question": "Which of the following services can be used for edge-caching?",
+          "options": [
+            "Amazon CloudFront",
+            "Google Cloud CDN",
+            "Akamai",
+            "All of the above"
+          ],
+          "answer": "All of the above"
+        },
+        {
+          "question": "What is the main difference between traditional CDN caching and edge-caching?",
+          "options": [
+            "Edge-caching is slower than traditional CDN caching",
+            "Edge-caching is faster than traditional CDN caching",
+            "Edge-caching is used only for images",
+            "Edge-caching is used only for JavaScript files"
+          ],
+          "answer": "Edge-caching is faster than traditional CDN caching"
+        }
+      ]
+    },
+    {
+      "topic": "First Party vs Third-Party Code",
+      "questions": [
+        {
+          "question": "What is the main difference between first-party and third-party code?",
+          "options": [
+            "First-party code is written by the website's developers, while third-party code is provided by external vendors",
+            "First-party code is always faster than third-party code",
+            "First-party code is always slower than third-party code",
+            "There is no difference between first-party and third-party code"
+          ],
+          "answer": "First-party code is written by the website's developers, while third-party code is provided by external vendors"
+        },
+        {
+          "question": "Why can third-party code potentially impact web performance?",
+          "options": [
+            "Third-party code is always slower",
+            "It may introduce additional HTTP requests and may not be optimized for performance",
+            "It can only be served from a single location",
+            "Third-party code cannot be cached"
+          ],
+          "answer": "It may introduce additional HTTP requests and may not be optimized for performance"
+        }
+      ]
+    },
+    {
+      "topic": "Third-Party Code Auditing",
+      "questions": [
+        {
+          "question": "What is the main benefit of auditing third-party code?",
+          "options": [
+            "It allows you to identify and remove unnecessary third-party code",
+            "It allows you to identify and remove slow third-party code",
+            "It allows you to identify and remove third-party code that is not being used",
+            "It allows you to identify and remove third-party code that is not being used and is slow"
+          ],
+          "answer": "It allows you to identify and remove third-party code that is not being used and is slow"
+        }
+      ]
+    },
+    {
+      "topic": "Third-Party Code Removal",
+      "questions": [
+        {
+          "question": "What is the main benefit of removing third-party code?",
+          "options": [
+            "It reduces the number of HTTP requests",
+            "It reduces the amount of JavaScript needed for interactivity",
+            "It reduces the size of web assets",
+            "It reduces the amount of JavaScript needed for interactivity and the size of web assets"
+          ],
+          "answer": "It reduces the amount of JavaScript needed for interactivity and the size of web assets"
+        }
+      ]
+    },
+    {
+      "topic": "Third-Party Code Delaying",
+      "questions": [
+        {
+          "question": "What is the main benefit of delaying third-party code?",
+          "options": [
+            "It may improve performance by loading third-party code after the initial page load",
+            "It reduces the amount of JavaScript needed for interactivity",
+            "It reduces the size of web assets",
+            "It reduces the amount of JavaScript needed for interactivity and the size of web assets"
+          ],
+          "answer": "It may improve performance by loading third-party code after the initial page load"
+        }
+      ]
+    },
+    {
+      "topic": "Preload and Prefetch",
+      "questions": [
+        {
+          "question": "What is the main purpose of preload in web performance?",
+          "options": [
+            "To allow the browser to fetch late-discovered important resources sooner",
+            "To fetch resources with a lower priority, before they are needed",
+            "To load resources only when they are needed"
+          ],
+          "answer": "To allow the browser to fetch late-discovered important resources sooner"
+        },
+        {
+          "question": "What is the main purpose of prefetch in web performance?",
+          "options": [
+            "To fetch resources with a higher priority, before they are needed",
+            "To fetch resources with a lower priority, before they are needed",
+            "To load resources only when they are needed"
+          ],
+          "answer": "To fetch resources with a lower priority, before they are needed"
+        }
+      ]
+    },
+    {
+      "topic": "Virtual List/Scroller",
+      "questions": [
+        {
+          "question": "What is the main benefit of using a virtual list or scroller?",
+          "options": [
+            "Improves performance by only rendering visible items",
+            "Reduces the amount of JavaScript needed for interactivity",
+            "Allows for faster initial page load"
+          ],
+          "answer": "Improves performance by only rendering visible items"
+        }
+      ]
+    },
+    {
+      "topic": "Static Import vs Dynamic Import",
+      "questions": [
+        {
+          "question": "What is the main advantage of using dynamic import over static import?",
+          "options": [
+            "It allows for code splitting and lazy-loading of modules",
+            "It ensures that all required modules are loaded before the script executes",
+            "It reduces the overall size of the JavaScript bundle"
+          ],
+          "answer": "It allows for code splitting and lazy-loading of modules"
+        }
+      ]
+    },
+    {
+      "topic": "Import on Visibility",
+      "questions": [
+        {
+          "question": "What is the main benefit of using import on visibility?",
+          "options": [
+            "Improves performance by only loading modules when they become visible",
+            "Reduces the amount of JavaScript needed for interactivity",
+            "Allows for faster initial page load"
+          ],
+          "answer": "Improves performance by only loading modules when they become visible"
+        }
+      ]
+    },
+    {
+      "topic": "Async vs Defer",
+      "questions": [
+        {
+          "question": "What is the main difference between async and defer attributes?",
+          "options": [
+            "Async downloads and executes the script as soon as possible, while defer downloads the script but executes it after the HTML has been parsed",
+            "Async downloads the script but executes it after the HTML has been parsed, while defer downloads and executes the script as soon as possible",
+            "Async and defer both download and execute the script as soon as possible"
+          ],
+          "answer": "Async downloads and executes the script as soon as possible, while defer downloads the script but executes it after the HTML has been parsed"
+        }
+      ]
+    },
+    {
+      "topic": "Priority Hints/FetchPriority",
+      "questions": [
+        {
+          "question": "What is the main purpose of priority hints or fetchPriority?",
+          "options": [
+            "To improve performance by providing hints to the browser about the priority of a resource (such as an LCP image)",
+            "To reduce the amount of JavaScript needed for interactivity",
+            "To load resources only when they are needed"
+          ],
+          "answer": "To improve performance by providing hints to the browser about the priority of a resource (such as an LCP image)"
+        }
+      ]
+    },
+    {
+      "topic": "Rendering Strategies",
+      "questions": [
+        {
+          "question": "What is the main benefit of using Server Side Rendering (SSR)?",
+          "options": [
+            "Improves initial page load time and SEO",
+            "Reduces the amount of JavaScript needed for interactivity",
+            "Allows for faster updates to the DOM"
+          ],
+          "answer": "Improves initial page load time and SEO"
+        }
+      ]
+    }
+  ]
