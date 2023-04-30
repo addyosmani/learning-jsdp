@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Conditional Rendering - Recipe App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+        const RecipeApp = () => {
+            const [recipes, setRecipes] = useState([
+                { id: 1, name: 'Pizza', instructions: 'Prepare the dough, add toppings, and bake.' },
+                { id: 2, name: 'Pasta', instructions: 'Cook pasta, prepare sauce, and combine.' },
+                { id: 3, name: 'Burger', instructions: 'Grill the patty, prepare bun and toppings, and assemble.' }
+            ]);
+
+            const [showInstructions, setShowInstructions] = useState(null);
+
+            const handleClick = (id) => {
+                setShowInstructions(showInstructions === id ? null : id);
+            };
+
+            return (
+                <div>
+                    <h1 className="mb-4">Recipe App</h1>
+                    <p>Conditional rendering is a powerful pattern in React that allows you to display content based on certain conditions. In this simple recipe app, we use conditional rendering to show or hide the recipe instructions when a recipe's name is clicked.</p>
+                    <ul className="list-group">
+                        {recipes.map(recipe => (
+                            <li key={recipe.id} className="list-group-item">
+                                <button className="btn btn-link text-decoration-none" onClick={() => handleClick(recipe.id)}>{recipe.name}</button>
+                                {showInstructions === recipe.id && <p className="mt-2">{recipe.instructions}</p>}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<RecipeApp />, document.getElementById('root'));
+    </script>
+</body>
+
+</html>
