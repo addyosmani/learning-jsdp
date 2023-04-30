@@ -92,7 +92,7 @@
         }
 
         .content-white {
-            max-width: 36rem;
+            max-width: 39rem;
             flex: 1 1 auto;
             padding-left: 2rem;
             padding-right: 2rem;
@@ -257,6 +257,23 @@
             /* background: black; */
             padding-top: 32px;
         }
+
+        .screenshot {
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin: 0 auto;
+            position: relative;
+            margin-bottom: 32px;
+        }
+
+        .screenshot img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -300,6 +317,9 @@
         </div>
         <div class="white-column typography">
             <div class="content content-white">
+                <div class="screenshot">
+                    <img alt="screenshot" width="1728" height="936" src="images/screenshot-1.webp"/>
+                </div>
                 <h2>Try a Quiz</h2>
                 <section>
                     <ul>
