@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Mediator Pattern Example</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <p>When you click a username in the UserList component, the mediator sends a "selectUser" event to the MessageInput component. The MessageInput component then displays the selected recipient and sends messages to that user only. If no recipient is selected, messages are sent to all users. The MessageList component displays messages with the recipient name (if any). </p>
+    <div id="root"></div>
+    <script type="text/babel">
+        class ChatMediator {
+            constructor() {
+                this.components = {};
+            }
+
+            register(component) {
+                this.components[component.name] = component;
+            }
+
+            send(data, from, to) {
+                if (to) {
+                    // Send data to a specific user
+                    this.components[to].receive(data, from);
+                } else {
+                    // Broadcast data to all users except the sender
+                    for (const key in this.components) {
+                        if (this.components.hasOwnProperty(key) && key !== from) {
+                            this.components[key].receive(data, from);
+                        }
+                    }
+                }
+            }
+        }
+
+        const ChatContext = React.createContext();
+
+        const useChat = () => {
+            return React.useContext(ChatContext);
+        };
+
+        const ChatProvider = ({ children }) => {
+            const [mediator] = React.useState(() => new ChatMediator());
+            return (
+                <ChatContext.Provider value={mediator}>
+                    {children}
+                </ChatContext.Provider>
+            );
+        };
+
+        const UserList = ({ name }) => {
+            const mediator = useChat();
+            const [users, setUsers] = React.useState([]);
+
+            React.useEffect(() => {
+                mediator.register({ name, receive });
+            }, [mediator, name]);
+
+            const receive = (data, from) => { };
+
+            const addUser = (username) => {
+                setUsers([...users, username]);
+            };
+
+            const selectUser = (username) => {
+                mediator.send({ type: "selectUser", username }, name, "MessageInput");
+            };
+
+            return (
+                <div>
+                    <h3>User List</h3>
+                    {users.map((user) => (
+                        <div
+                            key={user}
+                            onClick={() => selectUser(user)}
+                            style={{ cursor: "pointer" }}
+                        >
+                            {user}
+                        </div>
+                    ))}
+                    <button onClick={() => addUser(`User${users.length + 1}`)}>
+                        Add User
+                    </button>
+                </div>
+            );
+        };
+
+        const MessageList = ({ name }) => {
+            const mediator = useChat();
+            const [messages, setMessages] = React.useState([]);
+
+            React.useEffect(() => {
+                mediator.register({ name, receive });
+            }, [mediator, name]);
+
+            const receive = (data, from) => {
+                if (data.type === "message") {
+                    setMessages([...messages, { from, ...data }]);
+                }
+            };
+
+            return (
+                <div>
+                    <h3>Message List</h3>
+                    {messages.map((msg, idx) =>
+                    (
+                        <p key={idx}>
+                            <strong>{msg.from}:</strong> {msg.message}{" "}
+                            {msg.to && <em>(to {msg.to})</em>}
+                        </p>
+                    ))}
+                </div>
+            );
+        }; const MessageInput = ({ name }) => {
+            const mediator = useChat();
+            const [message, setMessage] = React.useState("");
+            const [recipient, setRecipient] = React.useState(null);
+
+            React.useEffect(() => {
+                mediator.register({ name, receive });
+            }, [mediator, name]);
+
+            const receive = (data, from) => {
+                if (data.type === "selectUser") {
+                    setRecipient(data.username);
+                }
+            };
+
+            const sendMessage = () => {
+                mediator.send(
+                    { type: "message", message, to: recipient },
+                    name,
+                    "MessageList"
+                );
+                setMessage("");
+            };
+
+            return (
+                <div>
+                    <input
+                        type="text"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                    />
+                    <button onClick={sendMessage} disabled={!message}>
+                        Send
+                    </button>
+                    <p>
+                        {recipient
+                            ? `Sending messages to ${recipient}`
+                            : "Sending messages to all users"}
+                    </p>
+                </div>
+            );
+        };
+
+        const App = () => {
+            return (
+                <ChatProvider>
+                    <UserList name="UserList" />
+                    <MessageList name="MessageList" />
+                    <MessageInput name="MessageInput" />
+                </ChatProvider>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
