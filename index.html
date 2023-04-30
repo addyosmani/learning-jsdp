@@ -288,6 +288,29 @@
                 margin-top: 32px;
             }
         }
+
+        #tv {
+            width: 77px;
+            visibility: hidden;
+            height: 62px;
+            background: red;
+            position: absolute;
+            margin-top: -251px;
+            margin-left: 246px;
+            clip-path: polygon(9% 4%, 79% 42%, 79% 99%, 8% 66%);
+            background-image: url(images/tv-static.gif);
+        }
+
+        #appicon:hover ~ #tv {
+            visibility: visible;
+        }
+
+        @media screen and (max-width: 900px) {
+            /* Avoid the static TV effect on smaller viewports */
+            #tv {
+                display: none;
+            }
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -319,9 +342,10 @@
                             </h3>
 
                         </div>
-                        <img fetchpriority="high" style="display: block;
+                        <img id="appicon" fetchpriority="high" style="display: block;
                         margin: 0 auto;" src="images/appicon2.webp" alt="enjoy the examples" width="400"
                             height="400" />
+                        <div id="tv"></div>
                     </div>
                 </div>
                 <div id="github-repository">
