@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Twitter-like App</title>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/classnames/2.3.1/classnames.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tweet-box {
+            background-color: #f5f8fa;
+            border: 1px solid #ccd6dd;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .tweet-box input[type="text"] {
+            width: 100%;
+            border: none;
+            outline: none;
+        }
+
+        .tweet {
+            border: 1px solid #ccd6dd;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .tweet .author {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <p>This sets up a simple Twitter-like app using React, with a TweetBox component for writing tweets and a TweetList component for displaying the list of tweets. The Observer pattern is implemented to handle the communication between the components. The Facade pattern is used to create tweet objects, and the Mixin pattern is used for handling the keypress event in the TweetBox component. React Hooks are used for managing state and side effects in functional components. <strong>Enter a tweet below and hit enter:</strong></p>
+    <div id="root"></div>
+    <script type="text/babel">
+        // Mixin
+        const SubmitMixin = {
+            handleKeyPress(event) {
+                if (event.key === "Enter") {
+                    this.submit();
+                }
+            },
+        };
+
+        // Observer
+        class Observer {
+            constructor() {
+                this.listeners = [];
+            }
+
+            subscribe(listener) {
+                this.listeners.push(listener);
+            }
+
+            notify(data) {
+                this.listeners.forEach((listener) => listener(data));
+            }
+        }
+
+        const tweetObserver = new Observer();
+
+        // Facade
+        function createTweetObject(author, text) {
+            return {
+                author,
+                text,
+            };
+        }
+
+        // App component
+        function App() {
+            return (
+                <div className="container">
+                    <TweetBox />
+                    <TweetList />
+                </div>
+            );
+        }
+
+        // TweetBox component
+        function TweetBox() {
+            const [tweetText, setTweetText] = React.useState("");
+
+            const handleKeyPress = (event) => {
+                if (event.key === "Enter") {
+                    submit();
+                }
+            };
+
+            const handleChange = (event) => {
+                setTweetText(event.target.value);
+            };
+
+            const submit = () => {
+                if (tweetText.trim() !== "") {
+                    const tweet = createTweetObject("You", tweetText);
+                    tweetObserver.notify(tweet);
+                    setTweetText("");
+                }
+            };
+
+            return (
+                <div className="tweet-box">
+                    <input
+                        type="text"
+                        placeholder="What's happening?"
+                        value={tweetText}
+                        onChange={handleChange}
+                        onKeyPress={handleKeyPress}
+                    />
+
+                </div>
+            );
+        }
+
+        // TweetList component
+        function TweetList() {
+            const [tweets, setTweets] = React.useState([]);
+
+            React.useEffect(() => {
+                tweetObserver.subscribe((tweet) => {
+                    setTweets((prevTweets) => [tweet, ...prevTweets]);
+                });
+            }, []);
+
+            return (
+                <div>
+                    {tweets.map((tweet, index) => (
+                        <Tweet key={index} author={tweet.author} text={tweet.text} />
+                    ))}
+                </div>
+            );
+        }
+
+        // Tweet component
+        function Tweet({ author, text }) {
+            return (
+                <div className="tweet">
+                    <div className="author">{author}</div>
+                    <div>{text}</div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+</body>
+
+</html>
