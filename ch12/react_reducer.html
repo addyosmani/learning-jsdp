@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favorite Color Voting App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      text-align: center;
+      background-color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    p {
+      margin-bottom: 1.5rem;
+    }
+    button {
+      background-color: #1a202c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      margin-right: 0.5rem;
+      font-size: 1rem;
+    }
+    button:last-child {
+      margin-right: 0;
+    }
+    .results {
+      margin-top: 1rem;
+    }
+  </style>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useReducer } = React;
+
+    function favoriteColorReducer(state, action) {
+      switch (action.type) {
+        case 'INCREMENT':
+          return { ...state, [action.color]: state[action.color] + 1 };
+        default:
+          return state;
+      }
+    }
+
+    function FavoriteColorVoting() {
+      const [state, dispatch] = useReducer(favoriteColorReducer, {
+        red: 0,
+        green: 0,
+        blue: 0,
+      });
+
+      function vote(color) {
+        dispatch({ type: 'INCREMENT', color });
+      }
+
+      return (
+        <div className="container">
+          <h1>Favorite Color Voting App</h1>
+          <p>
+            This app demonstrates the State Reducer pattern in React. Users can vote for their favorite colors, and the app will display the votes for each color. The state is managed using the 'useReducer' hook, which helps in managing more complex state logic.
+            The State Reducer pattern in React is a technique used to manage complex state logic in a more maintainable and predictable way. It is particularly useful when dealing with state changes that involve several interconnected variables or require complex logic. The pattern is inspired by the Redux library and utilizes the useReducer hook available in React.
+          </p>
+          <button onClick={() => vote('red')}>Vote Red</button>
+          <button onClick={() => vote('green')}>Vote Green</button>
+          <button onClick={() => vote('blue')}>Vote Blue</button>
+          <div className="results">
+            <p>Red: {state.red} votes</p>
+            <p>Green: {state.green} votes</p>
+            <p>Blue: {state.blue} votes</p>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<FavoriteColorVoting />, document.getElementById('root'));
+  </script>
+</body>
+</html>
+
