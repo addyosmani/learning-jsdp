@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer with Provider Pattern</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        // TimerContext.js
+        const TimerContext = React.createContext();
+
+        // TimerProvider.js
+        class TimerProvider extends React.Component {
+            state = {
+                timeRemaining: 1500,
+                timerActive: false
+            };
+
+            toggleTimer = () => {
+                this.setState({ timerActive: !this.state.timerActive });
+            };
+
+            decrementTime = () => {
+                if (this.state.timerActive) {
+                    this.setState({ timeRemaining: this.state.timeRemaining - 1 });
+                }
+            };
+
+            componentDidMount() {
+                setInterval(this.decrementTime, 1000);
+            }
+
+            render() {
+                return (
+                    <TimerContext.Provider
+                        value={{
+                            ...this.state,
+                            toggleTimer: this.toggleTimer
+                        }}
+                    >
+                        {this.props.children}
+                    </TimerContext.Provider>
+                );
+            }
+        }
+
+        // Timer.js
+        const Timer = () => {
+            const { timeRemaining, timerActive, toggleTimer } = React.useContext(TimerContext);
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+
+            return (
+                <div className="text-center">
+                    <h1 className="text-5xl mb-8">
+                        {minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
+                    </h1>
+                    <button
+                        className={`bg-${timerActive ? 'red' : 'green'}-500 hover:bg-${timerActive ? 'red' : 'green'}-600 text-white font-bold py-2 px-4 rounded`}
+                        onClick={toggleTimer}
+                    >
+                        {timerActive ? 'Pause' : 'Start'}
+                    </button>
+                </div>
+            );
+        };
+
+        // App.js
+        const App = () => (
+            <div className="container mx-auto px-4 py-16">
+                <h1 className="text-4xl font-bold mb-6">Pomodoro Timer</h1>
+                <p className="mb-8">
+                    The Pomodoro Timer app demonstrates the Provider pattern in React. The timer state is managed using the React context API, allowing components to share and update the timer state.
+                    The Provider pattern is a design pattern used in React applications to enable efficient and flexible state management. It involves using the React Context API, which allows you to share state and data across components without having to pass it down through props manually.
+                </p>
+                <Timer />
+            </div>
+        );
+
+        // Render the app
+        ReactDOM.render(
+            <TimerProvider>
+                <App />
+            </TimerProvider>,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
