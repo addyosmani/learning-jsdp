@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Compound Component Example: Movie App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, createContext, useContext } = React;
+
+        // Create a context for sharing state among compound components
+        const MovieListContext = createContext();
+
+        function MovieList({ children }) {
+            const [likedMovies, setLikedMovies] = useState([]);
+
+            const toggleLikedMovie = movie => {
+                if (likedMovies.includes(movie)) {
+                    setLikedMovies(likedMovies.filter(m => m !== movie));
+                } else {
+                    setLikedMovies([...likedMovies, movie]);
+                }
+            };
+
+            return (
+                <MovieListContext.Provider value={{ likedMovies, toggleLikedMovie }}>
+                    <div className="container">
+                        <h2 className="my-4">Movie App</h2>
+                        {children}
+                    </div>
+                </MovieListContext.Provider>
+            );
+        }
+
+        MovieList.Item = function MovieItem({ movie }) {
+            const { likedMovies, toggleLikedMovie } = useContext(MovieListContext);
+
+            return (
+                <div className="card mb-3">
+                    <div className="card-body">
+                        <h5 className="card-title">{movie.title}</h5>
+                        <p className="card-text">Genre: {movie.genre}</p>
+                        <button
+                            className={`btn btn-${likedMovies.includes(movie) ? 'danger' : 'success'}`}
+                            onClick={() => toggleLikedMovie(movie)}
+                        >
+                            {likedMovies.includes(movie) ? 'Unlike' : 'Like'}
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // Sample movie data
+        const movies = [
+            { title: "The Shawshank Redemption", genre: "Drama" },
+            { title: "The Godfather", genre: "Crime" },
+            { title: "Pulp Fiction", genre: "Crime" },
+            { title: "The Dark Knight", genre: "Action" },
+            { title: "Forrest Gump", genre: "Drama" }
+        ];
+
+        function App() {
+            return (
+                <MovieList>
+                    {movies.map(movie => (
+                        <MovieList.Item key={movie.title} movie={movie} />
+                    ))}
+                    <p className="mt-4">
+                        This app demonstrates the Compound Component pattern in React. The movie list and movie items are created using the pattern, making it more flexible and maintainable. The Compound Component pattern promotes better code organization, flexibility, and reusability. It involves creating a parent component and its related child components that share implicit state and behavior. The child components are typically designed to work only within the parent component's context.
+                    </p>
+                </MovieList>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
