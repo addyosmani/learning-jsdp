@@ -129,7 +129,7 @@
         .typography li {
             margin-top: 1rem
         }
-        
+
         .typography li a {
             color: rgb(116 117 119);
         }
@@ -301,15 +301,32 @@
             background-image: url(images/tv-static.gif);
         }
 
-        #appicon:hover ~ #tv {
+        #appicon:hover~#tv {
             visibility: visible;
         }
 
         @media screen and (max-width: 900px) {
+
             /* Avoid the static TV effect on smaller viewports */
             #tv {
                 display: none;
             }
+        }
+
+
+        .typography li a.github {
+            color: rgb(22 30 42);
+        }
+        a.github::after {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            background-image: url(images/github.svg);
+            background-size: cover;
+            margin-left: 5px;
+            /* Add spacing between the icon and the link text */
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -356,161 +373,361 @@
         <div class="white-column typography">
             <div class="content content-white">
                 <div class="screenshot">
-                    <img alt="screenshot" width="1728" height="936" src="images/screenshot-1.webp"/>
+                    <img alt="screenshot" width="1728" height="936" src="images/screenshot-1.webp" />
                 </div>
                 <h2>Try a Quiz</h2>
                 <section>
                     <ul>
-                        <li><a href="./ch07/quiz-app/index.html">Design Patterns Quiz</a></li>
-                        <li><a href="./ch12/quiz-app/index.html">React Quiz</a></li>
-                        <li><a href="./ch13/quiz-app/index.html">Rendering Patterns Quiz</a></li>
-                        <li><a href="./ch13/quiz-app-performance/">Performance Quiz</a></li>
+                        <li><a href="./ch07/quiz-app/index.html">Design Patterns Quiz</a>
+                        </li>
+                        <li><a href="./ch12/quiz-app/index.html">React Quiz</a>
+                        </li>
+                        <li><a href="./ch13/quiz-app/index.html">Rendering Patterns Quiz</a>
+                        </li>
+                        <li><a href="./ch13/quiz-app-performance/">Performance Quiz</a>
+                        </li>
                     </ul>
                 </section>
                 <h2>Chapter 5: Modules and Classes</h2>
                 <section>
                     <ul>
-                        <li><a href="./ch05/gallery/index.html">Modules: Dog Gallery</a></li>
+                        <li><a href="./ch05/gallery/index.html">Modules: Dog Gallery</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch05/gallery/index.html">source</a>)
+                        </li>
                         <li><a href="./ch05/gallery/index-dynamic-import.html">Modules: Dog Gallery (Favorites via
-                                Dynamic Import)</a></li>
-                        <li><a href="./ch05/modules_bakery.html">Modules: Bakery</a></li>
-                        <li><a href="./ch05/dynamic_import.html">Dynamic Import</a></li>
-                        <li><a href="./ch05/dynamic_import_lodash.html">Dynamic Import: Lodash</a></li>
-                        <li><a href="./ch05/dynamic_import_visibility.html">Dynamic Import: Visibility</a></li>
-                        <li><a href="./ch05/bakery/index.html">Classes: Bakery App</a></li>
-                        <li><a href="./ch05/classes_cake.html">Classes: Cake</a></li>
-                        <li><a href="./ch05/classes_birthdaycake.html">Classes: Birthday Cake</a></li>
-                        <li><a href="./ch05/classes_cookies.html">Classes: Cookies</a></li>
-                        <li><a href="./ch05/classes_cookies_private.html">Classes: Cookies with Private Members</a></li>
+                                Dynamic
+                                Import)</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch05/gallery/index-dynamic-import.html">source</a>)
+                        </li>
+                        <li><a href="./ch05/modules_bakery.html">Modules: Bakery</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch05/modules_bakery.html">source</a>)
+                        </li>
+                        <li><a href="./ch05/dynamic_import.html">Dynamic Import</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch05/dynamic_import.html">source</a>)
+                        </li>
+                        <li><a href="./ch05/dynamic_import_lodash.html">Dynamic Import: Lodash</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch05/dynamic_import_lodash.html">source</a>)
+                        </li>
+                        <li><a href="./ch05/dynamic_import_visibility.html">Dynamic Import: Visibility</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch05/dynamic_import_visibility.html">source</a>)
+                        </li>
+                        <li><a href="./ch05/bakery/index.html">Classes: Bakery App</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch05/bakery/index.html">source</a>)
+                        </li>
+                        <li><a href="./ch05/classes_cookies.html">Classes: Cookies</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch05/classes_cookies.html">source</a>)
+                        </li>
+                        <li><a href="./ch05/classes_cookies_private.html">Classes: Cookies with Private Members</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch05/classes_cookies_private.html">source</a>)
+                        </li>
                     </ul>
                 </section>
                 <h2>Chapter 7: Design Patterns</h2>
                 <section>
                     <ul>
-                        <li><a href="./ch07/object_properties.html">Object Properties</a></li>
-                        <li><a href="./ch07/object_create.html">Object.create</a></li>
-                        <li><a href="./ch07/basic_constructor.html">Basic Constructor</a></li>
-                        <li><a href="./ch07/prototype_constructor.html">Prototype Constructor</a></li>
-                        <li><a href="./ch07/object_literals.html">Object Literals</a></li>
-                        <li><a href="./ch07/test_module.html">Test Module</a></li>
-                        <li><a href="./ch07/namespace.html">Namespace</a></li>
-                        <li><a href="./ch07/namespace_basket.html">Namespace: Basket</a></li>
-                        <li><a href="./ch07/namespace_basket_2.html">Namespace: Basket 2</a></li>
-                        <li><a href="./ch07/import_mixins.html">Import Mixins</a></li>
-                        <li><a href="./ch07/module_weakmap.html">Module: WeakMap</a></li>
-                        <li><a href="./ch07/module_weakmap_2.html">Module: WeakMap 2</a></li>
-                        <li><a href="./ch07/module_weakmap_3.html">Module: WeakMap 3</a></li>
-                        <li><a href="./ch07/module_react.html">Module: React</a></li>
-                        <li><a href="./ch07/module_revealing.html">Module: Revealing</a></li>
-                        <li><a href="./ch07/singleton.html">Singleton</a></li>
-                        <li><a href="./ch07/singleton_options.html">Singleton: Options</a></li>
-                        <li><a href="./ch07/prototype.html">Prototype</a></li>
-                        <li><a href="./ch07/prototype_inheritance.html">Prototype Inheritance</a></li>
-                        <li><a href="./ch07/prototype_extend.html">Prototype Extend</a></li>
-                        <li><a href="./ch07/factory.html">Factory</a></li>
-                        <li><a href="./ch07/factory_trucks1.html">Factory: Trucks 1</a></li>
-                        <li><a href="./ch07/factory_trucks2.html">Factory: Trucks 2</a></li>
-                        <li><a href="./ch07/factory_abstract.html">Factory: Abstract</a></li>
-                        <li><a href="./ch07/facade.html">Facade</a></li>
-                        <li><a href="./ch07/facade_module.html">Facade Module</a></li>
-                        <li><a href="./ch07/mixins_subclassing.html">Mixins: Subclassing</a></li>
-                        <li><a href="./ch07/mixins_superclassing.html">Mixins: Superclassing</a></li>
-                        <li><a href="./ch07/mixins_constructor_augmenting.html">Mixins: Constructor Augmenting</a></li>
-                        <li><a href="./ch07/decorators.html">Decorators</a></li>
-                        <li><a href="./ch07/decorators_multiple.html">Decorators: Multiple</a></li>
-                        <li><a href="./ch07/decorators_interface.html">Decorators: Interface</a></li>
-                        <li><a href="./ch07/decorators_abstract.html">Decorators: Abstract</a></li>
-                        <li><a href="./ch07/decorators_interface_2.html">Decorators: Interface 2</a></li>
-                        <li><a href="./ch07/decorators_interface_3.html">Decorators: Interface 3</a></li>
-                        <li><a href="./ch07/flyweight.html">Flyweight</a></li>
-                        <li><a href="./ch07/flyweight_2.html">Flyweight 2</a></li>
-                        <li><a href="./ch07/flyweight_bookfactory.html">Flyweight: Book Factory</a></li>
-                        <li><a href="./ch07/flyweight_extrinsic_states.html">Flyweight: Extrinsic States</a></li>
-                        <li><a href="./ch07/flyweight_event_handling.html">Flyweight: Event Handling</a></li>
-                        <li><a href="./ch07/observer.html">Observer</a></li>
-                        <li><a href="./ch07/observer_gmail.html">Observer: Gmail</a></li>
-                        <li><a href="./ch07/observer_pubsub.html">Observer: PubSub</a></li>
-                        <li><a href="./ch07/observer_pubsub_2.html">Observer: PubSub 2</a></li>
-                        <li><a href="./ch07/observer_stockapp.html">Observer: Stock App</a></li>
-                        <li><a href="./ch07/observer_jquery_pubsub.html">Observer: jQuery PubSub</a></li>
-                        <li><a href="./ch07/observer_jquery_ajax.html">Observer: jQuery Ajax</a></li>
-                        <li><a href="./ch07/observer_rxjs.html">Observer: RxJS</a></li>
-                        <li><a href="./ch07/mediator.html">Mediator</a></li>
-                        <li><a href="./ch07/mediator-eventemmiter.html">Mediator - EventEmitter</a></li>
-                        <li><a href="./ch07/mediator-event-aggregator.html">Mediator: Event Aggregator</a></li>
-                        <li><a href="./ch07/command.html">Command</a></li>
-
+                        <li><a href="./ch07/object_properties.html">Object Properties</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/object_properties.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/object_create.html">Object.create</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/object_create.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/basic_constructor.html">Basic Constructor</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/basic_constructor.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/prototype_constructor.html">Prototype Constructor</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/prototype_constructor.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/object_literals.html">Object Literals</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/object_literals.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/test_module.html">Test Module</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/test_module.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/namespace.html">Namespace</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/namespace.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/namespace_basket.html">Namespace: Basket</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/namespace_basket.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/namespace_basket_2.html">Namespace: Basket 2</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/namespace_basket_2.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/import_mixins.html">Import Mixins</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/import_mixins.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/module_weakmap.html">Module: WeakMap</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/module_weakmap.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/module_weakmap_2.html">Module: WeakMap 2</a>
+                            (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/module_weakmap_2.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/module_weakmap_3.html">Module: WeakMap 3</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/module_weakmap_3.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/module_react.html">Module: React</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/module_react.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/module_revealing.html">Module: Revealing</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/module_revealing.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/singleton.html">Singleton</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/singleton.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/singleton_options.html">Singleton: Options</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/singleton_options.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/prototype.html">Prototype</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/prototype.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/prototype_inheritance.html">Prototype Inheritance</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/prototype_inheritance.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/prototype_extend.html">Prototype Extend</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/prototype_extend.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/factory.html">Factory</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/factory.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/factory_trucks1.html">Factory: Trucks 1</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/factory_trucks1.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/factory_trucks2.html">Factory: Trucks 2</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/factory_trucks2.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/factory_abstract.html">Factory: Abstract</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/factory_abstract.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/facade.html">Facade</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/facade.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/facade_module.html">Facade Module</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/facade_module.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/mixins_subclassing.html">Mixins: Subclassing</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/mixins_subclassing.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/mixins_superclassing.html">Mixins: Superclassing</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/mixins_superclassing.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/mixins_constructor_augmenting.html">Mixins: Constructor Augmenting</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/mixins_constructor_augmenting.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/decorators.html">Decorators</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/decorators.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/decorators_multiple.html">Decorators: Multiple</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/decorators_multiple.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/decorators_interface.html">Decorators: Interface</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/decorators_interface.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/decorators_abstract.html">Decorators: Abstract</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/decorators_abstract.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/decorators_interface_2.html">Decorators: Interface 2</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/decorators_interface_2.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/decorators_interface_3.html">Decorators: Interface 3</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/decorators_interface_3.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/flyweight.html">Flyweight</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/flyweight.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/flyweight_2.html">Flyweight 2</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/flyweight_2.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/flyweight_bookfactory.html">Flyweight: Book Factory</a> (<aclass="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/flyweight_bookfactory.html">
+                                GitHub</a>)</li>
+                        <li><a href="./ch07/flyweight_extrinsic_states.html">Flyweight: Extrinsic States</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/flyweight_extrinsic_states.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/flyweight_event_handling.html">Flyweight: Event Handling</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/flyweight_event_handling.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/observer.html">Observer</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/observer.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/observer_gmail.html">Observer: Gmail</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/observer_gmail.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/observer_pubsub.html">Observer: PubSub</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/observer_pubsub.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/observer_pubsub_2.html">Observer: PubSub 2</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/observer_pubsub_2.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/observer_stockapp.html">Observer: Stock App</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/observer_stockapp.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/observer_jquery_pubsub.html">Observer: jQuery PubSub</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/observer_jquery_pubsub.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/observer_jquery_ajax.html">Observer: jQuery Ajax</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/observer_jquery_ajax.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/observer_rxjs.html">Observer: RxJS</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/observer_rxjs.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/mediator.html">Mediator</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/mediator.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/mediator-eventemmiter.html">Mediator - EventEmitter</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/mediator-eventemmiter.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/mediator-event-aggregator.html">Mediator: Event Aggregator</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/mediator-event-aggregator.html">source</a>)
+                        </li>
+                        <li><a href="./ch07/command.html">Command</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch07/command.html">source</a>)
+                        </li>
                     </ul>
                 </section>
                 <h2>Chapter 8: MV* Patterns</h2>
-
-                <ul>
-                    <li><a href="./ch08/mvc.html">MVC</a></li>
-                    <li><a href="./ch08/mvc_lodash.html">MVC: Lodash</a></li>
-                    <li><a href="./ch08/mvp.html">MVP</a></li>
-                    <li><a href="./ch08/mvvm.html">MVVM</a></li>
-                    <li><a href="./ch08/mvc_react.html">MVC: React</a></li>
-                    <li><a href="./ch08/mvc_vue.html">MVC: Vue</a></li>
-                </ul>
+                <section>
+                    <ul>
+                        <li><a href="./ch08/mvc.html">MVC</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch08/mvc.html">source</a>)
+                        </li>
+                        <li><a href="./ch08/mvc_lodash.html">MVC: Lodash</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch08/mvc_lodash.html">source</a>)
+                        </li>
+                        <li><a href="./ch08/mvp.html">MVP</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch08/mvp.html">source</a>)
+                        </li>
+                        <li><a href="./ch08/mvvm.html">MVVM</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch08/mvvm.html">source</a>)
+                        </li>
+                        <li><a href="./ch08/mvc_react.html">MVC: React</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch08/mvc_react.html">source</a>)
+                        </li>
+                        <li><a href="./ch08/mvc_vue.html">MVC: Vue</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch08/mvc_vue.html">source</a>)
+                        </li>
+                    </ul>
                 </section>
-                <p>&nbsp;</p>
-
+                <p> </p>
                 <h2>Chapter 9: Async Patterns</h2>
                 <section>
                     <ul>
-                        <li><a href="./ch09/async_patterns_fetch.html">Async Patterns: Fetch</a></li>
-                        <li><a href="./ch09/async_promise_chaining.html">Async: Promise Chaining</a></li>
-                        <li><a href="./ch09/async_error_handling.html">Async: Error Handling</a></li>
-                        <li><a href="./ch09/async_promise_parallelism.html">Async: Promise Parallelism</a></li>
+                        <li><a href="./ch09/async_patterns_fetch.html">Async Patterns: Fetch</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_patterns_fetch.html">source</a>)
+                        </li>
+                        <li><a href="./ch09/async_promise_chaining.html">Async: Promise Chaining</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_promise_chaining.html">source</a>)
+                        </li>
+                        <li><a href="./ch09/async_error_handling.html">Async: Error Handling</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_error_handling.html">source</a>)
+                        </li>
+                        <li><a href="./ch09/async_promise_parallelism.html">Async: Promise Parallelism</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_promise_parallelism.html">source</a>)
+                        </li>
                         <li><a href="./ch09/async_promise_sequential_execution.html">Async: Promise Sequential
-                                Execution</a></li>
-                        <li><a href="./ch09/async_promise_memoization.html">Async: Promise Memoization</a></li>
-                        <li><a href="./ch09/async_promise_pipeline.html">Async: Promise Pipeline</a></li>
-                        <li><a href="./ch09/async_promise_retry.html">Async: Promise Retry</a></li>
-                        <li><a href="./ch09/async_promise_decorator.html">Async: Promise Decorator</a></li>
-                        <li><a href="./ch09/async_promise_racing.html">Async: Promise Racing</a></li>
-                        <li><a href="./ch09/async_function_composition.html">Async: Function Composition</a></li>
-                        <li><a href="./ch09/async_iteration.html">Async: Iteration</a></li>
-                        <li><a href="./ch09/async_readwrite_files.html">Async: Read/Write Files</a></li>
-                        <li><a href="./ch09/async_retry.html">Async: Retry</a></li>
+                                Execution</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_promise_sequential_execution.html">source</a>)
+                        </li>
+                        <li><a href="./ch09/async_promise_memoization.html">Async: Promise Memoization</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_promise_memoization.html">source</a>)
+                        </li>
+                        <li><a href="./ch09/async_promise_pipeline.html">Async: Promise Pipeline</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_promise_pipeline.html">source</a>)
+                        </li>
+                        <li><a href="./ch09/async_promise_retry.html">Async: Promise Retry</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_promise_retry.html">source</a>)
+                        </li>
+                        <li><a href="./ch09/async_promise_decorator.html">Async: Promise Decorator</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_promise_decorator.html">source</a>)
+                        </li>
+                        <li><a href="./ch09/async_promise_racing.html">Async: Promise Racing</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_promise_racing.html">source</a>)
+                        </li>
+                        <li><a href="./ch09/async_function_composition.html">Async: Function Composition</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_function_composition.html">source</a>)
+                        </li>
+                        <li><a href="./ch09/async_iteration.html">Async: Iteration</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_iteration.html">source</a>)
+                        </li>
+                        <li><a href="./ch09/async_readwrite_files.html">Async: Read/Write Files</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_readwrite_files.html">source</a>)
+                        </li>
+                        <li><a href="./ch09/async_retry.html">Async: Retry</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch09/async_retry.html">source</a>)
+                        </li>
                     </ul>
                 </section>
 
                 <h2>Chapter 10: Modular Patterns</h2>
                 <section>
                     <ul>
-
-                        <li><a href="./ch10/requirejs.html">RequireJS</a></li>
-                        <li><a href="./ch10/requirejs_plugins.html">RequireJS: Plugins</a></li>
-                        <li><a href="./ch10/requirejs_jquery.html">RequireJS: jQuery</a></li>
-                        <li><a href="./ch10/umd.html">UMD</a></li>
+                        <li><a href="./ch10/requirejs.html">RequireJS</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch10/requirejs.html">source</a>)
+                        </li>
+                        <li><a href="./ch10/requirejs_plugins.html">RequireJS: Plugins</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch10/requirejs_plugins.html">source</a>)
+                        </li>
+                        <li><a href="./ch10/requirejs_jquery.html">RequireJS: jQuery</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch10/requirejs_jquery.html">source</a>)
+                        </li>
+                        <li><a href="./ch10/umd.html">UMD</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch10/umd.html">source</a>)
+                        </li>
                     </ul>
                 </section>
 
                 <h2>Chapter 11: Namespacing Patterns</h2>
                 <section>
                     <ul>
-
-
-                        <li><a href="./ch11/namespacing_global.html">Namespacing: Global</a></li>
-                        <li><a href="./ch11/namespacing_prefix.html">Namespacing: Prefix</a></li>
+                        <li><a href="./ch11/namespacing_global.html">Namespacing: Global</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch11/namespacing_global.html">source</a>)
+                        </li>
+                        <li><a href="./ch11/namespacing_prefix.html">Namespacing: Prefix</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch11/namespacing_prefix.html">source</a>)
+                        </li>
                         <li><a href="./ch11/namespacing_object_lit_notation.html">Namespacing: Object Literal
-                                Notation</a></li>
+                                Notation</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch11/namespacing_object_lit_notation.html">source</a>)
+                        </li>
                         <li><a href="./ch11/namespacing_object_lit_nuanced.html">Namespacing: Object Literal Notation
-                                (Nuanced)</a></li>
+                                (Nuanced)</a>
+                            (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch11/namespacing_object_lit_nuanced.html">source</a>)
+                        </li>
                         <li><a href="./ch11/namespacing_object_lit_theming.html">Namespacing: Object Literal Notation
-                                (Theming)</a></li>
-                        <li><a href="./ch11/namespacing_iife.html">Namespacing: IIFE</a></li>
-                        <li><a href="./ch11/namespacing_nested_automated.html">Namespacing: Nested (Automated)</a></li>
+                                (Theming)</a>
+                            (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch11/namespacing_object_lit_theming.html">source</a>)
+                        </li>
+                        <li><a href="./ch11/namespacing_iife.html">Namespacing: IIFE</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch11/namespacing_iife.html">source</a>)
+                        </li>
+                        <li><a href="./ch11/namespacing_nested_automated.html">Namespacing: Nested (Automated)</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch11/names        pacing_nested_automated.html">source</a>)
+                        </li>
                         <li><a href="./ch11/namespacing_deep_object_extension.html">Namespacing: Deep Object
-                                Extension</a></li>
-                        <li><a href="./ch11/namespacing_nested_react.html">Namespacing: Nested (React)</a></li>
-
+                                Extension</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch11/namespacing_deep_object_extension.html">source</a>)
+                        </li>
+                        <li><a href="./ch11/namespacing_nested_react.html">Namespacing: Nested (React)</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch11/namespacing_nested_react.html">source</a>)
+                        </li>
                     </ul>
                 </section>
 
                 <div class="screenshot">
-                    <img alt="screenshot" width="1728" height="936" src="images/screenshot-3.webp"/>
+                    <img alt="screenshot" width="1728" height="936" src="images/screenshot-3.webp" />
                 </div>
 
                 <h2>Chapter 12: React Patterns</h2>
@@ -521,61 +738,102 @@
                                 href="https://tmdb-load-more.netlify.app/">Demo</a>)</li>
                         <li><a href="https://github.com/addyosmani/tmdb-viewer">Virtual List Pattern</a> (<a
                                 href="https://tmdb-viewer.netlify.app/">Demo</a>)</li>
-                                <li><a href="./ch12/react_provider.html">React: Provider Pattern</a></li>
-                                <li><a href="./ch12/react_compound.html">React: Compound Component Pattern</a></li>
-                                <li><a href="./ch12/react_reducer.html">React: State Reducer Pattern</a></li>
-                                <li><a href="./ch12/react_conditional.html">React: Conditional Rendering Pattern</a></li>
-                                <li><a href="./ch12/react-twitter/">React: Observers + Facade + Mixins</a></li>
-                        <li><a href="./ch12/react_hoc.html">React: Higher-Order Components</a></li>
-                        <li><a href="./ch12/react_hoc_composition.html">React: HOC Composition</a></li>
-
-                        <li><a href="https://codesandbox.io/p/sandbox/sharp-carson-nh5ern">React: Stateless Functional Components (Next.js)</a></li>
-
-                        <li><a href="https://codesandbox.io/p/sandbox/icy-forest-w6qlej">React: State Reducer Pattern (Next.js)</a></li>
-
-                        <li><a href="https://codesandbox.io/p/sandbox/pensive-banzai-mc4b48">React: Compound Components Pattern (Next.js)</a></li>
-
-                        <li><a href="./ch12/react_render_props.html">React: Render Props</a></li>
-                        <li><a href="./ch12/react_render_props2.html">React: Render Props 2</a></li>
-                        <li><a href="./ch12/react_lifting_state.html">React: Lifting State</a></li>
+                        <li><a href="./ch12/react_provider.html">React: Provider Pattern</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_provider.html">source</a>)
+                        </li>
+                        <li><a href="./ch12/react_compound.html">React: Compound Component Pattern</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_compound.html">source</a>)
+                        </li>
+                        <li><a href="./ch12/react_reducer.html">React: State Reducer Pattern</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_reducer.html">source</a>)
+                        </li>
+                        <li><a href="./ch12/react_conditional.html">React: Conditional Rendering Pattern</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_conditional.html">source</a>)
+                        </li>
+                        <li><a href="./ch12/react-twitter/">React: Observers + Facade + Mixins</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react-twitter/">source</a>)
+                        </li>
+                        <li><a href="./ch12/react_hoc.html">React: Higher-Order Components</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_hoc.html">source</a>)
+                        </li>
+                        <li><a href="./ch12/react_hoc_composition.html">React: HOC Composition</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_hoc_composition.html">source</a>)
+                        </li>
+                        <li><a href="https://codesandbox.io/p/sandbox/sharp-carson-nh5ern">React: Stateless Functional
+                                Components
+                                (Next.js)</a></li>
+                        <li><a href="https://codesandbox.io/p/sandbox/icy-forest-w6qlej">React: State Reducer Pattern
+                                (Next.js)</a>
+                        </li>
+                        <li><a href="https://codesandbox.io/p/sandbox/pensive-banzai-mc4b48">React: Compound Components
+                                Pattern
+                                (Next.js)</a></li>
+                        <li><a href="./ch12/react_render_props.html">React: Render Props</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_render_props.html">source</a>)
+                        </li>
+                        <li><a href="./ch12/react_render_props2.html">React: Render Props 2</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_render_props2.html">source</a>)
+                        </li>
+                        <li><a href="./ch12/react_lifting_state.html">React: Lifting State</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_lifting_state.html">source</a>)
+                        </li>
                         <li><a href="./ch12/react_lifting_state_children_function.html">React: Lifting State (Children
                                 as
-                                Function)</a></li>
-                        <li><a href="./ch12/react_hooks.html">React: Hooks</a></li>
-                        <li><a href="./ch12/react_usestate.html">React: useState</a></li>
-                        <li><a href="./ch12/react_useeffect.html">React: useEffect</a></li>
-                        <li><a href="./ch12/react_custom_hooks.html">React: Custom Hooks</a></li>
+                                Function)</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_lifting_state_children_function.html">source</a>)
                         </li>
+                        <li><a href="./ch12/react_hooks.html">React: Hooks</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_hooks.html">source</a>)
                         </li>
-                        <li><a href="./ch12/react-mediator/index.html">React: Mediator Pattern</a></li>
-                        <li><a href="./ch12/react_usestate.html">React: useState</a></li>
-                        <li><a href="./ch12/react_usestate.html">React: useState</a></li>
-                        <li><a href="./ch12/react_tweets_stateful.html">React: Tweets (Stateful)</a></li>
-                        <li><a href="./ch12/react_tweets_hooks.html">React: Tweets (Hooks)</a></li>
+                        <li><a href="./ch12/react_usestate.html">React: useState</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_usestate.html">source</a>)
+                        </li>
+                        <li><a href="./ch12/react_useeffect.html">React: useEffect</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_useeffect.html">source</a>)
+                        </li>
+                        <li><a href="./ch12/react_custom_hooks.html">React: Custom Hooks</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_custom_hooks.html">source</a>)
+                        </li>
+                        <li><a href="./ch12/react-mediator/index.html">React: Mediator Pattern</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react-mediator/index.html">source</a>)
+                        </li>
+                        <li><a href="./ch12/react_tweets_stateful.html">React: Tweets (Stateful)</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_tweets_stateful.html">source</a>)
+                        </li>
+                        <li><a href="./ch12/react_tweets_hooks.html">React: Tweets (Hooks)</a> (<a class="github"
+                                href="https://github.com/addyosmani/learning-jsdp/blob/main/ch12/react_tweets_hooks.html">source</a>)
+                        </li>
                     </ul>
                 </section>
 
                 <h2>Chapter 13: Next.js Rendering Patterns</h2>
                 <section>
                     <ul>
-
-
-                        <li><a href="https://nextjs-rendering-jet.vercel.app/">Next.js: Client-Side
-                                Rendering</a></li>
+                        <li><a href="https://nextjs-rendering-jet.vercel.app/">Next.js: Client-Side Rendering</a> (<a
+                                class="github"
+                                href="https://github.com/addyosmani/next-page-rendering/blob/main/pages/client-side-rendering.tsx">source</a>)
+                        </li>
                         <li><a href="https://c3vt7q-3000.csb.app/server-side-rendering">Next.js: Server-Side
-                                    Rendering</a></li>
-
-                        <li><a href="https://c3vt7q-3000.csb.app/incremental-static-regeneration">Next.js:
-                                Incremental
-                                Static Regeneration</a></li>
+                                Rendering</a> (<a class="github"
+                                href="https://github.com/addyosmani/next-page-rendering/blob/main/pages/server-side-rendering.tsx">source</a>)
+                        </li>
+                        <li><a href="https://c3vt7q-3000.csb.app/incremental-static-regeneration">Next.js: Incremental
+                                Static
+                                Regeneration</a> (<a class="github"
+                                href="https://github.com/addyosmani/next-page-rendering/blob/main/pages/incremental-static-regeneration.tsx">source</a>)
+                        </li>
                         <li><a href="https://c3vt7q-3000.csb.app/static-site-generation">Next.js: Static Site
-                                Generation</a></li>
+                                Generation</a> (<a class="github"
+                                href="https://github.com/addyosmani/next-page-rendering/blob/main/pages/static-site-generation.tsx">source</a>)
+                        </li>
                     </ul>
-
                 </section>
 
+
                 <div class="screenshot">
-                    <img alt="screenshot" width="1728" height="936" src="images/screenshot-2.webp"/>
+                    <img alt="screenshot" width="1728" height="936" src="images/screenshot-2.webp" />
                 </div>
 
                 <h2>Community implementations</h2>
@@ -588,6 +846,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
