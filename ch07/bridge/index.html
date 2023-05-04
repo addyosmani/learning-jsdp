@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bridge Design Pattern</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .shape {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bridge Design Pattern Example</h1>
+    <div id="shapesContainer"></div>
+
+    <script src="app.js"></script>
+
+    <p>
+        <strong>Bridge Design Pattern Summary:</strong><br>
+        The Bridge pattern is a structural design pattern that helps in decoupling an abstraction from its implementation, so that the two can vary independently. In this example, the abstraction is the Shape class, and the implementation is the DrawAPI class. We've used the Bridge pattern to separate the shape abstraction (Circle and Square) from its implementation details (color and size).
+    </p>
+    <p>
+        <strong>Pros:</strong><br>
+        - Decouples an abstraction from its implementation, making them more flexible.<br>
+        - Improves code maintainability by allowing changes to one part without affecting the other.<br>
+        - Encourages the use of composition over inheritance, leading to a cleaner and more modular codebase.
+    </p>
+    <p>
+        <strong>Cons:</strong><br>
+        - Increases complexity due to the introduction of additional classes and interfaces.<br>
+        - Can be hard to understand for new developers, especially when overused or used unnecessarily.
+    </p>
+</body>
+</html>
