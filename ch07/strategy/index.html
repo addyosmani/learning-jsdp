@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategy Pattern Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #output {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Strategy Pattern Example: Battle Game</h1>
+        <select id="strategy">
+            <option value="sword">Sword Attack</option>
+            <option value="bow">Bow Attack</option>
+            <option value="magic">Magic Attack</option>
+        </select>
+        <button id="attackBtn">Attack!</button>
+        <div id="output"></div>
+    </div>
+    <div>
+        <p>Summary:</p>
+        <p>The Strategy pattern is a behavioral design pattern that allows you to define a family of algorithms,
+            encapsulate each one, and make them interchangeable. This pattern allows you to switch between algorithms at
+            runtime without affecting the calling code.</p>
+        <p>Pros:</p>
+        <ol>
+            <li>Improved code organization by separating the algorithms from the code that uses them.</li>
+            <li>Easy to add new strategies without modifying the calling code.</li>
+            <li>Promotes the Open/Closed Principle, as the calling code is open for extension but closed for
+                modification.</li>
+        </ol>
+        <p>Cons:</p>
+        <ol>
+            <li>Increases the number of classes and objects in the system.</li>
+            <li>Clients must be aware of different strategies and their trade-offs.</li>
+            <li>Can be overkill for simple use cases.</li>
+        </ol>
+        <p>This example demonstrates the Strategy design pattern by implementing a simple game where a player can choose
+            between different attack strategies to defeat an enemy. The attack strategies (SwordAttack, BowAttack, and
+            MagicAttack) are encapsulated and interchangeable, allowing the player to switch between them at runtime
+            without affecting the calling code.</p>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
