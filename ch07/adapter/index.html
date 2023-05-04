@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adapter Design Pattern Example</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; }
+    canvas { border: 1px solid black; }
+    .controls { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+    .description { max-width: 600px; margin: 1rem auto; }
+  </style>
+</head>
+<body>
+  <h1>Adapter Design Pattern Example: Drawing App</h1>
+  <div class="controls">
+    <select id="shape">
+      <option value="circle">Circle</option>
+      <option value="square">Square</option>
+    </select>
+    <select id="color">
+      <option value="red">Red</option>
+      <option value="green">Green</option>
+      <option value="blue">Blue</option>
+    </select>
+  </div>
+  <canvas id="drawingCanvas" width="600" height="400"></canvas>
+  <div class="description">
+    <h2>Adapter Design Pattern Summary</h2>
+    <p>
+      The Adapter pattern is a structural design pattern that allows incompatible interfaces to work together by creating a new interface that converts one interface into another. This pattern is particularly useful when integrating new components or libraries into existing codebases. In this example, the Adapter pattern is used to create a uniform drawing function for different shapes, despite their different drawing methods.
+    </p>
+    <h3>Pros</h3>
+    <ul>
+      <li>Increases code reusability by allowing different interfaces to work together.</li>
+      <li>Improves code organization by encapsulating the differences between interfaces.</li>
+      <li>Helps achieve the "Open/Closed" principle of SOLID by allowing easy extension without modifying existing code.</li>
+    </ul>
+    <h3>Cons</h3>
+    <ul>
+      <li>May introduce complexity if there are too many adapters or if the adapters are too complex.</li>
+      <li>Requires additional code for each new interface to be adapted.</li>
+    </ul>
+    <p>In this example, we have a simple drawing application where users can choose a shape (circle or square) and color, and draw the selected shape on a canvas by clicking on it. The <code>Circle</code> and <code>Square</code> classes have different methods for drawing (i.e., <code>drawCircle</code> and <code>drawSquare</code>), but we use the <code>ShapeAdapter</code> class to create a uniform interface with a single <code>draw</code> method. This way, we can easily extend our application with additional shapes without changing the core drawing functionality.</p>
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
