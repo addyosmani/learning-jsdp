@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proxy Pattern: Coin Collector Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    button {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Proxy Pattern: Coin Collector Game</h1>
+  <button id="collectCoin">Collect Coin</button>
+  <p id="score">Score: 0</p>
+  <p id="multiplierStatus">Multiplier Status: Inactive</p>
+
+  <h2>JavaScript Proxy Summary</h2>
+  <p>The JavaScript Proxy object is a built-in feature that allows you to create a proxy for another object, which can intercept and redefine fundamental operations for that object. This enables adding extra functionality or controlling access without modifying the original object directly.</p>
+  <h3>Pros:</h3>
+  <ul>
+    <li>Separation of concerns: The proxy can handle specific tasks independently from the subject.</li>
+    <li>Easy to implement and extend functionality without altering the original subject.</li>
+    <li>Can provide a level of security by controlling access to the subject.</li>
+  </ul>
+  <h3>Cons:</h3>
+  <ul>
+    <li>May introduce complexity due to the additional layer of abstraction.</li>
+    <li>Can cause a decrease in performance, as the proxy may require additional processing.</li>
+  </ul>
+  <h3>Example Explanation:</h3>
+  <p>In this example, the player can collect coins in a simple game. The Player object represents the player, and the Proxy object controls access to the Player object, keeping track of the player's score and applying a multiplier to increase the score based on certain conditions. We use the built-in JavaScript Proxy object to add extra functionality without altering the original Player object.</p>
+
+  <script src="app.js"></script>
+</body>
+</html>
