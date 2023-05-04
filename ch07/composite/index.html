@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Composite Pattern Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    ul, li {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .task {
+      margin-bottom: 10px;
+    }
+    .subtasks {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    class Task {
+      constructor(name) {
+        this.name = name;
+        this.completed = false;
+      }
+
+      toggle() {
+        this.completed = !this.completed;
+      }
+
+      getProgress() {
+        return this.completed ? 1 : 0;
+      }
+
+      render() {
+        const li = document.createElement("li");
+        const label = document.createElement("label");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = this.completed;
+        checkbox.addEventListener("change", () => {
+          this.toggle();
+          this.updateProgress();
+        });
+
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(this.name));
+        li.appendChild(label);
+
+        return li;
+      }
+    }
+
+    class TaskGroup {
+      constructor(name) {
+        this.name = name;
+        this.tasks = [];
+      }
+
+      add(task) {
+        this.tasks.push(task);
+      }
+
+      toggle() {
+        this.tasks.forEach(task => task.toggle());
+      }
+
+      getProgress() {
+        return this.tasks.reduce((acc, task) => acc + task.getProgress(), 0) / this.tasks.length;
+      }
+
+      render() {
+        const li = document.createElement("li");
+        const label = document.createElement("label");
+        const ul = document.createElement("ul");
+
+        this.tasks.forEach(task => {
+          ul.appendChild(task.render());
+        });
+
+        label.appendChild(document.createTextNode(this.name));
+        li.appendChild(label);
+        li.appendChild(ul);
+
+        return li;
+      }
+    }
+
+    // Example tasks
+    const mainTask = new TaskGroup("Main Task");
+
+    const subTask1 = new Task("Subtask 1");
+    const subTask2 = new Task("Subtask 2");
+    const subTask3 = new TaskGroup("Subtask 3");
+
+    mainTask.add(subTask1);
+    mainTask.add(subTask2);
+    mainTask.add(subTask3);
+
+    const subSubTask1 = new Task("Sub-subtask 1");
+    const subSubTask2 = new Task("Sub-subtask 2");
+
+    subTask3.add(subSubTask1);
+    subTask3.add(subSubTask2);
+
+    // Render tasks
+    const app = document.getElementById("app");
+    app.appendChild(mainTask.render());
+
+    // Progress update
+    const progress = document.createElement("p");
+    app.appendChild(progress);
+
+    function updateProgress() {
+      progress.textContent = `Progress: ${(mainTask.getProgress() * 100).toFixed(2)}%`;
+    }
+
+    updateProgress();
+    mainTask.tasks.forEach(task => {
+      if (task instanceof TaskGroup) {
+        task.tasks.forEach(subtask => subtask.updateProgress = updateProgress);
+      }
+      task.updateProgress = updateProgress;
+    });
+  </script>
+  <p>
+    <p><strong>Composite design pattern</strong> allows you to treat individual objects and compositions of objects uniformly. In this example, we created a tree-like structure.</p>
+    <p>
+    <strong>Pros:</strong>
+    <ul>
+      <li>Provides a consistent way to handle individual objects and their compositions.</li>
+      <li>Simplifies client code, as it doesn't need to differentiate between individual objects and their compositions.</li>
+      <li>Makes it easier to add new components to the system.</li>
+    </ul>
+</p>
+    <p>
+    <strong>Cons:</strong>
+    <ul>
+      <li>Can make the design overly general, resulting in increased complexity.</li>
+      <li>May lead to a situation where certain methods do not make sense for certain objects in the hierarchy.</li>
+    </ul>
+</p>
+    
+    <p>In this example, the user interface displays the task hierarchy, and users can mark tasks as complete. The progress of the main task is calculated based on the completion status of its subtasks. The Composite design pattern is used to treat individual tasks and groups of tasks uniformly, making it easier to manage the task hierarchy and interact with the tasks.</p>
+    </p>
+</body>
+</html>
+
+    
