@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Builder Pattern Example</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        button {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Builder Pattern Example</h1>
+    <button id="createPizza">Create Pizza</button>
+    <button id="createBurger">Create Burger</button>
+    <div id="result"></div>
+
+    <hr>
+    <h3>Summary of Builder Pattern</h3>
+    <p>
+        The Builder pattern is a creational design pattern that separates the construction of a complex object from its
+        representation. This allows for the creation of different representations using the same construction process.
+        The pattern is especially useful when dealing with objects that have many optional or required parameters.
+    </p>
+    <h4>Pros:</h4>
+    <ul>
+        <li>Separates construction from representation</li>
+        <li>Allows for the creation of different representations</li>
+        <li>Improves code readability and maintainability</li>
+    </ul>
+    <h4>Cons:</h4>
+    <ul>
+        <li>May introduce unnecessary complexity for simple objects</li>
+        <li>Requires more code to set up</li>
+    </ul>
+    <p>
+        In this example, the Builder pattern is used to create a Pizza and a Burger. The pattern allows for the
+        construction of the Pizza and Burger objects using the same process, while keeping the details of the
+        representation separate.
+    </p>
+    <p>
+
+        We have a `FastFoodBuilder` class with empty methods that act as a blueprint for creating new builders. We then
+        have two builders, `PizzaBuilder` and `BurgerBuilder`, that extend `FastFoodBuilder` and implement the methods
+        to create a Pizza and a Burger, respectively.
+
+        The `FastFoodDirector` class is responsible for constructing the final object using the builder. The director
+        takes a builder as an argument and calls the construction methods in the correct order.
+    </p>
+    <script src="app.js"></script>
+</body>
+
+</html>
